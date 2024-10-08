@@ -1,3 +1,35 @@
 [submodule "Micro-XRCE-DDS-Gen"]
 	path = Micro-XRCE-DDS-Gen
 	url = https://github.com/ardupilot/Micro-XRCE-DDS-Gen.git
+
+[submodule "ardupilot_sitl_models"]
+	path = src/ardupilot_sitl_models
+	url = https://github.com/ArduPilot/SITL_Models.git
+
+[submodule "ros_gz"]
+	path = src/ros_gz
+	url = https://github.com/gazebosim/ros_gz.git
+
+[submodule "ardupilot"]
+	path = src/ardupilot
+	url = https://github.com/ArduPilot/ardupilot.git
+
+[submodule "sdformat_urdf"]
+	path = src/sdformat_urdf
+	url = https://github.com/ros/sdformat_urdf.git
+
+[submodule "ardupilot_gz"]
+	path = src/ardupilot_gz
+	url = https://github.com/ArduPilot/ardupilot_gz.git
+
+[submodule "micro_ros_agent"]
+	path = src/micro_ros_agent
+	url = https://github.com/micro-ROS/micro-ROS-Agent.git
+
+[submodule "ardupilot_ros"]
+	path = src/ardupilot_ros
+	url = git@github.com:ArduPilot/ardupilot_ros.git
+
+[submodule "ardupilot_gazebo"]
+	path = src/ardupilot_gazebo
+	url = https://github.com/ArduPilot/ardupilot_gazebo.git

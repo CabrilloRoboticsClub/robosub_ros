@@ -1,6 +1,3 @@
-[submodule "Micro-XRCE-DDS-Gen"]
-	path = Micro-XRCE-DDS-Gen
-	url = https://github.com/ardupilot/Micro-XRCE-DDS-Gen.git
 [submodule "src/ardupilot"]
 	path = src/ardupilot
 	url = https://github.com/ArduPilot/ardupilot.git

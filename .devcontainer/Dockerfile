@@ -51,3 +51,26 @@ RUN DEBIAN_FRONTEND=noninteractive \
 # [Optional] Set the default user. Omit if you want to keep the default as root.
 USER $USERNAME
 
+# Install Micro XRCE DDS Generator
+RUN cd /opt \
+    && sudo git clone https://github.com/ardupilot/Micro-XRCE-DDS-Gen.git \
+    && sudo chown -R $USERNAME:$USERNAME Micro-XRCE-DDS-Gen \
+    && cd Micro-XRCE-DDS-Gen \
+    && ./gradlew assemble \
+    && echo "export PATH=\$PATH:$PWD/scripts" >> ~/.bashrc
+
+# Copy source for future tooling.
+COPY --chown=$USERNAME:$USERNAME src/ /tmp/dep-repos/src 
+WORKDIR /tmp/dep-repos 
+
+# Install ArduPilot dependencies 
+RUN export USER=$(whoami) \
+    && ./src/ardupilot/Tools/environment_install/install-prereqs-ubuntu.sh -y \
+    && echo "export PATH=$HOME/.local/bin:\$PATH" >> ~/.bashrc
+
+RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+
+# Install dependencies with rosdep 
+RUN . /opt/ros/humble/setup.sh && rosdep update && rosdep install --from-paths src --ignore-src -r -y --skip-keys gazebo-ros-pkgs
+
+RUN sudo rm -rf /tmp/dep-repos 

@@ -1,5 +1,7 @@
 
-build:
+all: colcon-build 
+
+colcon-build:
 	colcon build 
 	
 clean:

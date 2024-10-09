@@ -4,14 +4,16 @@ ARG USERNAME=student
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Set the Timezone
 ENV TZ="America/Los_Angeles"
-RUN DEBIAN_FRONTEND=noninteractive apt update -y && apt install -y tzdata \
+RUN apt update -y && apt install -y tzdata \
     && echo "America/Los_Angeles" > /etc/timezone \
     && ln -fs /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 
 # Install ROS2 Humble
-RUN DEBIAN_FRONTEND=noninteractive apt install -y software-properties-common \
+RUN apt install -y software-properties-common \
     && add-apt-repository universe \
     && apt install curl -y \
     && curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg \
@@ -22,7 +24,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y software-properties-common \
     && apt install -y ros-dev-tools
 
 # Install Gazebo
-RUN DEBIAN_FRONTEND=noninteractive apt-get update -y \
+RUN apt-get update -y \
     && apt-get install curl lsb-release gnupg \
     && curl https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg \
     && echo "deb [arch=amd64,arm64 signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable jammy main" | tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null \
@@ -43,8 +45,7 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 
 # Extra packages as needed 
-RUN DEBIAN_FRONTEND=noninteractive \
-    apt install -y libgz-sim8-dev rapidjson-dev libopencv-dev libgstreamer1.0-dev \
+RUN apt install -y libgz-sim8-dev rapidjson-dev libopencv-dev libgstreamer1.0-dev \
     libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-bad gstreamer1.0-libav gstreamer1.0-gl \
     ros-humble-tinyxml2-vendor default-jre python3-pexpect python3-future
 

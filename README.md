@@ -28,7 +28,7 @@ Here are some steps to test your repository. These steps work on my setup at hom
 1. Build the software in your dev container: 
 
     ```
-    colcon build 
+    make
     ```
 
 1. Source the `setup.bash` file after the build is complete.

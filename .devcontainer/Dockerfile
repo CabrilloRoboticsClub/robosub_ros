@@ -29,7 +29,7 @@ RUN apt-get update -y \
     && curl https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg \
     && echo "deb [arch=amd64,arm64 signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable jammy main" | tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null \
     && apt-get update -y \
-    && apt-get install -y gz-harmonic
+    && apt-get install -y gz-harmonic ros-humble-ros-gzharmonic
 
 # Initialize rosdep 
 RUN sudo rosdep init 
@@ -47,7 +47,8 @@ RUN groupadd --gid $USER_GID $USERNAME \
 # Extra packages as needed 
 RUN apt install -y libgz-sim8-dev rapidjson-dev libopencv-dev libgstreamer1.0-dev \
     libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-bad gstreamer1.0-libav gstreamer1.0-gl \
-    ros-humble-tinyxml2-vendor default-jre python3-pexpect python3-future mesa-utils strace
+    ros-humble-tinyxml2-vendor default-jre python3-pexpect python3-future mesa-utils strace \
+    ros-humble-micro-ros-msgs
 
 # [Optional] Set the default user. Omit if you want to keep the default as root.
 USER $USERNAME

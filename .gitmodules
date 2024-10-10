@@ -18,15 +18,7 @@
 	path = src/micro_ros_agent
 	url = https://github.com/micro-ROS/micro-ROS-Agent.git
 	branch = humble
-[submodule "src/ros_gz"]
-	path = src/ros_gz
-	url = https://github.com/gazebosim/ros_gz.git
-	branch = humble
 [submodule "src/sdformat_urdf"]
 	path = src/sdformat_urdf
 	url = https://github.com/ros/sdformat_urdf.git
-	branch = humble
-[submodule "src/micro_ros_msgs"]
-	path = src/micro_ros_msgs
-	url = https://github.com/micro-ROS/micro_ros_msgs.git
 	branch = humble

@@ -12,6 +12,10 @@ RUN apt update -y && apt install -y tzdata \
     && echo "America/Los_Angeles" > /etc/timezone \
     && ln -fs /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 
+# Un-minimize the system so we have manual pages, etc.
+RUN yes | unminimize && \
+    apt install -y man
+
 # Install ROS2 Humble
 RUN apt install -y software-properties-common \
     && add-apt-repository universe \

@@ -1,1 +1,3 @@
 **/.git
+src/ardupilot/build
+src/ardupilot/.lock*

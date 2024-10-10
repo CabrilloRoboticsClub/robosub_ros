@@ -26,9 +26,6 @@
 	path = src/sdformat_urdf
 	url = https://github.com/ros/sdformat_urdf.git
 	branch = humble
-[submodule "src/ardupilot_ros"]
-	path = src/ardupilot_ros
-	url = git@github.com:ArduPilot/ardupilot_ros.git
 [submodule "src/micro_ros_msgs"]
 	path = src/micro_ros_msgs
 	url = https://github.com/micro-ROS/micro_ros_msgs.git

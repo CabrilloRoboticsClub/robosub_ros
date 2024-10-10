@@ -21,7 +21,13 @@
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root",
 
+	// FIXME: vscode should handle this but doesn't. I have multiple GPUs and 
+	// using them is broken in devcontainers for me.
+	"mounts": [
+        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached"
+    ],
+
 	"runArgs": [
-		"--network=host"
+		"--network=host", "-e", "DISPLAY=${localEnv:DISPLAY}"
 	]
 }

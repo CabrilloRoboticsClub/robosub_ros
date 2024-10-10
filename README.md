@@ -15,14 +15,32 @@ If you have a Windows, Mac or Linux on your desktop you can use Docker and Devel
     ```
     https://github.com/CabrilloRoboticsClub/robosub_ros.git    
     ```
-1. You will be prompted to re-open the folder in a **development container**. Select yes.
+1. You will be prompted to re-open the folder in a **development container**. Select yes. Confirm that you have the devconainer open by looking at the bottom left corner of VScode. It should look like the picture below:
+
+    ![](doc/dev-container.png)
+
 1. Create a Terminal in your vscode window with the `Terminal -> New Terminal` menu. 
+
+## Quick Start 
+
+Here are some steps to test your repository. These steps work on my setup at home. The simulation stack is very heavy and may require a reasonably powerful GPU. **Run this command in the dev container terminal.**
+
 1. Build the software in your dev container: 
 
-    **Run this command in the dev container terminal.**
+    ```
+    colcon build 
+    ```
 
-    ```sh 
-    make 
+1. Source the `setup.bash` file after the build is complete.
+
+    ```
+    source install/setup.bash
+    ```
+
+1. Launch a simulation: 
+
+    ```
+    ros2 launch ardupilot_gz_bringup iris_runway.launch.py
     ```
 
 ## Tutorials 

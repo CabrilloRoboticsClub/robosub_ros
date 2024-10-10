@@ -1,3 +1,5 @@
 **/.git
 src/ardupilot/build
 src/ardupilot/.lock*
+**/__pycache__
+src/ardupilot/tasklist.json

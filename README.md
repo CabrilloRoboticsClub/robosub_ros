@@ -43,6 +43,8 @@ Here are some steps to test your repository. These steps work on my setup at hom
     ros2 launch ardupilot_gz_bringup iris_runway.launch.py
     ```
 
+1. Control the simulation with a flight controller. There are a number of programs available. I have had success with [QGroundControl](https://qgroundcontrol.com/). 
+
 ## Tutorials 
 
 Ardupilot has official tutorials here:

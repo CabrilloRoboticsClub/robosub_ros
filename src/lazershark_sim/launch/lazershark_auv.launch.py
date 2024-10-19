@@ -57,9 +57,10 @@ from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
     """Generate a launch description for a iris quadcopter."""
-    pkg_ardupilot_sitl = get_package_share_directory("ardupilot_sitl")
-    pkg_ardupilot_gazebo = get_package_share_directory("ardupilot_gazebo")
-    pkg_project_bringup = get_package_share_directory("ardupilot_gz_bringup")
+    pkg_ardupilot_sitl = get_package_share_directory("ardupilot_sitl") 
+    pkg_lazershark_sim = get_package_share_directory("lazershark_sim")
+
+
 
     # Include component launch files.
     sitl_dds = IncludeLaunchDescription(
@@ -84,9 +85,9 @@ def generate_launch_description():
             "slave": "0",
             "instance": "0",
             "defaults": os.path.join(
-                pkg_ardupilot_gazebo,
+                pkg_lazershark_sim,
                 "config",
-                "gazebo-iris-gimbal.parm",
+                "gazebo_lazershark_sim.parm",
             )
             + ","
             + os.path.join(
@@ -115,8 +116,9 @@ def generate_launch_description():
             os.environ["SDF_PATH"] = gz_sim_resource_path
 
     # Load SDF file.
+    # TODO: Change to sdf
     sdf_file = os.path.join(
-        pkg_ardupilot_gazebo, "models", "iris_with_gimbal", "model.sdf"
+        pkg_lazershark_sim, "model", "lazershark_sim.sdf"
     )
     with open(sdf_file, "r") as infp:
         robot_desc = infp.read()
@@ -141,7 +143,7 @@ def generate_launch_description():
         parameters=[
             {
                 "config_file": os.path.join(
-                    pkg_project_bringup, "config", "iris_bridge.yaml"
+                    pkg_lazershark_sim, "config", "ros_gz_bridge.yaml"
                 ),
                 "qos_overrides./tf_static.publisher.durability": "transient_local",
             }

@@ -26,7 +26,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/base_link.STL" />
+          filename="package://lazershark_sim/robot/meshes/base_link.STL" />
       </geometry>
       <material
         name="">
@@ -40,7 +40,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/base_link.STL" />
+          filename="package://lazershark_sim/robot/meshes/base_link.STL" />
       </geometry>
     </collision>
   </link>
@@ -66,7 +66,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/thruster_0.STL" />
+          filename="package://lazershark_sim/robot/meshes/thruster_0.STL" />
       </geometry>
       <material
         name="">
@@ -80,7 +80,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/thruster_0.STL" />
+          filename="package://lazershark_sim/robot/meshes/thruster_0.STL" />
       </geometry>
     </collision>
   </link>
@@ -124,7 +124,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/thruster_1.STL" />
+          filename="package://lazershark_sim/robot/meshes/thruster_1.STL" />
       </geometry>
       <material
         name="">
@@ -138,7 +138,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/thruster_1.STL" />
+          filename="package://lazershark_sim/robot/meshes/thruster_1.STL" />
       </geometry>
     </collision>
   </link>
@@ -182,7 +182,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/thruster_2.STL" />
+          filename="package://lazershark_sim/robot/meshes/thruster_2.STL" />
       </geometry>
       <material
         name="">
@@ -196,7 +196,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/thruster_2.STL" />
+          filename="package://lazershark_sim/robot/meshes/thruster_2.STL" />
       </geometry>
     </collision>
   </link>
@@ -240,7 +240,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/thruster_3.STL" />
+          filename="package://lazershark_sim/robot/meshes/thruster_3.STL" />
       </geometry>
       <material
         name="">
@@ -254,7 +254,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/thruster_3.STL" />
+          filename="package://lazershark_sim/robot/meshes/thruster_3.STL" />
       </geometry>
     </collision>
   </link>
@@ -298,7 +298,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/thruster_4.STL" />
+          filename="package://lazershark_sim/robot/meshes/thruster_4.STL" />
       </geometry>
       <material
         name="">
@@ -312,7 +312,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/thruster_4.STL" />
+          filename="package://lazershark_sim/robot/meshes/thruster_4.STL" />
       </geometry>
     </collision>
   </link>
@@ -356,7 +356,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/thruster_5.STL" />
+          filename="package://lazershark_sim/robot/meshes/thruster_5.STL" />
       </geometry>
       <material
         name="">
@@ -370,7 +370,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/thruster_5.STL" />
+          filename="package://lazershark_sim/robot/meshes/thruster_5.STL" />
       </geometry>
     </collision>
   </link>
@@ -414,7 +414,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/thruster_6.STL" />
+          filename="package://lazershark_sim/robot/meshes/thruster_6.STL" />
       </geometry>
       <material
         name="">
@@ -428,7 +428,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/thruster_6.STL" />
+          filename="package://lazershark_sim/robot/meshes/thruster_6.STL" />
       </geometry>
     </collision>
   </link>
@@ -472,7 +472,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/thruster_7.STL" />
+          filename="package://lazershark_sim/robot/meshes/thruster_7.STL" />
       </geometry>
       <material
         name="">
@@ -486,7 +486,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/thruster_7.STL" />
+          filename="package://lazershark_sim/robot/meshes/thruster_7.STL" />
       </geometry>
     </collision>
   </link>
@@ -530,7 +530,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/zed_camera_link.STL" />
+          filename="package://lazershark_sim/robot/meshes/zed_camera_link.STL" />
       </geometry>
       <material
         name="">
@@ -544,7 +544,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/zed_camera_link.STL" />
+          filename="package://lazershark_sim/robot/meshes/zed_camera_link.STL" />
       </geometry>
     </collision>
   </link>
@@ -588,7 +588,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/dvl_link.STL" />
+          filename="package://lazershark_sim/robot/meshes/dvl_link.STL" />
       </geometry>
       <material
         name="">
@@ -602,7 +602,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/dvl_link.STL" />
+          filename="package://lazershark_sim/robot/meshes/dvl_link.STL" />
       </geometry>
     </collision>
   </link>
@@ -641,7 +641,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/imu_link.STL" />
+          filename="package://lazershark_sim/robot/meshes/imu_link.STL" />
       </geometry>
       <material
         name="">
@@ -655,7 +655,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://lazershark_sim/meshes/imu_link.STL" />
+          filename="package://lazershark_sim/robot/meshes/imu_link.STL" />
       </geometry>
     </collision>
   </link>

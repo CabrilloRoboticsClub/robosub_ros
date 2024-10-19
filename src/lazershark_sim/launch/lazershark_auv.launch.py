@@ -118,7 +118,7 @@ def generate_launch_description():
     # Load SDF file.
     # TODO: Change to sdf
     sdf_file = os.path.join(
-        pkg_lazershark_sim, "model", "lazershark_sim.sdf"
+        pkg_lazershark_sim, "robot", "lazershark_sim.sdf"
     )
     with open(sdf_file, "r") as infp:
         robot_desc = infp.read()

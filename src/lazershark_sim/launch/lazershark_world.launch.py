@@ -75,7 +75,7 @@ def generate_launch_description():
         ),
         launch_arguments={
             "gz_args": "-v4 -s -r "
-            f'{Path(pkg_project_gazebo) / "worlds" / "lazer_shark_runway.sdf"}'
+            f'{Path(pkg_project_gazebo) / "worlds" / "iris_runway.sdf"}'
         }.items(),
     )
 

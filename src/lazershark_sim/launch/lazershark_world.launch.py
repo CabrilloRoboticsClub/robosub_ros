@@ -29,7 +29,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Launch an iris quadcopter in Gazebo and Rviz."""
+"""Launch an lazer_shark quadcopter in Gazebo and Rviz."""
 from pathlib import Path
 
 from ament_index_python.packages import get_package_share_directory
@@ -47,21 +47,21 @@ from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
-    """Generate a launch description for a iris quadcopter."""
+    """Generate a launch description for a lazer_shark quadcopter."""
     pkg_project_bringup = get_package_share_directory("ardupilot_gz_bringup")
     pkg_project_gazebo = get_package_share_directory("ardupilot_gz_gazebo")
     pkg_ros_gz_sim = get_package_share_directory("ros_gz_sim")
+    pkg_lazershark_sim = get_package_share_directory("lazershark_sim")
 
-    # Iris.
-    iris = IncludeLaunchDescription(
+    # lazer_shark.
+    lazer_shark = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             [
                 PathJoinSubstitution(
                     [
-                        FindPackageShare("ardupilot_gz_bringup"),
+                        FindPackageShare("lazershark_sim"),
                         "launch",
-                        "robots",
-                        "iris.launch.py",
+                        "lazershark_auv.launch.py",
                     ]
                 ),
             ]
@@ -75,7 +75,7 @@ def generate_launch_description():
         ),
         launch_arguments={
             "gz_args": "-v4 -s -r "
-            f'{Path(pkg_project_gazebo) / "worlds" / "iris_runway.sdf"}'
+            f'{Path(pkg_project_gazebo) / "worlds" / "lazer_shark_runway.sdf"}'
         }.items(),
     )
 
@@ -101,7 +101,7 @@ def generate_launch_description():
             ),
             gz_sim_server,
             gz_sim_gui,
-            iris,
+            lazer_shark,
             rviz,
         ]
     )

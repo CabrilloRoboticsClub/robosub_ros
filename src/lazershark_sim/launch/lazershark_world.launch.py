@@ -75,7 +75,7 @@ def generate_launch_description():
         ),
         launch_arguments={
             "gz_args": "-v4 -s -r "
-            f'{Path(pkg_project_gazebo) / "worlds" / "iris_runway.sdf"}'
+            f'{Path(pkg_lazershark_sim) / "worlds" / "waterworld.sdf"}'
         }.items(),
     )
 
@@ -87,21 +87,21 @@ def generate_launch_description():
     )
 
     # RViz.
-    rviz = Node(
-        package="rviz2",
-        executable="rviz2",
-        arguments=["-d", f'{Path(pkg_project_bringup) / "rviz" / "iris.rviz"}'],
-        condition=IfCondition(LaunchConfiguration("rviz")),
-    )
+    # rviz = Node(
+    #     package="rviz2",
+    #     executable="rviz2",
+    #     arguments=["-d", f'{Path(pkg_project_bringup) / "rviz" / "iris.rviz"}'],
+    #     condition=IfCondition(LaunchConfiguration("rviz")),
+    # )
 
     return LaunchDescription(
         [
-            DeclareLaunchArgument(
-                "rviz", default_value="true", description="Open RViz."
-            ),
+            # DeclareLaunchArgument(
+            #     "rviz", default_value="true", description="Open RViz."
+            # ),
             gz_sim_server,
             gz_sim_gui,
             lazer_shark,
-            rviz,
+            # rviz,
         ]
     )

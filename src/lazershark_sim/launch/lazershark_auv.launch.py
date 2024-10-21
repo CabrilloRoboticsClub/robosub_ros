@@ -20,7 +20,9 @@ from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
-    """Generate a launch description for a iris quadcopter."""
+    """
+    Generate a launch description for a lazershark.
+    """
     pkg_lazershark_sim = get_package_share_directory("lazershark_sim")
 
     # Robot description.

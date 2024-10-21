@@ -47,9 +47,9 @@ from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
-    """Generate a launch description for a lazer_shark quadcopter."""
-    pkg_project_bringup = get_package_share_directory("ardupilot_gz_bringup")
-    pkg_project_gazebo = get_package_share_directory("ardupilot_gz_gazebo")
+    """
+    Generate a launch description for a lazer_shark
+    """
     pkg_ros_gz_sim = get_package_share_directory("ros_gz_sim")
     pkg_lazershark_sim = get_package_share_directory("lazershark_sim")
 

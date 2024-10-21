@@ -57,50 +57,7 @@ from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
     """Generate a launch description for a iris quadcopter."""
-    pkg_ardupilot_sitl = get_package_share_directory("ardupilot_sitl") 
     pkg_lazershark_sim = get_package_share_directory("lazershark_sim")
-
-
-
-    # Include component launch files.
-    sitl_dds = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            [
-                PathJoinSubstitution(
-                    [
-                        FindPackageShare("ardupilot_sitl"),
-                        "launch",
-                        "sitl_dds_udp.launch.py",
-                    ]
-                ),
-            ]
-        ),
-        launch_arguments={
-            "transport": "udp4",
-            "port": "2019",
-            "synthetic_clock": "True",
-            "wipe": "False",
-            "model": "json",
-            "speedup": "1",
-            "slave": "0",
-            "instance": "0",
-            "defaults": os.path.join(
-                pkg_lazershark_sim,
-                "config",
-                "gazebo_lazershark_sim.parm",
-            )
-            + ","
-            + os.path.join(
-                pkg_ardupilot_sitl,
-                "config",
-                "default_params",
-                "dds_udp.parm",
-            ),
-            "sim_address": "127.0.0.1",
-            "master": "tcp:127.0.0.1:5760",
-            "sitl": "127.0.0.1:5501",
-        }.items(),
-    )
 
     # Robot description.
 
@@ -187,7 +144,6 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "use_gz_tf", default_value="true", description="Use Gazebo TF."
             ),
-            sitl_dds,
             robot_state_publisher,
             bridge,
             RegisterEventHandler(

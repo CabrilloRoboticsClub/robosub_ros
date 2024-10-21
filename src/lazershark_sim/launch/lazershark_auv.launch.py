@@ -1,38 +1,3 @@
-# Copyright 2023 ArduPilot.org.
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-"""
-Launch an iris quadcopter in Gazebo and Rviz.
-
-ros2 launch ardupilot_sitl sitl_dds_udp.launch.py
-transport:=udp4
-port:=2019
-synthetic_clock:=True
-wipe:=False
-model:=json
-speedup:=1
-slave:=0
-instance:=0
-defaults:=$(ros2 pkg prefix ardupilot_sitl)
-          /share/ardupilot_sitl/config/default_params/gazebo-iris.parm,
-          $(ros2 pkg prefix ardupilot_sitl)
-          /share/ardupilot_sitl/config/default_params/dds_udp.parm
-sim_address:=127.0.0.1
-master:=tcp:127.0.0.1:5760
-sitl:=127.0.0.1:5501
-"""
 import os
 
 from ament_index_python.packages import get_package_share_directory
@@ -52,7 +17,6 @@ from launch.substitutions import PathJoinSubstitution
 
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
-
 
 
 def generate_launch_description():

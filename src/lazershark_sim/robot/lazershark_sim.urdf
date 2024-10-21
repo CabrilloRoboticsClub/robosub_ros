@@ -34,15 +34,7 @@
           rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://lazershark_sim/robot/meshes/base_link.STL" />
-      </geometry>
-    </collision>
+
   </link>
   <link
     name="thruster_0">
@@ -74,15 +66,6 @@
           rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://lazershark_sim/robot/meshes/thruster_0.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="thruster_joint_0"
@@ -132,15 +115,6 @@
           rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://lazershark_sim/robot/meshes/thruster_1.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="thruster_joint_1"
@@ -190,15 +164,6 @@
           rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://lazershark_sim/robot/meshes/thruster_2.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="thruster_joint_2"
@@ -248,15 +213,6 @@
           rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://lazershark_sim/robot/meshes/thruster_3.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="thruster_joint_3"
@@ -306,15 +262,6 @@
           rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://lazershark_sim/robot/meshes/thruster_4.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="thruster_joint_4"
@@ -364,15 +311,6 @@
           rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://lazershark_sim/robot/meshes/thruster_5.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="thruster_joint_5"
@@ -422,15 +360,6 @@
           rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://lazershark_sim/robot/meshes/thruster_6.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="thruster_joint_6"
@@ -480,15 +409,6 @@
           rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://lazershark_sim/robot/meshes/thruster_7.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="thruster_joint_7"
@@ -538,15 +458,6 @@
           rgba="0.627450980392157 0.627450980392157 0.627450980392157 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://lazershark_sim/robot/meshes/zed_camera_link.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="zed_camera_joint"
@@ -596,15 +507,6 @@
           rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://lazershark_sim/robot/meshes/dvl_link.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="dvl_joint"
@@ -649,15 +551,6 @@
           rgba="0.77647 0.75686 0.73725 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://lazershark_sim/robot/meshes/imu_link.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint
     name="imu_joint"

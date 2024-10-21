@@ -13,42 +13,6 @@
           <izz>0.1007869838199351</izz>
         </inertia>
       </inertial>
-      <collision name='base_link_collision'>
-        <pose>0 0 0 0 0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://lazershark_sim/robot/meshes/base_link.STL</uri>
-          </mesh>
-        </geometry>
-      </collision>
-      <collision name='base_link_fixed_joint_lump__dvl_link_collision_1'>
-        <pose>0 0 0 0 0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://lazershark_sim/robot/meshes/dvl_link.STL</uri>
-          </mesh>
-        </geometry>
-      </collision>
-      <collision name='base_link_fixed_joint_lump__imu_link_collision_2'>
-        <pose>0 0 0 0 0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://lazershark_sim/robot/meshes/imu_link.STL</uri>
-          </mesh>
-        </geometry>
-      </collision>
-      <collision name='base_link_fixed_joint_lump__zed_camera_link_collision_3'>
-        <pose>0 0 0 0 0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://lazershark_sim/robot/meshes/zed_camera_link.STL</uri>
-          </mesh>
-        </geometry>
-      </collision>
       <visual name='base_link_visual'>
         <pose>0 0 0 0 0 0</pose>
         <geometry>
@@ -134,15 +98,6 @@
           <izz>3.2154127284693699e-06</izz>
         </inertia>
       </inertial>
-      <collision name='thruster_0_collision'>
-        <pose>0 0 0 0 0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://lazershark_sim/robot/meshes/thruster_0.STL</uri>
-          </mesh>
-        </geometry>
-      </collision>
       <visual name='thruster_0_visual'>
         <pose>0 0 0 0 0 0</pose>
         <geometry>
@@ -189,15 +144,6 @@
           <izz>2.2081999999999999e-06</izz>
         </inertia>
       </inertial>
-      <collision name='thruster_1_collision'>
-        <pose>0 0 0 0 0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://lazershark_sim/robot/meshes/thruster_1.STL</uri>
-          </mesh>
-        </geometry>
-      </collision>
       <visual name='thruster_1_visual'>
         <pose>0 0 0 0 0 0</pose>
         <geometry>
@@ -244,15 +190,6 @@
           <izz>2.2072091905348199e-06</izz>
         </inertia>
       </inertial>
-      <collision name='thruster_2_collision'>
-        <pose>0 0 0 0 0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://lazershark_sim/robot/meshes/thruster_2.STL</uri>
-          </mesh>
-        </geometry>
-      </collision>
       <visual name='thruster_2_visual'>
         <pose>0 0 0 0 0 0</pose>
         <geometry>
@@ -299,15 +236,6 @@
           <izz>2.2082171653447701e-06</izz>
         </inertia>
       </inertial>
-      <collision name='thruster_3_collision'>
-        <pose>0 0 0 0 0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://lazershark_sim/robot/meshes/thruster_3.STL</uri>
-          </mesh>
-        </geometry>
-      </collision>
       <visual name='thruster_3_visual'>
         <pose>0 0 0 0 0 0</pose>
         <geometry>
@@ -354,15 +282,6 @@
           <izz>3.2148306516272e-06</izz>
         </inertia>
       </inertial>
-      <collision name='thruster_4_collision'>
-        <pose>0 0 0 0 0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://lazershark_sim/robot/meshes/thruster_4.STL</uri>
-          </mesh>
-        </geometry>
-      </collision>
       <visual name='thruster_4_visual'>
         <pose>0 0 0 0 0 0</pose>
         <geometry>
@@ -409,15 +328,6 @@
           <izz>2.20699309720568e-06</izz>
         </inertia>
       </inertial>
-      <collision name='thruster_5_collision'>
-        <pose>0 0 0 0 0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://lazershark_sim/robot/meshes/thruster_5.STL</uri>
-          </mesh>
-        </geometry>
-      </collision>
       <visual name='thruster_5_visual'>
         <pose>0 0 0 0 0 0</pose>
         <geometry>
@@ -464,15 +374,6 @@
           <izz>3.2148313470048201e-06</izz>
         </inertia>
       </inertial>
-      <collision name='thruster_6_collision'>
-        <pose>0 0 0 0 0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://lazershark_sim/robot/meshes/thruster_6.STL</uri>
-          </mesh>
-        </geometry>
-      </collision>
       <visual name='thruster_6_visual'>
         <pose>0 0 0 0 0 0</pose>
         <geometry>
@@ -519,15 +420,6 @@
           <izz>3.2148320610474299e-06</izz>
         </inertia>
       </inertial>
-      <collision name='thruster_7_collision'>
-        <pose>0 0 0 0 0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://lazershark_sim/robot/meshes/thruster_7.STL</uri>
-          </mesh>
-        </geometry>
-      </collision>
       <visual name='thruster_7_visual'>
         <pose>0 0 0 0 0 0</pose>
         <geometry>

@@ -1,0 +1,564 @@
+<sdf version='1.11'>
+  <model name='lazershark_sim'>
+    <link name='base_link'>
+      <inertial>
+        <pose>2.995690927910095e-05 0.0021522487324942782 0.00057011476341834095 0 0 0</pose>
+        <mass>6.1778831756214574</mass>
+        <inertia>
+          <ixx>0.06542166261884165</ixx>
+          <ixy>8.0627840773812435e-07</ixy>
+          <ixz>-3.8605350567004579e-07</ixz>
+          <iyy>0.039989820059402617</iyy>
+          <iyz>-0.00029529576088657662</iyz>
+          <izz>0.1007869838199351</izz>
+        </inertia>
+      </inertial>
+      <collision name='base_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/base_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='base_link_fixed_joint_lump__dvl_link_collision_1'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/dvl_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='base_link_fixed_joint_lump__imu_link_collision_2'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/imu_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='base_link_fixed_joint_lump__zed_camera_link_collision_3'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/zed_camera_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='base_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/base_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990196109 1 1 1</diffuse>
+          <ambient>0.990196109 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='base_link_fixed_joint_lump__dvl_link_visual_1'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/dvl_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990199983 1 1 1</diffuse>
+          <ambient>0.990199983 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='base_link_fixed_joint_lump__imu_link_visual_2'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/imu_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.970587492 0.946075022 0.921562433 1</diffuse>
+          <ambient>0.970587492 0.946075022 0.921562433 1</ambient>
+        </material>
+      </visual>
+      <visual name='base_link_fixed_joint_lump__zed_camera_link_visual_3'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/zed_camera_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.784313738 0.784313738 0.784313738 1</diffuse>
+          <ambient>0.784313738 0.784313738 0.784313738 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='thruster_joint_0' type='revolute'>
+      <pose relative_to='base_link'>0 0 0 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_0</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>30</upper>
+          <effort>5</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='thruster_0'>
+      <pose relative_to='thruster_joint_0'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.32378393928778798 0.27625919438844898 -0.017377766506743299 0 0 0</pose>
+        <mass>0.0077410181298602004</mass>
+        <inertia>
+          <ixx>2.2080016438344401e-06</ixx>
+          <ixy>1.14679627175493e-09</ixy>
+          <ixz>-2.3962570529025102e-12</ixz>
+          <iyy>2.2069964551666899e-06</iyy>
+          <iyz>1.6744887682855999e-11</iyz>
+          <izz>3.2154127284693699e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='thruster_0_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/thruster_0.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='thruster_0_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/thruster_0.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990196109 1 1 1</diffuse>
+          <ambient>0.990196109 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='thruster_joint_1' type='revolute'>
+      <pose relative_to='base_link'>0 0 0 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_1</child>
+      <axis>
+        <xyz>-0.70710678118654902 0.70710678118654602 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>30</upper>
+          <effort>5</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='thruster_1'>
+      <pose relative_to='thruster_joint_1'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.23416000000000001 0.21739 0.0043774 0 0 0</pose>
+        <mass>0.0077421</mass>
+        <inertia>
+          <ixx>2.7116e-06</ixx>
+          <ixy>-5.0427999999999996e-07</ixy>
+          <ixz>5.3313e-10</ixz>
+          <iyy>2.7116e-06</iyy>
+          <iyz>4.4066999999999999e-10</iyz>
+          <izz>2.2081999999999999e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='thruster_1_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/thruster_1.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='thruster_1_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/thruster_1.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990199983 1 1 1</diffuse>
+          <ambient>0.990199983 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='thruster_joint_2' type='revolute'>
+      <pose relative_to='base_link'>0 0 0 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_2</child>
+      <axis>
+        <xyz>-0.70710678118654402 -0.70710678118655101 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>30</upper>
+          <effort>5</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='thruster_2'>
+      <pose relative_to='thruster_joint_2'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.23415762623745601 -0.229457744082739 0.00437406128425808 0 0 0</pose>
+        <mass>0.0077411714186199103</mass>
+        <inertia>
+          <ixx>2.7114932427506301e-06</ixx>
+          <ixy>5.03800307022355e-07</ixy>
+          <ixz>5.4804518301067596e-10</ixz>
+          <iyy>2.71144419395605e-06</iyy>
+          <iyz>-5.5734596441408301e-10</iyz>
+          <izz>2.2072091905348199e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='thruster_2_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/thruster_2.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='thruster_2_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/thruster_2.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990196109 1 1 1</diffuse>
+          <ambient>0.990196109 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='thruster_joint_3' type='revolute'>
+      <pose relative_to='base_link'>0 0 0 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_3</child>
+      <axis>
+        <xyz>0.70710678118655101 -0.70710678118654402 0</xyz>
+        <limit>
+          <effort>5</effort>
+          <velocity>5</velocity>
+          <lower>-inf</lower>
+          <upper>inf</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='thruster_3'>
+      <pose relative_to='thruster_joint_3'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.23409298434329201 -0.22945660034888701 0.0043774120539908099 0 0 0</pose>
+        <mass>0.0077420866712078701</mass>
+        <inertia>
+          <ixx>2.7116145591577002e-06</ixx>
+          <ixy>-5.0427887834305895e-07</ixy>
+          <ixz>-5.3297832179119501e-10</ixz>
+          <iyy>2.7115976978130102e-06</iyy>
+          <iyz>-4.4064567858250599e-10</iyz>
+          <izz>2.2082171653447701e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='thruster_3_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/thruster_3.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='thruster_3_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/thruster_3.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990196109 1 1 1</diffuse>
+          <ambient>0.990196109 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='thruster_joint_4' type='revolute'>
+      <pose relative_to='base_link'>0 0 0 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_4</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>30</upper>
+          <effort>5</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='thruster_4'>
+      <pose relative_to='thruster_joint_4'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.32378531885405598 -0.28832105457089902 -0.0173774496220339 0 0 0</pose>
+        <mass>0.00773999758129765</mass>
+        <inertia>
+          <ixx>2.2064470202072301e-06</ixx>
+          <ixy>9.7738480984721895e-11</ixy>
+          <ixz>-1.6539821263520701e-11</ixz>
+          <iyy>2.2079710441876498e-06</iyy>
+          <iyz>-7.26901607289363e-12</iyz>
+          <izz>3.2148306516272e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='thruster_4_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/thruster_4.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='thruster_4_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/thruster_4.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990196109 1 1 1</diffuse>
+          <ambient>0.990196109 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='thruster_joint_5' type='revolute'>
+      <pose relative_to='base_link'>0 0 0 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_5</child>
+      <axis>
+        <xyz>0.70711000000000002 0.70711000000000002 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>30</upper>
+          <effort>5</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='thruster_5'>
+      <pose relative_to='thruster_joint_5'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.23409104493430299 0.21738936078194601 0.0043754485152070503 0 0 0</pose>
+        <mass>0.0077415257204731499</mass>
+        <inertia>
+          <ixx>2.71170960756965e-06</ixx>
+          <ixy>5.0368553339138701e-07</ixy>
+          <ixz>-2.7637460522284301e-10</ixz>
+          <iyy>2.7117423364615e-06</iyy>
+          <iyz>2.2665239288889201e-10</iyz>
+          <izz>2.20699309720568e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='thruster_5_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/thruster_5.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='thruster_5_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/thruster_5.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990196109 1 1 1</diffuse>
+          <ambient>0.990196109 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='thruster_joint_6' type='revolute'>
+      <pose relative_to='base_link'>0 0 0 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_6</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>30</upper>
+          <effort>5</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='thruster_6'>
+      <pose relative_to='thruster_joint_6'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.32371873867231399 -0.28832105720429002 -0.017377449944125298 0 0 0</pose>
+        <mass>0.0077399983948543702</mass>
+        <inertia>
+          <ixx>2.2064475793805398e-06</ixx>
+          <ixy>9.7481895001575802e-11</ixy>
+          <ixz>-1.6566588274952999e-11</ixz>
+          <iyy>2.2079712066109202e-06</iyy>
+          <iyz>-7.34282298278948e-12</iyz>
+          <izz>3.2148313470048201e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='thruster_6_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/thruster_6.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='thruster_6_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/thruster_6.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990196109 1 1 1</diffuse>
+          <ambient>0.990196109 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='thruster_joint_7' type='revolute'>
+      <pose relative_to='base_link'>0 0 0 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_7</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>30</upper>
+          <effort>5</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='thruster_7'>
+      <pose relative_to='thruster_joint_7'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.32371874016881103 0.27625447740554898 -0.017377450296488298 0 0 0</pose>
+        <mass>0.0077399992581722796</mass>
+        <inertia>
+          <ixx>2.2064481143113702e-06</ixx>
+          <ixy>9.7771928307808605e-11</ixy>
+          <ixz>-1.66176010703873e-11</ixz>
+          <iyy>2.2079714146373302e-06</iyy>
+          <iyz>-7.2759122873992398e-12</iyz>
+          <izz>3.2148320610474299e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='thruster_7_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/thruster_7.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='thruster_7_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lazershark_sim/robot/meshes/thruster_7.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990196109 1 1 1</diffuse>
+          <ambient>0.990196109 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <frame name='dvl_joint' attached_to='base_link'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='dvl_link' attached_to='dvl_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='imu_joint' attached_to='base_link'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='imu_link' attached_to='imu_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='zed_camera_joint' attached_to='base_link'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='zed_camera_link' attached_to='zed_camera_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+  </model>
+</sdf>

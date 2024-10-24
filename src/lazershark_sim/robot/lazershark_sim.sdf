@@ -1,4 +1,4 @@
-<sdf version='1.11'>
+<sdf version='1.9'>
   <model name='lazershark_sim'>
     <link name='base_link'>
       <inertial>

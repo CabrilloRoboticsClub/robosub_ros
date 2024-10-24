@@ -58,7 +58,6 @@ def generate_launch_description():
             {"frame_prefix": ""},
         ],
     )
-
     # Bridge.
     bridge = Node(
         package="ros_gz_bridge",
@@ -68,10 +67,10 @@ def generate_launch_description():
                 "config_file": os.path.join(
                     pkg_lazershark_sim, "config", "ros_gz_bridge.yaml"
                 ),
-                "qos_overrides./tf_static.publisher.durability": "transient_local",
+                # "qos_overrides./tf_static.publisher.durability": "transient_local",
             }
         ],
-        output="screen",
+        # output="screen",
     )
 
     # Transform - use if the model includes "gz::sim::systems::PosePublisher"

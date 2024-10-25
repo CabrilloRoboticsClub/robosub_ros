@@ -1,25 +1,25 @@
-<sdf version="1.6">
-  <world name="waterworld">
-    <physics name="1ms" type="ode">
+<sdf version='1.6'>
+  <world name='waterworld'>
+    <physics name='1ms' type='ode'>
       <max_step_size>0.001</max_step_size>
       <real_time_factor>1.0</real_time_factor>
     </physics>
     <plugin
-      filename="gz-sim-physics-system"
-      name="gz::sim::systems::Physics">
+      filename='gz-sim-physics-system'
+      name='gz::sim::systems::Physics'>
     </plugin>
     <plugin
-      filename="gz-sim-user-commands-system"
-      name="gz::sim::systems::UserCommands">
+      filename='gz-sim-user-commands-system'
+      name='gz::sim::systems::UserCommands'>
     </plugin>
     <plugin
-      filename="gz-sim-scene-broadcaster-system"
-      name="gz::sim::systems::SceneBroadcaster">
+      filename='gz-sim-scene-broadcaster-system'
+      name='gz::sim::systems::SceneBroadcaster'>
     </plugin>
     
     <plugin
-      filename="gz-sim-buoyancy-system"
-      name="gz::sim::systems::Buoyancy">
+      filename='gz-sim-buoyancy-system'
+      name='gz::sim::systems::Buoyancy'>
       <graded_buoyancy>
         <default_density>1000</default_density>
         <density_change>
@@ -35,7 +35,7 @@
       <uri>lazershark_sim/robot/lazershark_sim.sdf</uri>
     </include>
 
-    <light type="directional" name="sun">
+    <light type='directional' name='sun'>
       <cast_shadows>true</cast_shadows>
       <pose>0 0 10 0 0 0</pose>
       <diffuse>1 1 1 1</diffuse>
@@ -49,11 +49,11 @@
       <direction>-0.5 0.1 -0.9</direction>
     </light>
 
-    <model name="water_plane">
+    <model name='water_plane'>
       <static>true</static>
-      <link name="link">
+      <link name='link'>
         <pose>0 0 2.13 0 0 0</pose> <!-- Position water surface at 7 feet -->
-        <visual name="water_plane">
+        <visual name='water_plane'>
           <geometry>
             <plane>
               <size>50 25</size>
@@ -69,18 +69,18 @@
       </link>
     </model>
 
-    <model name="ground">
+    <model name='ground_plane'>
       <static>true</static>
-      <link name="ground_link">
+      <link name='ground_link'>
         <pose>0 0 0 0 0 0</pose> 
-        <visual name="ground_plane">
+        <visual name='ground_plane'>
           <geometry>
             <plane>
               <size>50 25</size>
               <normal>0 0 1</normal>
             </plane>
           </geometry>
-        <collision name="ground_plane_collision">
+        <collision name='ground_plane_collision'>
             <geometry>
             <plane>
               <size>50 25</size>

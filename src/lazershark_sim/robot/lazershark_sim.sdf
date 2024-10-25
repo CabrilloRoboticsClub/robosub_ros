@@ -3,8 +3,9 @@
     <link name='base_link'>
       <inertial>
         <pose>2.995690927910095e-05 0.0021522487324942782 0.00057011476341834095 0 0 0</pose>
-        <mass>144</mass>
+        <mass>143</mass>
       </inertial>
+      
         <collision name="base_link_collision">
             <geometry>
             <box>
@@ -12,13 +13,7 @@
             </box>
             </geometry>
         </collision>
-        <visual name="collision_visual">
-            <geometry>
-            <box>
-                <size>0.8 0.9 0.2</size>
-            </box>
-            </geometry>
-        </visual>
+
       <visual name='base_link_visual'>
         <pose>0 0 0 0 0 0</pose>
         <geometry>

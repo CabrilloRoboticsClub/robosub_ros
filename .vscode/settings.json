@@ -1,3 +1,4 @@
 {
-    "git.detectSubmodules": false
+    "git.detectSubmodules": false,
+    "cmake.sourceDirectory": "/workspaces/robosub_ros/src/lazershark_sim"
 }

@@ -68,5 +68,29 @@
         </visual>
       </link>
     </model>
+
+    <model name="ground">
+      <static>true</static>
+      <link name="ground_link">
+        <pose>0 0 0 0 0 0</pose> 
+        <visual name="ground_plane">
+          <geometry>
+            <plane>
+              <size>50 25</size>
+              <normal>0 0 1</normal>
+            </plane>
+          </geometry>
+        <collision name="ground_plane_collision">
+            <geometry>
+            <plane>
+              <size>50 25</size>
+              <normal>0 0 1</normal>
+            </plane>
+            </geometry>
+        </collision>
+        </visual>
+      </link>
+    </model>
+
   </world>
 </sdf>

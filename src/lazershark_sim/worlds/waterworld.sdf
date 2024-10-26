@@ -35,62 +35,17 @@
       <uri>lazershark_sim/robot/lazershark_sim.sdf</uri>
     </include>
 
-    <light type='directional' name='sun'>
-      <cast_shadows>true</cast_shadows>
-      <pose>0 0 10 0 0 0</pose>
-      <diffuse>1 1 1 1</diffuse>
-      <specular>0.5 0.5 0.5 1</specular>
-      <attenuation>
-        <range>1000</range>
-        <constant>0.9</constant>
-        <linear>0.01</linear>
-        <quadratic>0.001</quadratic>
-      </attenuation>
-      <direction>-0.5 0.1 -0.9</direction>
-    </light>
+    <include>
+      <uri>lazershark_sim/worlds/sun.sdf</uri>
+    </include>
 
-    <model name='water_plane'>
-      <static>true</static>
-      <link name='link'>
-        <pose>0 0 2.13 0 0 0</pose> <!-- Position water surface at 7 feet -->
-        <visual name='water_plane'>
-          <geometry>
-            <plane>
-              <size>50 25</size>
-              <normal>0 0 1</normal>
-            </plane>
-          </geometry>
-          <material>
-            <ambient>0 0 1 0.5</ambient>
-            <diffuse>0 0 1 0.5</diffuse>
-            <specular>0 0 1 0.5</specular>
-          </material>
-        </visual>
-      </link>
-    </model>
+    <include>
+      <uri>lazershark_sim/worlds/water_plane.sdf</uri>
+    </include>
 
-    <model name='ground_plane'>
-      <static>true</static>
-      <link name='ground_link'>
-        <pose>0 0 0 0 0 0</pose> 
-        <visual name='ground_plane'>
-          <geometry>
-            <plane>
-              <size>50 25</size>
-              <normal>0 0 1</normal>
-            </plane>
-          </geometry>
-        <collision name='ground_plane_collision'>
-            <geometry>
-            <plane>
-              <size>50 25</size>
-              <normal>0 0 1</normal>
-            </plane>
-            </geometry>
-        </collision>
-        </visual>
-      </link>
-    </model>
+    <include>
+      <uri>lazershark_sim/worlds/pool_floor.sdf</uri>
+    </include>
 
   </world>
 </sdf>

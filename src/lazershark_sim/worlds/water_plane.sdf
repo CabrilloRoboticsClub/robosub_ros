@@ -1,0 +1,21 @@
+<sdf version='1.6'>
+    <model name='water_plane'>
+      <static>true</static>
+      <link name='link'>
+        <pose>0 0 2.13 0 0 0</pose> <!-- Position water surface at 7 feet -->
+        <visual name='water_plane'>
+          <geometry>
+            <plane>
+              <size>50 25</size>
+              <normal>0 0 1</normal>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0 0 1 0.5</ambient>
+            <diffuse>0 0 1 0.5</diffuse>
+            <specular>0 0 1 0.5</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+</sdf>

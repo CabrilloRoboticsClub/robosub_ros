@@ -6,13 +6,13 @@
             <geometry>
                 <plane>
                 <normal>0 0 1</normal>
-                <size>50 25</size> <!-- Adjust size to match pool dimensions -->
+                <size>50 25</size>
                 </plane>
             </geometry>
             <surface>
                 <friction>
                 <ode>
-                    <mu>1.0</mu> <!-- Friction coefficient for realistic interaction -->
+                    <mu>1.0</mu>
                     <mu2>1.0</mu2>
                 </ode>
                 </friction>
@@ -22,7 +22,7 @@
             <geometry>
                 <plane>
                 <normal>0 0 1</normal>
-                <size>50 25</size> <!-- Same as collision geometry -->
+                <size>50 25</size>
                 </plane>
             </geometry>
             <material>

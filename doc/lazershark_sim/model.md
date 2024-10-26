@@ -1,6 +1,6 @@
 # Model 
 
-## URDF/SDF
+## URDF
 See: [ROS2 URDF Tutorial - Describe Any Robot (Links and Joints)](https://www.youtube.com/watch?v=LsKL8N5Iwkw)
 
 ### Overview
@@ -104,3 +104,10 @@ See: [ROS2 URDF Tutorial - Describe Any Robot (Links and Joints)](https://www.yo
 | DVL                           | fixed |
 | Each camera (separate link)   | fixed |
 | Each propeller                | continuous |
+
+
+## SDF
+Convert a `URDF` to `SDF`:
+```sh
+gz sdf -p ./lazershark_sim.urdf > ./lazershark_sim.sdf
+```

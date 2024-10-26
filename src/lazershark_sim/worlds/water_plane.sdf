@@ -6,7 +6,7 @@
         <visual name="water_plane">
         <geometry>
             <plane>
-            <size>100 100</size>
+            <size>50 25</size>
             <normal>0 0 1</normal>
             </plane>
         </geometry>

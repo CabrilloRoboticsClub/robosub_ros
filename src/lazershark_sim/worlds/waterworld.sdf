@@ -1,5 +1,9 @@
 <sdf version='1.6'>
   <world name='waterworld'>
+    <scene>
+      <grid>false</grid>
+    </scene>
+
     <physics name='1ms' type='ode'>
       <max_step_size>0.001</max_step_size>
       <real_time_factor>1.0</real_time_factor>
@@ -16,6 +20,15 @@
       filename='gz-sim-scene-broadcaster-system'
       name='gz::sim::systems::SceneBroadcaster'>
     </plugin>
+    <plugin
+      filename="gz-sim-sensors-system"
+      name="gz::sim::systems::Sensors">
+    </plugin>
+    <plugin
+      filename="gz-sim-dvl-system"
+      name="gz::sim::systems::DopplerVelocityLogSystem">
+    </plugin>
+
     
     <plugin
       filename='gz-sim-buoyancy-system'
@@ -33,6 +46,66 @@
     <include>
       <pose>0 0 0 0 0 0</pose>
       <uri>lazershark_sim/robot/lazershark_sim.sdf</uri>
+      <!-- https://github.com/gazebosim/gz-sim/blob/gz-sim9/examples/worlds/dvl_world.sdf -->
+      <!-- THIS DOES NOT WORK YET -->
+    <experimental:params>
+        <sensor
+            element_id="dvl_link" action="add"
+            name="a50_dvl"
+            type="custom" gz:type="dvl">
+          <pose>0 0 0 0 0 0</pose>
+          <always_on>1</always_on>
+          <update_rate>1</update_rate>
+          <topic>/dvl/velocity</topic>
+          <gz:dvl>
+            <type>phased_array</type>
+            <arrangement degrees="true">
+              <beam id="1">
+                <aperture>2</aperture>
+                <rotation>45</rotation>
+                <tilt>30</tilt>
+              </beam>
+              <beam>
+                <aperture>2</aperture>
+                <rotation>135</rotation>
+                <tilt>30</tilt>
+              </beam>
+              <beam>
+                <aperture>2</aperture>
+                <rotation>-45</rotation>
+                <tilt>30</tilt>
+              </beam>
+              <beam>
+                <aperture>2</aperture>
+                <rotation>-135</rotation>
+                <tilt>30</tilt>
+              </beam>
+            </arrangement>
+            <tracking>
+              <bottom_mode>
+                <when>best</when>
+                <noise type="gaussian">
+                  <!-- +/- 0.4 cm/s precision at 10 m/s within 2 stddevs -->
+                  <stddev>0.002</stddev>
+                </noise>
+                <visualize>false</visualize>
+              </bottom_mode>
+            </tracking>
+            <!-- Roughly 1 m resolution at a 100m -->
+            <resolution>0.01</resolution>
+            <maximum_range>100.</maximum_range>
+            <minimum_range>0.1</minimum_range>
+            <!-- ENU to SFM -->
+            <reference_frame>0 0 0 0 0 -1.570796</reference_frame>
+          </gz:dvl>
+        </sensor>
+      </experimental:params>
+
+      <!-- Odometry publisher -->
+      <plugin
+        filename="gz-sim-odometry-publisher-system"
+        name="gz::sim::systems::OdometryPublisher">
+      </plugin>
     </include>
 
     <include>
@@ -41,6 +114,10 @@
 
     <include>
       <uri>lazershark_sim/worlds/water_plane.sdf</uri>
+    </include>
+
+    <include>
+      <uri>lazershark_sim/worlds/pool_light.sdf</uri>
     </include>
 
     <include>

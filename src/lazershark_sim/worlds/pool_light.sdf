@@ -1,0 +1,15 @@
+<sdf version='1.6'>
+    <light type='directional' name='pool_light'>
+        <cast_shadows>true</cast_shadows>
+        <pose>0 0 10 0 0 0</pose>
+        <diffuse>0.0 1.0 1.0 1</diffuse>
+        <specular>0.1 0.1 0.1 1</specular>
+        <attenuation>
+            <range>1000</range>
+            <constant>0.5</constant>
+            <linear>0.01</linear>
+            <quadratic>0.001</quadratic>
+        </attenuation>
+        <direction>0 0 -1</direction>
+    </light>
+</sdf>

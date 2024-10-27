@@ -73,22 +73,12 @@
         </material>
       </visual>
     </link>
-    <joint name='thruster_joint_0' type='revolute'>
+    <joint name='thruster_joint_0' type='continuous'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
       <child>thruster_0</child>
       <axis>
         <xyz>0 0 -1</xyz>
-        <limit>
-          <lower>0</lower>
-          <upper>30</upper>
-          <effort>5</effort>
-          <velocity>5</velocity>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
       </axis>
     </joint>
     <link name='thruster_0'>
@@ -119,22 +109,12 @@
         </material>
       </visual>
     </link>
-    <joint name='thruster_joint_1' type='revolute'>
+    <joint name='thruster_joint_1' type='continuous'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
       <child>thruster_1</child>
       <axis>
         <xyz>-0.70710678118654902 0.70710678118654602 0</xyz>
-        <limit>
-          <lower>0</lower>
-          <upper>30</upper>
-          <effort>5</effort>
-          <velocity>5</velocity>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
       </axis>
     </joint>
     <link name='thruster_1'>
@@ -165,22 +145,12 @@
         </material>
       </visual>
     </link>
-    <joint name='thruster_joint_2' type='revolute'>
+    <joint name='thruster_joint_2' type='continuous'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
       <child>thruster_2</child>
       <axis>
         <xyz>-0.70710678118654402 -0.70710678118655101 0</xyz>
-        <limit>
-          <lower>0</lower>
-          <upper>30</upper>
-          <effort>5</effort>
-          <velocity>5</velocity>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
       </axis>
     </joint>
     <link name='thruster_2'>
@@ -211,22 +181,12 @@
         </material>
       </visual>
     </link>
-    <joint name='thruster_joint_3' type='revolute'>
+    <joint name='thruster_joint_3' type='continuous'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
       <child>thruster_3</child>
       <axis>
         <xyz>0.70710678118655101 -0.70710678118654402 0</xyz>
-        <limit>
-          <effort>5</effort>
-          <velocity>5</velocity>
-          <lower>-inf</lower>
-          <upper>inf</upper>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
       </axis>
     </joint>
     <link name='thruster_3'>
@@ -257,22 +217,12 @@
         </material>
       </visual>
     </link>
-    <joint name='thruster_joint_4' type='revolute'>
+    <joint name='thruster_joint_4' type='continuous'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
       <child>thruster_4</child>
       <axis>
         <xyz>0 0 -1</xyz>
-        <limit>
-          <lower>0</lower>
-          <upper>30</upper>
-          <effort>5</effort>
-          <velocity>5</velocity>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
       </axis>
     </joint>
     <link name='thruster_4'>
@@ -303,22 +253,12 @@
         </material>
       </visual>
     </link>
-    <joint name='thruster_joint_5' type='revolute'>
+    <joint name='thruster_joint_5' type='continuous'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
       <child>thruster_5</child>
       <axis>
         <xyz>0.70711000000000002 0.70711000000000002 0</xyz>
-        <limit>
-          <lower>0</lower>
-          <upper>30</upper>
-          <effort>5</effort>
-          <velocity>5</velocity>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
       </axis>
     </joint>
     <link name='thruster_5'>
@@ -349,22 +289,12 @@
         </material>
       </visual>
     </link>
-    <joint name='thruster_joint_6' type='revolute'>
+    <joint name='thruster_joint_6' type='continuous'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
       <child>thruster_6</child>
       <axis>
         <xyz>0 0 -1</xyz>
-        <limit>
-          <lower>0</lower>
-          <upper>30</upper>
-          <effort>5</effort>
-          <velocity>5</velocity>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
       </axis>
     </joint>
     <link name='thruster_6'>
@@ -395,22 +325,12 @@
         </material>
       </visual>
     </link>
-    <joint name='thruster_joint_7' type='revolute'>
+    <joint name='thruster_joint_7' type='continuous'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
       <child>thruster_7</child>
       <axis>
         <xyz>0 0 -1</xyz>
-        <limit>
-          <lower>0</lower>
-          <upper>30</upper>
-          <effort>5</effort>
-          <velocity>5</velocity>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
       </axis>
     </joint>
     <link name='thruster_7'>

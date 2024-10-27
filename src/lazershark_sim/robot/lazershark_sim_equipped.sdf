@@ -1,0 +1,132 @@
+<sdf version='1.9'>
+    <model name='lazershark_sim'>
+        <include merge="true">
+            <uri>lazershark_sim/robot/lazershark_sim.sdf</uri>
+        </include>
+
+        <plugin
+            filename="ignition-gazebo-thruster-system"
+            name="ignition::gazebo::systems::Thruster">
+            <joint_name>thruster_joint_0</joint_name>
+            <topic>'/thruster_values/thruster_0'</topic>
+            <propeller_diameter>0.0762</propeller_diameter>
+        </plugin>
+
+        <plugin
+            filename="ignition-gazebo-thruster-system"
+            name="ignition::gazebo::systems::Thruster">
+            <joint_name>thruster_joint_1</joint_name>
+            <topic>'/thruster_values/thruster_1'</topic>
+            <propeller_diameter>0.0762</propeller_diameter>
+        </plugin>
+
+        <plugin
+            filename="ignition-gazebo-thruster-system"
+            name="ignition::gazebo::systems::Thruster">
+            <joint_name>thruster_joint_2</joint_name>
+            <topic>'/thruster_values/thruster_2'</topic>
+            <propeller_diameter>0.0762</propeller_diameter>
+        </plugin>
+
+        <plugin
+            filename="ignition-gazebo-thruster-system"
+            name="ignition::gazebo::systems::Thruster">
+            <joint_name>thruster_joint_3</joint_name>
+            <topic>'/thruster_values/thruster_3'</topic>
+            <propeller_diameter>0.0762</propeller_diameter>
+        </plugin>
+
+        <plugin
+            filename="ignition-gazebo-thruster-system"
+            name="ignition::gazebo::systems::Thruster">
+            <joint_name>thruster_joint_4</joint_name>
+            <topic>'/thruster_values/thruster_4'</topic>
+            <propeller_diameter>0.0762</propeller_diameter>
+        </plugin>
+
+        <plugin
+            filename="ignition-gazebo-thruster-system"
+            name="ignition::gazebo::systems::Thruster">
+            <joint_name>thruster_joint_5</joint_name>
+            <topic>'/thruster_values/thruster_5'</topic>
+            <propeller_diameter>0.0762</propeller_diameter>
+        </plugin>
+
+        <plugin
+            filename="ignition-gazebo-thruster-system"
+            name="ignition::gazebo::systems::Thruster">
+            <joint_name>thruster_joint_6</joint_name>
+            <topic>'/thruster_values/thruster_6'</topic>
+            <propeller_diameter>0.0762</propeller_diameter>
+        </plugin>
+
+        <plugin
+            filename="ignition-gazebo-thruster-system"
+            name="ignition::gazebo::systems::Thruster">
+            <joint_name>thruster_joint_7</joint_name>
+            <topic>'/thruster_values/thruster_7'</topic>
+            <propeller_diameter>0.0762</propeller_diameter>
+        </plugin>
+
+        <!-- https://github.com/gazebosim/gz-sim/blob/gz-sim9/examples/worlds/dvl_world.sdf -->
+      <!-- THIS DOES NOT WORK YET -->
+    <experimental:params>
+        <sensor
+            element_id="dvl_link" action="add"
+            name="a50_dvl"
+            type="custom" gz:type="dvl">
+          <pose>0 0 0 0 0 0</pose>
+          <always_on>1</always_on>
+          <update_rate>1</update_rate>
+          <topic>/dvl/velocity</topic>
+          <gz:dvl>
+            <type>phased_array</type>
+            <arrangement degrees="true">
+              <beam id="1">
+                <aperture>2</aperture>
+                <rotation>45</rotation>
+                <tilt>30</tilt>
+              </beam>
+              <beam>
+                <aperture>2</aperture>
+                <rotation>135</rotation>
+                <tilt>30</tilt>
+              </beam>
+              <beam>
+                <aperture>2</aperture>
+                <rotation>-45</rotation>
+                <tilt>30</tilt>
+              </beam>
+              <beam>
+                <aperture>2</aperture>
+                <rotation>-135</rotation>
+                <tilt>30</tilt>
+              </beam>
+            </arrangement>
+            <tracking>
+              <bottom_mode>
+                <when>best</when>
+                <noise type="gaussian">
+                  <!-- +/- 0.4 cm/s precision at 10 m/s within 2 stddevs -->
+                  <stddev>0.002</stddev>
+                </noise>
+                <visualize>false</visualize>
+              </bottom_mode>
+            </tracking>
+            <!-- Roughly 1 m resolution at a 100m -->
+            <resolution>0.01</resolution>
+            <maximum_range>100.</maximum_range>
+            <minimum_range>0.1</minimum_range>
+            <!-- ENU to SFM -->
+            <reference_frame>0 0 0 0 0 -1.570796</reference_frame>
+          </gz:dvl>
+        </sensor>
+      </experimental:params>
+
+      <!-- Odometry publisher -->
+      <plugin
+        filename="gz-sim-odometry-publisher-system"
+        name="gz::sim::systems::OdometryPublisher">
+      </plugin>
+    </model>
+</sdf>

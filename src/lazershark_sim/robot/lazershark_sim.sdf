@@ -3,7 +3,7 @@
     <link name='base_link'>
       <inertial>
         <pose>3.1199902042210963e-05 -0.00079157993339626213 0.00183560579492204 0 0 0</pose>
-        <mass>143.5</mass> <!-- 15.577 -->
+        <mass>15.577</mass>
         <inertia>
           <ixx>1.6</ixx>
           <ixy>0.11</ixy>
@@ -14,14 +14,15 @@
         </inertia>
       </inertial>
 
-      <collision name="base_link_collision">
+      <collision name="base_link_collision_bouyancy">
+        <pose>0 0 0.1 0 0 0</pose>
         <geometry>
             <box>
-                <size>0.8 0.9 0.2</size>
+                <size>0.2502 0.2502 0.2502</size>
             </box>
         </geometry>
       </collision>
-
+    
       <visual name='base_link_visual'>
         <pose>0 0 0 0 0 0</pose>
         <geometry>

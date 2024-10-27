@@ -75,18 +75,12 @@
         </material>
       </visual>
     </link>
-    <joint name='thruster_joint_0' type='revolute'>
+    <joint name='thruster_joint_0' type='fixed'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
       <child>thruster_0</child>
       <axis>
         <xyz>0 0 -1</xyz>
-        <limit>
-          <lower>-1000000000000</lower>
-          <upper>1000000000000</upper>
-          <effort>-1</effort>
-          <velocity>-1</velocity>
-        </limit>
       </axis>
     </joint>
     <link name='thruster_0'>
@@ -118,18 +112,12 @@
         </material>
       </visual>
     </link>
-    <joint name='thruster_joint_1' type='revolute'>
+    <joint name='thruster_joint_1' type='fixed'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
       <child>thruster_1</child>
       <axis>
         <xyz>-0.70711000000000002 0.70711000000000002 0</xyz>
-        <limit>
-          <lower>-1000000000000</lower>
-          <upper>1000000000000</upper>
-          <effort>-1</effort>
-          <velocity>-1</velocity>
-        </limit>
       </axis>
     </joint>
     <link name='thruster_1'>
@@ -160,18 +148,12 @@
         </material>
       </visual>
     </link>
-    <joint name='thruster_joint_2' type='revolute'>
+    <joint name='thruster_joint_2' type='fixed'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
       <child>thruster_2</child>
       <axis>
         <xyz>-0.70711000000000002 -0.70711000000000002 0</xyz>
-        <limit>
-          <lower>-1000000000000</lower>
-          <upper>1000000000000</upper>
-          <effort>-1</effort>
-          <velocity>-1</velocity>
-        </limit>
       </axis>
     </joint>
     <link name='thruster_2'>
@@ -202,18 +184,12 @@
         </material>
       </visual>
     </link>
-    <joint name='thruster_joint_3' type='revolute'>
+    <joint name='thruster_joint_3' type='fixed'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
       <child>thruster_3</child>
       <axis>
         <xyz>0.70711000000000002 -0.70711000000000002 0</xyz>
-        <limit>
-          <lower>-1000000000000</lower>
-          <upper>1000000000000</upper>
-          <effort>-1</effort>
-          <velocity>-1</velocity>
-        </limit>
       </axis>
     </joint>
     <link name='thruster_3'>
@@ -244,18 +220,12 @@
         </material>
       </visual>
     </link>
-    <joint name='thruster_joint_4' type='revolute'>
+    <joint name='thruster_joint_4' type='fixed'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
       <child>thruster_4</child>
       <axis>
         <xyz>0 0 -1</xyz>
-        <limit>
-          <lower>-1000000000000</lower>
-          <upper>1000000000000</upper>
-          <effort>-1</effort>
-          <velocity>-1</velocity>
-        </limit>
       </axis>
     </joint>
     <link name='thruster_4'>
@@ -286,18 +256,12 @@
         </material>
       </visual>
     </link>
-    <joint name='thruster_joint_5' type='revolute'>
+    <joint name='thruster_joint_5' type='fixed'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
       <child>thruster_5</child>
       <axis>
         <xyz>0.70711000000000002 0.70711000000000002 0</xyz>
-        <limit>
-          <lower>-1000000000000</lower>
-          <upper>1000000000000</upper>
-          <effort>-1</effort>
-          <velocity>-1</velocity>
-        </limit>
       </axis>
     </joint>
     <link name='thruster_5'>
@@ -328,18 +292,12 @@
         </material>
       </visual>
     </link>
-    <joint name='thruster_joint_6' type='revolute'>
+    <joint name='thruster_joint_6' type='fixed'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
       <child>thruster_6</child>
       <axis>
         <xyz>0 0 -1</xyz>
-        <limit>
-          <lower>-1000000000000</lower>
-          <upper>1000000000000</upper>
-          <effort>-1</effort>
-          <velocity>-1</velocity>
-        </limit>
       </axis>
     </joint>
     <link name='thruster_6'>
@@ -370,18 +328,12 @@
         </material>
       </visual>
     </link>
-    <joint name='thruster_joint_7' type='revolute'>
+    <joint name='thruster_joint_7' type='fixed'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
       <child>thruster_7</child>
       <axis>
         <xyz>0 0 -1</xyz>
-        <limit>
-          <lower>-1000000000000</lower>
-          <upper>1000000000000</upper>
-          <effort>-1</effort>
-          <velocity>-1</velocity>
-        </limit>
       </axis>
     </joint>
     <link name='thruster_7'>

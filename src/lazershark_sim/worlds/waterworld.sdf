@@ -39,7 +39,7 @@
           <density>1</density>
         </density_change>
       </graded_buoyancy>
-      <enable>lazershark_sim</enable>
+      <enable>lazershark_sim::base_link</enable>
     </plugin>
 
     <include>

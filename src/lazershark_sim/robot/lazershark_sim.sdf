@@ -13,16 +13,14 @@
           <izz>1.02</izz>
         </inertia>
       </inertial>
-
-      <collision name="base_link_collision_bouyancy">
+      <collision name='collision_bouyancy'>
         <pose>0 0 0.1 0 0 0</pose>
-        <geometry>
-            <box>
-                <size>0.2502 0.2502 0.2502</size>
-            </box>
-        </geometry>
+            <geometry>
+                <box>
+                    <size>0.2502 0.2502 0.2502</size>
+                </box>
+            </geometry>
       </collision>
-    
       <visual name='base_link_visual'>
         <pose>0 0 0 0 0 0</pose>
         <geometry>
@@ -76,6 +74,24 @@
         </material>
       </visual>
     </link>
+
+    <link name='hitbox'>
+      <pose> 0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.000000001</mass>
+      </inertial>
+
+      <collision name='collision_hitbox'>
+        <pose>0 0 0 0 0 0</pose>
+            <geometry>
+                <box>
+                    <size>0.9 0.8 0.2</size>
+                </box>
+            </geometry>
+      </collision>
+    </link>
+
     <joint name='thruster_joint_0' type='fixed'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>

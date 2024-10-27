@@ -5,12 +5,12 @@
         <pose>3.1199902042210963e-05 -0.00079157993339626213 0.00183560579492204 0 0 0</pose>
         <mass>143.5</mass> <!-- 15.577 -->
         <inertia>
-          <ixx>0.16002</ixx>
-          <ixy>-1.402E-11</ixy>
-          <ixz>-5.6999E-13</ixz>
-          <iyy>0.1042</iyy>
-          <iyz>-5.0874E-12</iyz>
-          <izz>0.2562</izz>
+          <ixx>1.6</ixx>
+          <ixy>0.11</ixy>
+          <ixz>0.16</ixz>
+          <iyy>1.8</iyy>
+          <iyz>0.49</iyz>
+          <izz>1.02</izz>
         </inertia>
       </inertial>
 

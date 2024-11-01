@@ -68,6 +68,23 @@
             <propeller_diameter>0.0762</propeller_diameter>
         </plugin>
 
+        <plugin
+            filename="gz-sim-hydrodynamics-system"
+            name="gz::sim::systems::Hydrodynamics">
+            <link_name>base_link</link_name>
+            <xUabsU>-6.2282</xUabsU>
+            <xU>0</xU>
+            <yVabsV>-60.27</yVabsV>
+            <yV>0</yV>
+            <zWabsW>-60.27</zWabsW>
+            <zW>0</zW>
+            <kPabsP>-0.1916</kPabsP>
+            <kP>0</kP>
+            <mQabsQ>-63.698957</mQabsQ>
+            <mQ>0</mQ>
+            <nRabsR>-63.698957</nRabsR>
+            <nR>0</nR>
+        </plugin>
 
         <!-- https://github.com/gazebosim/gz-sim/blob/gz-sim9/examples/worlds/dvl_world.sdf -->
       <!-- THIS DOES NOT WORK YET -->

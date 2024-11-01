@@ -2,8 +2,7 @@
 
 ## Buoyancy Plugin
 ### Overview
-
-`lazershark_sim` uses the `graded_buoyancy` plugin to model the density of water and "air". 
+The buoyancy force opposes gravity exerted on the robot. The parameters of the plugin are configured via SDF in the world file. The `graded_buoyancy` plugin is used to model two discrete densities, in this case the density of water and "air". 
 
 - **Surface Level:** The surface is defined as the plane $ z = 7 \, \text{ft} $ (depth of the RoboSub pool).
 - **Density Below Surface:** The fluid density below the surface is set to $ 1000 \, \text{kg/m}^3$ (density of freshwater).
@@ -13,13 +12,13 @@
 
 - **Buoyant Force Calculation:** The buoyancy plugin calculates the buoyant force based on the `<collision>` elements which determine the volume of fluid displaced by the model.
   
-- **Specific Link Configuration:** The link to which buoyancy should apply can be specified. In our `lazershark_sim.sdf` model, we use a collision element named `collision_bouyancy` to define the displacement volume:
+- **Specific Link Configuration:** The link to which buoyancy should apply can be specified. In our `lazershark_sim.sdf` model, we use a collision element named `collision_buoyancy` to define the displacement volume:
   
   - **Volume Consideration:** Set the volume to be slightly larger than $ v = \frac{m}{\rho} $, for slight positive buoyancy.
   - **Center of Buoyancy:** The collision element's pose should be positioned at the model's center of buoyancy.
   
   ```xml
-  <collision name='collision_bouyancy'>
+  <collision name='collision_buoyancy'>
       <pose>0 0 0.1 0 0 0</pose>
       <geometry>
           <box>
@@ -33,4 +32,44 @@
 
 ### References
 - Gazebo documentation: [The buoyancy plugin](https://gazebosim.org/api/sim/8/theory_buoyancy.html)
-- Example use of the graded bouyancy plugin: [graded_buoyancy.sdf](https://github.com/gazebosim/gz-sim/blob/gz-sim9/examples/worlds/graded_buoyancy.sdf)
+- Example use of the graded buoyancy plugin: [graded_buoyancy.sdf](https://github.com/gazebosim/gz-sim/blob/gz-sim9/examples/worlds/graded_buoyancy.sdf)
+- Class documentation: [Buoyancy Class Reference](https://gazebosim.org/api/gazebo/6/classignition_1_1gazebo_1_1systems_1_1Hydrodynamics.html)
+
+
+## Hydrodynamics Plugin
+### Overview
+
+Hydrodynamics refers to the behavior of bodies in water. It includes forces like linear and quadratic drag.
+
+
+### Parameters
+| **Parameter** | **Description** | **Units** | **Using** | 
+| ---- | ---- | ---- | :---: | 
+| `<xDotU>` | Added mass in x direction | `[kg]` | 
+| `<yDotV>` | Added mass in y direction | `[kg]` | 
+| `<zDotW>` | Added mass in z direction | `[kg]` | 
+| `<kDotP>` | Added mass in roll direction | `[kgm^2]` | 
+| `<mDotQ>` | Added mass in pitch direction | `[kgm^2]` | 
+| `<nDotR>` | Added mass in yaw direction | `[kgm^2]` | 
+| `<xUabsU>` |  Quadratic damping, 2nd order, x component | `[kg/m]` |  | 
+| `<xU>` | Linear damping, 1st order, x component | `[kg]` | X |
+| `<yVabsV>` | Quadratic damping, 2nd order, y component | `[kg/m]` |  |
+| `<yV>` | Linear damping, 1st order, y component | `[kg]` | X | 
+| `<zWabsW>` | Quadratic damping, 2nd order, z component | `[kg/m]` |  |
+| `<zW>` | Linear damping, 1st order, z component | `[kg]` | X |
+| `<kPabsP>` | Quadratic damping, 2nd order, roll component | `[kg/m^2]` |  | 
+| `<kP>` | Linear damping, 1st order, roll component | `[kg/m]` | X  |
+| `<mQabsQ>` | Quadratic damping, 2nd order, pitch component | `[kg/m^2]` |  | 
+| `<mQ>` | Linear damping, 1st order, pitch component | `[kg/m]` | X | 
+| `<nRabsR>` | Quadratic damping, 2nd order, yaw component | `[kg/m^2]` |  | 
+| `<nR>` | Linear damping, 1st order, yaw component | `[kg/m] ` | X | 
+
+### Implementation Notes
+
+- **Absolute Values:** Ensure the parameters use the absolute value version, `<xUabsU>` instead of `<xUU>`
+- **Duplicate Parameters:** Do not use any of the added mass parameters, as this duplicates the inertial values specified in the `base_link`.
+- **Quadratic damping** The sim currently does not use quadratic damping for simplicity. 
+
+### References
+- Class documentation: [Hydrodynamics Class Reference](https://gazebosim.org/api/sim/8/theory_buoyancy.html)
+- Example use of the hydrodynamics plugin: [acoustic_comm_demo.sdf](https://github.com/gazebosim/gz-sim/blob/gz-sim8/examples/worlds/acoustic_comms_demo.sdf)

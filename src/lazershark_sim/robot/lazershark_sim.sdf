@@ -75,8 +75,13 @@
       </visual>
     </link>
 
+    <joint name='hitbox_joint' type='fixed'>
+      <pose relative_to='base_link'>0 0 0 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>hitbox</child>
+    </joint>
     <link name='hitbox'>
-      <pose> 0 0 0 0 0 0</pose>
+      <pose relative_to='hitbox_joint'>0 0 0 0 0 0</pose>
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.000000001</mass>

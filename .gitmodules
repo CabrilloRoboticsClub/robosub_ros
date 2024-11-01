@@ -18,7 +18,3 @@
 	path = src/micro_ros_agent
 	url = https://github.com/micro-ROS/micro-ROS-Agent.git
 	branch = humble
-[submodule "src/sdformat_urdf"]
-	path = src/sdformat_urdf
-	url = https://github.com/ros/sdformat_urdf.git
-	branch = humble

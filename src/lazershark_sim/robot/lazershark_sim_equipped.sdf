@@ -5,68 +5,69 @@
         </include>
 
         <plugin
-            filename="ignition-gazebo-thruster-system"
-            name="ignition::gazebo::systems::Thruster">
+            filename="gz-sim-thruster-system"
+            name="gz::sim::systems::Thruster">
             <joint_name>thruster_joint_0</joint_name>
             <topic>'/thruster_values/thruster_0'</topic>
             <propeller_diameter>0.0762</propeller_diameter>
         </plugin>
 
         <plugin
-            filename="ignition-gazebo-thruster-system"
-            name="ignition::gazebo::systems::Thruster">
+            filename="gz-sim-thruster-system"
+            name="gz::sim::systems::Thruster">
             <joint_name>thruster_joint_1</joint_name>
             <topic>'/thruster_values/thruster_1'</topic>
             <propeller_diameter>0.0762</propeller_diameter>
         </plugin>
 
         <plugin
-            filename="ignition-gazebo-thruster-system"
-            name="ignition::gazebo::systems::Thruster">
+            filename="gz-sim-thruster-system"
+            name="gz::sim::systems::Thruster">
             <joint_name>thruster_joint_2</joint_name>
             <topic>'/thruster_values/thruster_2'</topic>
             <propeller_diameter>0.0762</propeller_diameter>
         </plugin>
 
         <plugin
-            filename="ignition-gazebo-thruster-system"
-            name="ignition::gazebo::systems::Thruster">
+            filename="gz-sim-thruster-system"
+            name="gz::sim::systems::Thruster">
             <joint_name>thruster_joint_3</joint_name>
             <topic>'/thruster_values/thruster_3'</topic>
             <propeller_diameter>0.0762</propeller_diameter>
         </plugin>
 
         <plugin
-            filename="ignition-gazebo-thruster-system"
-            name="ignition::gazebo::systems::Thruster">
+            filename="gz-sim-thruster-system"
+            name="gz::sim::systems::Thruster">
             <joint_name>thruster_joint_4</joint_name>
             <topic>'/thruster_values/thruster_4'</topic>
             <propeller_diameter>0.0762</propeller_diameter>
         </plugin>
 
         <plugin
-            filename="ignition-gazebo-thruster-system"
-            name="ignition::gazebo::systems::Thruster">
+            filename="gz-sim-thruster-system"
+            name="gz::sim::systems::Thruster">
             <joint_name>thruster_joint_5</joint_name>
             <topic>'/thruster_values/thruster_5'</topic>
             <propeller_diameter>0.0762</propeller_diameter>
         </plugin>
 
         <plugin
-            filename="ignition-gazebo-thruster-system"
-            name="ignition::gazebo::systems::Thruster">
+            filename="gz-sim-thruster-system"
+            name="gz::sim::systems::Thruster">
             <joint_name>thruster_joint_6</joint_name>
             <topic>'/thruster_values/thruster_6'</topic>
             <propeller_diameter>0.0762</propeller_diameter>
         </plugin>
 
         <plugin
-            filename="ignition-gazebo-thruster-system"
-            name="ignition::gazebo::systems::Thruster">
+            filename="gz-sim-thruster-system"
+            name="gz::sim::systems::Thruster">
             <joint_name>thruster_joint_7</joint_name>
             <topic>'/thruster_values/thruster_7'</topic>
             <propeller_diameter>0.0762</propeller_diameter>
         </plugin>
+
 
         <!-- https://github.com/gazebosim/gz-sim/blob/gz-sim9/examples/worlds/dvl_world.sdf -->
       <!-- THIS DOES NOT WORK YET -->

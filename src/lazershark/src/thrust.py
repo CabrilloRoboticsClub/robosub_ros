@@ -53,13 +53,6 @@ class Thrust(Node):
         self.motor_publishers = [0] * 8
         for i in range(8):
             self.motor_publishers[i] = self.create_publisher(Float64, f"/thruster_values/thruster_{i}", 10)
-        # if self.get_parameter("publishing_pwm").value:
-        #     self.pwm_fit_params = Thrust.generate_pwm_fit_params()
-        #     self.subscription = self.create_subscription(Twist, "desired_twist", self.pwm_callback, 10)
-        #     self.pwm_pub = self.create_publisher(Int16MultiArray, "pwm_values", 10)
-        # else:
-        #     self.thrust_pub = self.create_publisher(Float32MultiArray, "motor_values", 10)
-        #     self.subscription = self.create_subscription(Twist, "desired_twist", self.thrust_callback, 10)
 
     def generate_motor_config(self):
         torques = np.cross(self.motor_positions, self.motor_thrusts)

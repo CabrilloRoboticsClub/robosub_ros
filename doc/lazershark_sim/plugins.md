@@ -5,7 +5,7 @@
 
 `lazershark_sim` uses the `graded_buoyancy` plugin to model the density of water and "air". 
 
-- **Surface Level:** The surface as the plane $ z = 7 \, \text{ft} $ (depth of the RoboSub pool).
+- **Surface Level:** The surface is defined as the plane $ z = 7 \, \text{ft} $ (depth of the RoboSub pool).
 - **Density Below Surface:** The fluid density below the surface is set to $ 1000 \, \text{kg/m}^3$ (density of freshwater).
 - **Density Above Surface:** The density above the surface is $ 1 \, \text{kg/m}^3 $. Since the AUV will remain underwater, this value does not need to be precise, only significantly lower than water.
 

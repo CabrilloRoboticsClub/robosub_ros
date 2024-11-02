@@ -111,7 +111,8 @@ def generate_launch_description():
     )
 
     return LaunchDescription(
-        [
+        [   
+            # Gazebo stuff
             DeclareLaunchArgument(
                 "use_gz_tf", default_value="true", description="Use Gazebo TF."
             ),
@@ -132,5 +133,25 @@ def generate_launch_description():
             gz_sim_gui,
             die_gazebo_die,
             # rviz,
+
+            # Lazershark nodes
+            Node(
+                package='joy',
+                executable='joy_node',
+                name='joy_node',
+                output='screen'
+            ),
+            Node(
+                package='lazershark',
+                executable='pilot_input',
+                name='pilot_input',
+                output='screen'
+            ),
+            Node(
+                package='lazershark',
+                executable='thrust',
+                name='thrust',
+                output='screen'
+            ),
         ]
     )

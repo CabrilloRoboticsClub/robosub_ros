@@ -57,8 +57,8 @@ class PilotInput(Node):
             # "bambi_mode":       joy_msg.buttons[1], # b
             # "toggle_claw":      joy_msg.buttons[2], # x
             # "articulate_claw":  joy_msg.buttons[3], # y
-            # "pos_angular_x":    joy_msg.buttons[4], # left_bumper
-            # "neg_angular_x":    joy_msg.buttons[5], # right_bumper
+            "pos_angular_x":    joy_msg.buttons[4], # left_bumper
+            "neg_angular_x":    joy_msg.buttons[5], # right_bumper
             # "kill":             joy_msg.buttons[6], # window
             # "reverse":          joy_msg.buttons[7], # menu
             # "reset":            joy_msg.buttons[8], # xbox
@@ -67,12 +67,12 @@ class PilotInput(Node):
         # Create twist message
         twist_msg = Twist()
 
-        twist_msg.linear.x  = self.throttle_curve(controller["linear_x"])     # forwards
-        twist_msg.linear.y  = -self.throttle_curve(-controller["linear_y"])   # sideways
-        twist_msg.linear.z  = self.throttle_curve(((controller["neg_linear_z"] - controller["pos_linear_z"]) / 2))    # depth
-        twist_msg.angular.x = -self.throttle_curve((controller["pos_angular_x"] - controller["neg_angular_x"]) * 0.5) # roll (const +/- 0.5 thrust)
-        twist_msg.angular.y = self.throttle_curve(controller["angular_y"])    # pitch
-        twist_msg.angular.z = self.throttle_curve(controller["angular_z"])    # yaw
+        twist_msg.linear.x  = controller["linear_x"]     # forwards
+        twist_msg.linear.y  = -controller["linear_y"]   # sideways
+        twist_msg.linear.z  = ((controller["neg_linear_z"] - controller["pos_linear_z"]) / 2)    # depth
+        twist_msg.angular.x = -(controller["pos_angular_x"] - controller["neg_angular_x"]) * 0.5 # roll (const +/- 0.5 thrust)
+        twist_msg.angular.y = controller["angular_y"]    # pitch
+        twist_msg.angular.z = controller["angular_z"]    # yaw
 
         # Publish twist message
         self.twist_pub.publish(twist_msg)

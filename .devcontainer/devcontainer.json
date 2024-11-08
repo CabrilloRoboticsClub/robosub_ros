@@ -24,10 +24,12 @@
 	// FIXME: vscode should handle this but doesn't. I have multiple GPUs and 
 	// using them is broken in devcontainers for me.
 	"mounts": [
-        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached"
+        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
+        "type=bind,source=/dev/input/,target=/dev/input/"
     ],
 
 	"runArgs": [
-		"--network=host", "-e", "DISPLAY=${localEnv:DISPLAY}"
+		"--network=host", "-e", "DISPLAY=${localEnv:DISPLAY}",
+        "--privileged"
 	]
 }

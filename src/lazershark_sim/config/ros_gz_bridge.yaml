@@ -2,42 +2,42 @@
 # See: https://github.com/gazebosim/ros_gz/tree/humble/ros_gz_bridge
 
 # Bridge for each individual thruster
-- topic_name: '/thruster_values/thruster_0'
+- topic_name: 'thruster_values/thruster_0'
   ros_type_name: 'std_msgs/msg/Float64'
   gz_type_name: 'ignition.msgs.Double'
   direction: 'ROS_TO_GZ'
 
-- topic_name: '/thruster_values/thruster_1'
+- topic_name: 'thruster_values/thruster_1'
   ros_type_name: 'std_msgs/msg/Float64'
   gz_type_name: 'ignition.msgs.Double'
   direction: 'ROS_TO_GZ'
 
-- topic_name: '/thruster_values/thruster_2'
+- topic_name: 'thruster_values/thruster_2'
   ros_type_name: 'std_msgs/msg/Float64'
   gz_type_name: 'ignition.msgs.Double'
   direction: 'ROS_TO_GZ'
 
-- topic_name: '/thruster_values/thruster_3'
+- topic_name: 'thruster_values/thruster_3'
   ros_type_name: 'std_msgs/msg/Float64'
   gz_type_name: 'ignition.msgs.Double'
   direction: 'ROS_TO_GZ'
 
-- topic_name: '/thruster_values/thruster_4'
+- topic_name: 'thruster_values/thruster_4'
   ros_type_name: 'std_msgs/msg/Float64'
   gz_type_name: 'ignition.msgs.Double'
   direction: 'ROS_TO_GZ'
 
-- topic_name: '/thruster_values/thruster_5'
+- topic_name: 'thruster_values/thruster_5'
   ros_type_name: 'std_msgs/msg/Float64'
   gz_type_name: 'ignition.msgs.Double'
   direction: 'ROS_TO_GZ'
 
-- topic_name: '/thruster_values/thruster_6'
+- topic_name: 'thruster_values/thruster_6'
   ros_type_name: 'std_msgs/msg/Float64'
   gz_type_name: 'ignition.msgs.Double'
   direction: 'ROS_TO_GZ'
 
-- topic_name: '/thruster_values/thruster_7'
+- topic_name: 'thruster_values/thruster_7'
   ros_type_name: 'std_msgs/msg/Float64'
   gz_type_name: 'ignition.msgs.Double'
   direction: 'ROS_TO_GZ'

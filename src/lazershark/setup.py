@@ -22,6 +22,7 @@ setup(
         'console_scripts': [
             "thrust=gazebo_test.thrust:main",
             "pilot_input=gazebo_test.pilot_input:main", 
+            "odometry_converter=gazebo_test.odometry_converter:main"
         ],
     },
 )

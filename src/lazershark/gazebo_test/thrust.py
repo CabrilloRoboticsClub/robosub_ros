@@ -21,7 +21,7 @@ class Thrust(Node):
         """Initialize this node"""
         super().__init__("thrust")
 
-        self.THRUST_MAX = 40
+        self.THRUST_MAX = 20
 
         self.motor_positions = [ # [X, Y, Z] positions for each motors
             [ 0.324,  0.276, -0.025], # Motor 0
@@ -87,7 +87,7 @@ class Thrust(Node):
         # Multiply twist with inverse of motor config to get motor effort values
         motor_values = np.matmul(self.inverse_config, twist_array).tolist()
 
-        scalar = self.THRUST_MAX / min(motor_values) * max(twist_array)
+        scalar = self.THRUST_MAX / max(abs(val) for val in motor_values) * max(abs(val) for val in twist_array)
 
         # scale and return motor values
         return [thrust * scalar for thrust in motor_values]

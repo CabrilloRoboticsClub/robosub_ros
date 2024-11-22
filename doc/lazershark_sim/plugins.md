@@ -71,5 +71,5 @@ Hydrodynamics refers to the behavior of bodies in water. It includes forces like
 - **Quadratic damping** The sim currently does not use quadratic damping for simplicity. 
 
 ### References
-- Class documentation: [Hydrodynamics Class Reference](https://gazebosim.org/api/sim/8/theory_buoyancy.html)
+- Class documentation: [Hydrodynamics Class Reference](https://gazebosim.org/api/gazebo/6/classignition_1_1gazebo_1_1systems_1_1Hydrodynamics.html)
 - Example use of the hydrodynamics plugin: [acoustic_comm_demo.sdf](https://github.com/gazebosim/gz-sim/blob/gz-sim8/examples/worlds/acoustic_comms_demo.sdf)

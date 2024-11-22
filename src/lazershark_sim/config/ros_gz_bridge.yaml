@@ -42,7 +42,24 @@
   gz_type_name: 'ignition.msgs.Double'
   direction: 'ROS_TO_GZ'
 
-- topic_name: 'sim_odometry'
+- topic_name: 'odometry/sim'
   ros_type_name: 'nav_msgs/msg/Odometry'
   gz_type_name: 'ignition.msgs.Odometry'
   direction: 'GZ_TO_ROS'
+
+- topic_name: 'imu/sim'
+  ros_type_name: 'sensor_msgs/msg/Imu'
+  gz_type_name: 'ignition.msgs.IMU'
+  direction: 'GZ_TO_ROS'
+
+# - gz_topic_name: 'world/waterworld/model/lazershark_sim/joint_state'
+#   ros_topic_name: 'joint_states'
+#   ros_type_name: 'sensor_msgs/msg/JointState'
+#   gz_type_name: 'gz.msgs.Model'
+#   direction: 'GZ_TO_ROS'
+
+# - gz_topic_name: 'model/lazershark_sim/pose'
+#   ros_topic_name: 'tf'
+#   ros_type_name: 'tf2_msgs/msg/TFMessage'
+#   gz_type_name: 'gz.msgs.Pose_V'
+#   direction: 'GZ_TO_ROS'

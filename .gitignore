@@ -5,4 +5,5 @@ logs/
 terrain/
 eeprom.bin
 mav.*
-*/__pycache__/*
+*.pcd
+*.pyc

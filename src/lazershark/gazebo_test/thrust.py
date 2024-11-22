@@ -5,9 +5,12 @@ import rclpy
 from rclpy.node import Node 
 
 from geometry_msgs.msg import Twist
+from nav_msgs.msg import Odometry
 from std_msgs.msg import Float64
 
 import numpy as np
+from scipy.spatial.transform import Rotation
+from simple_pid import PID
 from os import path
 
 PATH = path.dirname(__file__)
@@ -49,7 +52,14 @@ class Thrust(Node):
         self.motor_config = self.generate_motor_config()
         self.inverse_config = np.linalg.pinv(self.motor_config, rcond=1e-15, hermitian=False)
 
-        self.subscription = self.create_subscription(Twist, "desired_twist", self.thrust_callback, 10)
+        self.pid = {
+            "angular_x": PID(1, 0.1, 0.05, setpoint=0),
+            "angular_y": PID(1, 0.1, 0.05, setpoint=0),
+            "angular_z": PID(1, 0.1, 0.05, setpoint=0)
+        }
+
+        self.twist_sub = self.create_subscription(Twist, "desired_twist", self.twist_callback, 10)
+        self.odom_sub = self.create_subscription(Odometry, "odometry/filtered", self.odom_callback, 10)
         self.motor_publishers = [0] * 8
         for i in range(8):
             self.motor_publishers[i] = self.create_publisher(Float64, f"/thruster_values/thruster_{i}", 10)
@@ -92,7 +102,17 @@ class Thrust(Node):
         # scale and return motor values
         return [thrust * scalar for thrust in motor_values]
 
-    def thrust_callback(self, twist_msg):
+    def odom_callback(self, odom):
+        quat = [
+            odom.pose.pose.orientation.x,
+            odom.pose.pose.orientation.y,
+            odom.pose.pose.orientation.z,
+            odom.pose.pose.orientation.w
+        ]
+        rot = Rotation.from_quat(quat).as_euler("xyz")
+        self.get_logger().info(f"{rot[0]} {rot[1]} {rot[2]}")
+
+    def twist_callback(self, twist_msg):
         thrust_msg = Float64()
         thrust_values = self.generate_motor_values(twist_msg)
         for i in range(8):

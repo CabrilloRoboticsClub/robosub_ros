@@ -9,7 +9,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.event_handlers import OnShutdown, OnProcessStart
 from launch.conditions import IfCondition
 from launch.substitutions import LaunchConfiguration
-from launch_ros.actions import Node
+from launch_ros.actions import Node, SetParameter
 
 
 def generate_launch_description():
@@ -113,6 +113,7 @@ def generate_launch_description():
 
     return LaunchDescription(
         [   
+            SetParameter(name='use_sim_time', value=True),
             # Gazebo stuff
             DeclareLaunchArgument(
                 "use_gz_tf", default_value="true", description="Use Gazebo TF."

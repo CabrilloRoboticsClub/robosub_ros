@@ -18,7 +18,7 @@
             name="gz::sim::systems::Thruster">
             <namespace>thruster_values</namespace>
             <joint_name>thruster_joint_1</joint_name>
-            <topic>'thruster_1'</topic>
+            <topic>thruster_1</topic>
             <propeller_diameter>0.0762</propeller_diameter>
         </plugin>
 
@@ -27,7 +27,7 @@
             name="gz::sim::systems::Thruster">
             <namespace>thruster_values</namespace>
             <joint_name>thruster_joint_2</joint_name>
-            <topic>'thruster_2'</topic>
+            <topic>thruster_2</topic>
             <propeller_diameter>0.0762</propeller_diameter>
         </plugin>
 
@@ -36,7 +36,7 @@
             name="gz::sim::systems::Thruster">
             <namespace>thruster_values</namespace>
             <joint_name>thruster_joint_3</joint_name>
-            <topic>'thruster_3'</topic>
+            <topic>thruster_3</topic>
             <propeller_diameter>0.0762</propeller_diameter>
         </plugin>
 
@@ -45,7 +45,7 @@
             name="gz::sim::systems::Thruster">
             <namespace>thruster_values</namespace>
             <joint_name>thruster_joint_4</joint_name>
-            <topic>'thruster_4'</topic>
+            <topic>thruster_4</topic>
             <propeller_diameter>0.0762</propeller_diameter>
         </plugin>
 
@@ -54,7 +54,7 @@
             name="gz::sim::systems::Thruster">
             <namespace>thruster_values</namespace>
             <joint_name>thruster_joint_5</joint_name>
-            <topic>'thruster_5'</topic>
+            <topic>thruster_5</topic>
             <propeller_diameter>0.0762</propeller_diameter>
         </plugin>
 
@@ -63,7 +63,7 @@
             name="gz::sim::systems::Thruster">
             <namespace>thruster_values</namespace>
             <joint_name>thruster_joint_6</joint_name>
-            <topic>'thruster_6'</topic>
+            <topic>thruster_6</topic>
             <propeller_diameter>0.0762</propeller_diameter>
         </plugin>
 
@@ -72,7 +72,7 @@
             name="gz::sim::systems::Thruster">
             <namespace>thruster_values</namespace>
             <joint_name>thruster_joint_7</joint_name>
-            <topic>'thruster_7'</topic>
+            <topic>thruster_7</topic>
             <propeller_diameter>0.0762</propeller_diameter>
         </plugin>
 

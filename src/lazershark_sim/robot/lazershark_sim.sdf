@@ -47,19 +47,6 @@
           <ambient>0.990196109 1 1 1</ambient>
         </material>
       </visual>
-      <visual name='base_link_fixed_joint_lump__imu_link_visual_2'>
-        <pose>0 0 0 0 0 0</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://lazershark_sim/robot/meshes/imu_link.STL</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <diffuse>1 1 1 1</diffuse>
-          <ambient>1 1 1 1</ambient>
-        </material>
-      </visual>
       <visual name='base_link_fixed_joint_lump__zed_camera_link_visual_3'>
         <pose>0 0 0 0 0 0</pose>
         <geometry>
@@ -285,12 +272,6 @@
       <pose>0 0 0 0 0 0</pose>
     </frame>
     <frame name='dvl_link' attached_to='dvl_joint'>
-      <pose>0 0 0 0 0 0</pose>
-    </frame>
-    <frame name='imu_joint' attached_to='base_link'>
-      <pose>0 0 0 0 0 0</pose>
-    </frame>
-    <frame name='imu_link' attached_to='imu_joint'>
       <pose>0 0 0 0 0 0</pose>
     </frame>
     <frame name='zed_camera_joint' attached_to='base_link'>

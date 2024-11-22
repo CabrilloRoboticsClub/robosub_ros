@@ -28,6 +28,9 @@
       filename="gz-sim-dvl-system"
       name="gz::sim::systems::DopplerVelocityLogSystem">
     </plugin>
+    <plugin filename="gz-sim-imu-system"
+        name="gz::sim::systems::Imu">
+    </plugin>
 
     <plugin
       filename='gz-sim-buoyancy-system'

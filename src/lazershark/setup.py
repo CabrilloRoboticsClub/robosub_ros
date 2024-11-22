@@ -10,6 +10,7 @@ setup(
     packages=["gazebo_test"],
     data_files=[
         (os.path.join('share', package_name), ['package.xml']),
+        (os.path.join('share', package_name, 'params'), glob(os.path.join('params', '*'))),
     ],
     install_requires=['setuptools'],
     zip_safe=True,

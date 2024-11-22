@@ -16,7 +16,7 @@ class OdometryConverter(Node):
 
     def callback(self, msg):
         pose_msg = PoseWithCovariance()
-        pose_msg.data = msg.data.pose
+        pose_msg.data.pose = msg.data.pose
         self.publisher.publish(pose_msg)
 
 def main(args=None):

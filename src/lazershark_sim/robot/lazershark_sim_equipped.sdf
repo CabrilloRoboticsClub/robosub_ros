@@ -80,18 +80,18 @@
             filename="gz-sim-hydrodynamics-system"
             name="gz::sim::systems::Hydrodynamics">
             <link_name>base_link</link_name>
-            <xUabsU>-6.2282</xUabsU>
-            <xU>0</xU>
-            <yVabsV>-60.27</yVabsV>
-            <yV>0</yV>
-            <zWabsW>-60.27</zWabsW>
-            <zW>0</zW>
-            <kPabsP>-0.1916</kPabsP>
-            <kP>0</kP>
-            <mQabsQ>-63.698957</mQabsQ>
-            <mQ>0</mQ>
-            <nRabsR>-63.698957</nRabsR>
-            <nR>0</nR>
+            <xUabsU>0</xUabsU>
+            <xU>-30</xU>
+            <yVabsV>0</yVabsV>
+            <yV>-30</yV>
+            <zWabsW>0</zWabsW>
+            <zW>-30</zW>
+            <kPabsP>0</kPabsP>
+            <kP>-15</kP>
+            <mQabsQ>0</mQabsQ>
+            <mQ>-15</mQ>
+            <nRabsR>0</nRabsR>
+            <nR>-15</nR>
         </plugin>
 
         <!-- https://github.com/gazebosim/gz-sim/blob/gz-sim9/examples/worlds/dvl_world.sdf -->

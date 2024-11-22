@@ -34,10 +34,10 @@ class Thrust(Node):
             [-0.324,  0.276, -0.025]  # Motor 7
         ]
         self.motor_thrusts = [ # [X, Y, Z] components of thrust for each motor
-            [    0.0,     0.0,  1.0],   # Motor 6
-            [-0.7071,  0.7071,  1.0],   # Motor 1 
-            [-0.7071, -0.7071,  1.0],   # Motor 2
-            [ 0.7071, -0.7071,  1.0],   # Motor 3
+            [    0.0,     0.0,  1.0],   # Motor 0
+            [-0.7071,  0.7071,  0.0],   # Motor 1
+            [-0.7071, -0.7071,  0.0],   # Motor 2
+            [ 0.7071, -0.7071,  0.0],   # Motor 3
             [    0.0,     0.0,  1.0],   # Motor 6
             [ 0.7071,  0.7071,  0.0],   # Motor 5
             [    0.0,     0.0,  1.0],   # Motor 6
@@ -87,7 +87,7 @@ class Thrust(Node):
         # Multiply twist with inverse of motor config to get motor effort values
         motor_values = np.matmul(self.inverse_config, twist_array).tolist()
 
-        scalar = self.THRUST_MAX / min(motor_values)
+        scalar = self.THRUST_MAX / min(motor_values) * max(twist_array)
 
         # scale and return motor values
         return [thrust * scalar for thrust in motor_values]

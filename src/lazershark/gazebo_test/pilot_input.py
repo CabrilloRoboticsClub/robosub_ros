@@ -40,7 +40,7 @@ class PilotInput(Node):
         controller = {
             # Left stick
             "linear_x":        -joy_msg.axes[0],                # left_stick_x
-            "linear_y":         joy_msg.axes[1],                # left_stick_y
+            "linear_y":        -joy_msg.axes[1],                # left_stick_y
             # "":               joy_msg.buttons[9],             # left_stick_press
             # Right stick
             "angular_z":        joy_msg.axes[3],                # right_stick_x
@@ -70,8 +70,8 @@ class PilotInput(Node):
         twist_msg.linear.x  = controller["linear_x"]     # forwards
         twist_msg.linear.y  = -controller["linear_y"]   # sideways
         twist_msg.linear.z  = ((controller["neg_linear_z"] - controller["pos_linear_z"]) / 2)    # depth
-        twist_msg.angular.x = -(controller["pos_angular_y"] - controller["neg_angular_y"]) * 0.5 # roll (const +/- 0.5 thrust)
-        twist_msg.angular.y = controller["angular_x"]    # pitch
+        twist_msg.angular.x = controller["angular_x"]    # pitch
+        twist_msg.angular.y = -(controller["pos_angular_y"] - controller["neg_angular_y"]) * 0.5 # roll (const +/- 0.5 thrust)
         twist_msg.angular.z = controller["angular_z"]    # yaw
 
         # Publish twist message

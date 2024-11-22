@@ -154,13 +154,12 @@ def generate_launch_description():
                 name='thrust',
                 output='screen'
             ),
-            # Node(
-            #     package='lazershark',
-            #     executable='odometry_converter',
-            #     name='odometry_converter',
-            #     output='screen'
-            # ),
-
+            Node(
+                package='lazershark',
+                executable='imu_converter',
+                name='imu_converter',
+                output='screen'
+            ),
             Node(
                 package='robot_localization',
                 executable='ekf_node',

@@ -17,6 +17,7 @@ def generate_launch_description():
     Generate a launch description for lazershark_sim gazebo simulator.
     Launch with: `ros2 launch lazershark_sim lazershark_sim.launch.py`
     """
+    print(os.path.join(get_package_share_directory("lazershark"), 'params', 'ekf.yaml'))
     # Get packages
     pkg_ros_gz_sim = get_package_share_directory("ros_gz_sim")
     pkg_lazershark_sim = get_package_share_directory("lazershark_sim")
@@ -153,11 +154,19 @@ def generate_launch_description():
                 name='thrust',
                 output='screen'
             ),
+            # Node(
+            #     package='lazershark',
+            #     executable='odometry_converter',
+            #     name='odometry_converter',
+            #     output='screen'
+            # ),
+
             Node(
-                package='lazershark',
-                executable='odometry_converter',
-                name='odometry_converter',
-                output='screen'
-            ),
+                package='robot_localization',
+                executable='ekf_node',
+                name='ekf_filter_node',
+                output='screen',
+                parameters=[os.path.join(get_package_share_directory("lazershark"), 'params', 'ekf.yaml')],
+           ),
         ]
     )

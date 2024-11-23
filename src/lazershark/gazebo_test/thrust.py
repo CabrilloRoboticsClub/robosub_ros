@@ -53,12 +53,13 @@ class Thrust(Node):
         self.inverse_config = np.linalg.pinv(self.motor_config, rcond=1e-15, hermitian=False)
 
         self.pid = {
-            "angular_x": PID(1, 0.1, 0.05, setpoint=0),
+            "angular_x": PID(1, 0.1, 0.05, setpoint=3.14159/8),
             "angular_y": PID(1, 0.1, 0.05, setpoint=0),
             "angular_z": PID(1, 0.1, 0.05, setpoint=0)
         }
 
         self.twist_sub = self.create_subscription(Twist, "desired_twist", self.twist_callback, 10)
+        self.twist_array = [0.0] * 6
         self.odom_sub = self.create_subscription(Odometry, "odometry/filtered", self.odom_callback, 10)
         self.motor_publishers = [0] * 8
         for i in range(8):
@@ -75,32 +76,29 @@ class Thrust(Node):
             [torque[2] for torque in torques]             # Rz (N*m)
         ]
 
-    def generate_motor_values(self, twist_msg):
+    def generate_motor_values(self, val):
         """Called every time the twist publishes a message."""
 
         # Convert the X,Y,Z,R,P,Y to thrust settings for each motor. 
         motor_values = []
 
-        # Convert Twist to single vector for multiplication
-        twist_array = [
-            twist_msg.linear.x,
-            twist_msg.linear.y,
-            twist_msg.linear.z,
-            twist_msg.angular.x,
-            twist_msg.angular.y,
-            twist_msg.angular.z
-        ]
-
-        if twist_array == [0, 0, 0, 0, 0, 0]:
-            return [0.0 for motor in range(8)] # No thrust needed
+        # if self.twist_array == [0, 0, 0, 0, 0, 0]:
+        #     return [0.0 for motor in range(8)] # No thrust needed
+        
+        thing = [0, 0, 0, val, 0, 0]
 
         # Multiply twist with inverse of motor config to get motor effort values
-        motor_values = np.matmul(self.inverse_config, twist_array).tolist()
+        motor_values = np.matmul(self.inverse_config, self.twist_array).tolist()
+        angular_x = np.matmul(self.inverse_config, thing).tolist()
 
-        scalar = self.THRUST_MAX / max(abs(val) for val in motor_values) * max(abs(val) for val in twist_array)
+        scalar_1 = self.THRUST_MAX / max(abs(val) for val in motor_values) * max(abs(val) for val in self.twist_array)
+        scalar_2 = self.THRUST_MAX / max(abs(val) for val in angular_x)
+
+        motor_values = [thrust * scalar_1 for thrust in motor_values]
+        angular_x = [thrust * scalar_2 for thrust in angular_x]
 
         # scale and return motor values
-        return [thrust * scalar for thrust in motor_values]
+        return np.add(motor_values, angular_x).tolist()
 
     def odom_callback(self, odom):
         quat = [
@@ -110,14 +108,28 @@ class Thrust(Node):
             odom.pose.pose.orientation.w
         ]
         rot = Rotation.from_quat(quat).as_euler("xyz")
-        self.get_logger().info(f"{rot[0]} {rot[1]} {rot[2]}")
-
-    def twist_callback(self, twist_msg):
+        val = self.pid["angular_x"](rot[0])
         thrust_msg = Float64()
-        thrust_values = self.generate_motor_values(twist_msg)
+        thrust_values = self.generate_motor_values(-val)
         for i in range(8):
             thrust_msg.data = thrust_values[i]
             self.motor_publishers[i].publish(thrust_msg)
+
+
+    def twist_callback(self, twist_msg):
+        self.twist_array = [
+            twist_msg.linear.x,
+            twist_msg.linear.y,
+            twist_msg.linear.z,
+            twist_msg.angular.x,
+            twist_msg.angular.y,
+            twist_msg.angular.z
+        ]
+        # thrust_msg = Float64()
+        # thrust_values = self.generate_motor_values(twist_msg)
+        # for i in range(8):
+        #     thrust_msg.data = thrust_values[i]
+        #     self.motor_publishers[i].publish(thrust_msg)
         
 def main(args=None):
     rclpy.init(args=args)

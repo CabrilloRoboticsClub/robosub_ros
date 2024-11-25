@@ -88,26 +88,6 @@
                 <mass>0.000000001</mass>
             </inertial>
             <sensor name="imu_sensor" type="imu">
-                <imu>
-                    <linear_acceleration>
-                        <x>
-                            <noise type="gaussian">
-                                <stddev>0.1</stddev>
-                            </noise>
-                        </x>
-                        <y>
-                            <noise type="gaussian">
-                                <stddev>0.1</stddev>
-                            </noise>
-                        </y>
-                        <z>
-                            <noise type="gaussian">
-                                <stddev>0.1</stddev>
-                            </noise>
-                        </z>
-                    </linear_acceleration>
-                    <enable_orientation>true</enable_orientation>
-                </imu>
                 <always_on>1</always_on>
                 <update_rate>30</update_rate>
                 <topic>imu/sim</topic>

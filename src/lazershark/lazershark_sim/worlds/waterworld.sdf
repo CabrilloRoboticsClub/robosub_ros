@@ -47,23 +47,23 @@
 
     <include>
       <pose>0 0 1 0 0 0</pose>
-      <uri>lazershark/lazershark_sim/robot/lazershark_sim_equipped.sdf</uri>
+      <uri>/workspaces/robosub_ros/install/lazershark/share/lazershark/lazershark_sim/robot/lazershark_sim_equipped.sdf</uri>
     </include>
 
     <include>
-      <uri>lazershark/lazershark_sim/worlds/sun.sdf</uri>
+      <uri>/workspaces/robosub_ros/install/lazershark/share/lazershark/lazershark_sim/worlds/sun.sdf</uri>
     </include>
 
     <include>
-      <uri>lazershark/lazershark_sim/worlds/water_plane.sdf</uri>
+      <uri>/workspaces/robosub_ros/install/lazershark/share/lazershark/lazershark_sim/worlds/water_plane.sdf</uri>
     </include>
 
     <include>
-      <uri>lazershark/lazershark_sim/worlds/pool_light.sdf</uri>
+      <uri>/workspaces/robosub_ros/install/lazershark/share/lazershark/lazershark_sim/worlds/pool_light.sdf</uri>
     </include>
 
     <include>
-      <uri>lazershark/lazershark_sim/worlds/pool_floor.sdf</uri>
+      <uri>/workspaces/robosub_ros/install/lazershark/share/lazershark/lazershark_sim/worlds/pool_floor.sdf</uri>
     </include>
 
   </world>

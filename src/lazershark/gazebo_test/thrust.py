@@ -53,7 +53,7 @@ class Thrust(Node):
         self.inverse_config = np.linalg.pinv(self.motor_config, rcond=1e-15, hermitian=False)
 
         self.pid = {
-            "angular_x": PID(1, 0.1, 0.05, setpoint=3.14159/8),
+            "angular_x": PID(1, 0.1, 0.05, setpoint=3.14159),
             "angular_y": PID(1, 0.1, 0.05, setpoint=0),
             "angular_z": PID(1, 0.1, 0.05, setpoint=0)
         }
@@ -79,26 +79,31 @@ class Thrust(Node):
     def generate_motor_values(self, val):
         """Called every time the twist publishes a message."""
 
-        # Convert the X,Y,Z,R,P,Y to thrust settings for each motor. 
-        motor_values = []
+        # Publish zero thrust unless there's input
+        motor_values = [0] * 8
+        angular_x = [0] * 8
 
-        # if self.twist_array == [0, 0, 0, 0, 0, 0]:
-        #     return [0.0 for motor in range(8)] # No thrust needed
-        
-        thing = [0, 0, 0, val, 0, 0]
+        if self.twist_array != [0, 0, 0, 0, 0, 0]:
+            # Multiply twist with inverse of motor config to get motor effort values
+            motor_values = np.matmul(self.inverse_config, self.twist_array).tolist()
+            # scale motor values
+            scalar_1 = self.THRUST_MAX / max(abs(val) for val in motor_values) * max(abs(val) for val in self.twist_array)
+            motor_values = [thrust * scalar_1 for thrust in motor_values]
+
+
+        if val != 0:
+            thing = [0, 0, 0, val, 0, 0]
+            # Multiply twist with inverse of motor config to get motor effort values
+            angular_x = np.matmul(self.inverse_config, thing).tolist()
+            # scale motor values
+            scalar_2 = self.THRUST_MAX / max(abs(val) for val in angular_x)
+            if scalar_2 > 1:
+                angular_x = [thrust * scalar_2 for thrust in angular_x]    
 
         # Multiply twist with inverse of motor config to get motor effort values
-        motor_values = np.matmul(self.inverse_config, self.twist_array).tolist()
-        angular_x = np.matmul(self.inverse_config, thing).tolist()
 
-        scalar_1 = self.THRUST_MAX / max(abs(val) for val in motor_values) * max(abs(val) for val in self.twist_array)
-        scalar_2 = self.THRUST_MAX / max(abs(val) for val in angular_x)
-
-        motor_values = [thrust * scalar_1 for thrust in motor_values]
-        angular_x = [thrust * scalar_2 for thrust in angular_x]
-
-        # scale and return motor values
-        return np.add(motor_values, angular_x).tolist()
+        # return motor values
+        return np.add(motor_values, angular_x).tolist()    
 
     def odom_callback(self, odom):
         quat = [

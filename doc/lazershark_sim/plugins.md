@@ -73,3 +73,54 @@ Hydrodynamics refers to the behavior of bodies in water. It includes forces like
 ### References
 - Class documentation: [Hydrodynamics Class Reference](https://gazebosim.org/api/gazebo/6/classignition_1_1gazebo_1_1systems_1_1Hydrodynamics.html)
 - Example use of the hydrodynamics plugin: [acoustic_comm_demo.sdf](https://github.com/gazebosim/gz-sim/blob/gz-sim8/examples/worlds/acoustic_comms_demo.sdf)
+
+## Thruster Plugin
+### Overview
+
+The thruster plugin simulates thrusters for underwater vehicles. Reads a force in Newtons from a topic and applies at the location of a joint.
+
+### Implementation Notes
+Joints must be specified in model `.sdf` as either fixed or revolute. 
+Values for each thruster must be sent on different topics.
+
+### Example Usage
+```xml
+<plugin
+    filename="gz-sim-thruster-system"
+    name="gz::sim::systems::Thruster">
+    <namespace>thruster_values</namespace>
+    <joint_name>thruster_joint_0</joint_name>
+    <topic>thruster_0</topic>
+    <propeller_diameter>0.0762</propeller_diameter>
+</plugin>
+```
+
+### References
+- Class documentation: [Thruster Class Reference](https://gazebosim.org/api/gazebo/6/classignition_1_1gazebo_1_1systems_1_1Thruster.html)
+
+## IMU Sensor
+### Overview
+The Inertial Measurement Unit (IMU) sensor outputs (to a specified topic) the simulated robot's orientation as a quaternions.
+### Implementation Notes
+The sensor must be defined within the `<world>` tag. Note this is likely in a separate file than the model:
+```xml
+<plugin
+    filename="gz-sim-sensors-system"
+    name="gz::sim::systems::Sensors">
+</plugin>
+<plugin 
+    filename="gz-sim-imu-system"
+    name="gz::sim::systems::Imu">
+</plugin>
+```
+The IMU itself must be defined within a `link` (apart of the model itself). The IMU link should be positioned at the actual `pose` of the physical IMU. Note the mass attribute is required and must be greater than zero, however it may be made extremely small. Within the link, the imu sensor is defined as follows:
+```xml
+<sensor name="imu_sensor" type="imu">
+    <always_on>1</always_on>
+    <update_rate>30</update_rate>
+    <topic>imu/sim</topic>
+</sensor>
+```
+### References
+- Sensor sdf documentation: [Sensor Element](http://sdformat.org/spec?elem=sensor)
+- Sensors tutorial: [Sensors](https://gazebosim.org/docs/latest/sensors/)

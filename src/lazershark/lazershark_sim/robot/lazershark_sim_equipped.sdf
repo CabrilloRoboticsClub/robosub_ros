@@ -1,7 +1,7 @@
 <sdf version='1.9'>
     <model name='lazershark_sim'>
         <include merge="true">
-            <uri>/workspaces/robosub_ros/install/lazershark/share/lazershark/lazershark_sim/robot/lazershark_sim.sdf</uri>
+            <uri>/robot/lazershark_sim.sdf</uri>
         </include>
 
         <plugin

@@ -4,7 +4,7 @@ import os
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, RegisterEventHandler, IncludeLaunchDescription, ExecuteProcess
+from launch.actions import DeclareLaunchArgument, RegisterEventHandler, IncludeLaunchDescription, ExecuteProcess, SetEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.event_handlers import OnShutdown, OnProcessStart
 from launch.conditions import IfCondition
@@ -20,18 +20,8 @@ def generate_launch_description():
     # Get packages
     pkg_ros_gz_sim = get_package_share_directory("ros_gz_sim")
     pkg_lazershark = get_package_share_directory("lazershark")
-
-    # Ensure `SDF_PATH` is populated as `sdformat_urdf` uses this rather
-    # than `GZ_SIM_RESOURCE_PATH` to locate resources.
-    if "GZ_SIM_RESOURCE_PATH" in os.environ:
-        gz_sim_resource_path = os.environ["GZ_SIM_RESOURCE_PATH"]
-
-        if "SDF_PATH" in os.environ:
-            sdf_path = os.environ["SDF_PATH"]
-            os.environ["SDF_PATH"] = sdf_path + ":" + gz_sim_resource_path
-        else:
-            os.environ["SDF_PATH"] = gz_sim_resource_path
-
+    gz_sim_resource_path = os.path.join(pkg_lazershark, "lazershark_sim")
+    
     # Get robot sdf file
     sdf_file = os.path.join(
         pkg_lazershark, "lazershark_sim", "robot", "lazershark_sim.sdf"
@@ -127,6 +117,7 @@ def generate_launch_description():
                     ]
                 )
             ),
+            SetEnvironmentVariable("GZ_SIM_RESOURCE_PATH", gz_sim_resource_path),
             # DeclareLaunchArgument(
             #     "rviz", default_value="true", description="Open RViz."
             # ),

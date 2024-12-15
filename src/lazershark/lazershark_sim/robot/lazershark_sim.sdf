@@ -26,7 +26,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://workspaces/robosub_ros/install/lazershark/share/lazershark/lazershark_sim/robot/meshes/base_link.STL</uri>
+            <uri>model://robot/meshes/base_link.STL</uri>
           </mesh>
         </geometry>
         <material>
@@ -39,7 +39,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://workspaces/robosub_ros/install/lazershark/share/lazershark/lazershark_sim/robot/meshes/dvl_link.STL</uri>
+            <uri>model://robot/meshes/dvl_link.STL</uri>
           </mesh>
         </geometry>
         <material>
@@ -52,7 +52,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://workspaces/robosub_ros/install/lazershark/share/lazershark/lazershark_sim/robot/meshes/zed_camera_link.STL</uri>
+            <uri>model://robot/meshes/zed_camera_link.STL</uri>
           </mesh>
         </geometry>
         <material>

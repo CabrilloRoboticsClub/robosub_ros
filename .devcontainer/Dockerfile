@@ -52,7 +52,10 @@ RUN groupadd --gid $USER_GID $USERNAME \
 RUN apt install -y libgz-sim8-dev rapidjson-dev libopencv-dev libgstreamer1.0-dev \
     libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-bad gstreamer1.0-libav gstreamer1.0-gl \
     ros-humble-tinyxml2-vendor default-jre python3-pexpect python3-future mesa-utils strace \
-    ros-humble-micro-ros-msgs
+    ros-humble-micro-ros-msgs ros-humble-robot-localization
+
+# Install Python Libraries
+RUN pip3 install simple_pid numpy
 
 # [Optional] Set the default user. Omit if you want to keep the default as root.
 USER $USERNAME

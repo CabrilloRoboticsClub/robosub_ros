@@ -16,7 +16,7 @@ def generate_data_files(share_path, dir):
 setup(
     name=package_name,
     version='0.0.1',
-    packages=["gazebo_test", "lazershark_sim"],
+    packages=["gazebo_test", "lazershark_sim", "auv"],
     include_package_data=True,
     data_files=[
         (os.path.join('share', package_name), ['package.xml']),
@@ -41,7 +41,7 @@ setup(
             "thrust=gazebo_test.thrust:main",
             "pilot_input=gazebo_test.pilot_input:main", 
             "imu_converter=gazebo_test.imu_converter:main",
-            "naviguider=gazebo_test.naviguider:main",
+            "naviguider=auv.naviguider:main",
         ],
     },
 )

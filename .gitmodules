@@ -2,3 +2,6 @@
 	path = src/ardupilot
 	url = https://github.com/ArduPilot/ardupilot.git
 	branch = master
+[submodule "src/naviguider_simpleserial"]
+	path = src/naviguider_simpleserial
+	url = git@github.com:cabrillorobotics/naviguider_simpleserial.git

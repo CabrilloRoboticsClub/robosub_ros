@@ -28,7 +28,7 @@ from rclpy.node import Node
 from sensor_msgs.msg import Imu
 
 from serial import Serial
-from naviguider_simpleserial import (
+from naviguider_simpleserial.src.naviguider_simpleserial import (
     decode_line,
     encode_set_rotation_vector_sensor_rate,
     encode_set_linear_acceleration_sensor_rate,

@@ -40,7 +40,8 @@ setup(
         'console_scripts': [
             "thrust=gazebo_test.thrust:main",
             "pilot_input=gazebo_test.pilot_input:main", 
-            "imu_converter=gazebo_test.imu_converter:main"
+            "imu_converter=gazebo_test.imu_converter:main",
+            "naviguider=gazebo_test.naviguider:main",
         ],
     },
 )

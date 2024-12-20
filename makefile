@@ -10,5 +10,4 @@ sim: colcon-build
 clean:
 	rm -rf build/ log/ install/
 	
-# sudo apt update
-# sudo apt install ros-${ROS_DISTRO}-robot-localization
+# sudo apt update && sudo apt install ros-${ROS_DISTRO}-robot-localization

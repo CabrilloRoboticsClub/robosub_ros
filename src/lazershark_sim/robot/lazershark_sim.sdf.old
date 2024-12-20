@@ -107,6 +107,75 @@
         </inertia>
       </inertial>
     </link>
+    <joint name='thruster_joint_1' type='fixed'>
+      <pose relative_to='base_link'>0.23415695087118699 0.21739099524484901 0.0043774120539918698 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_1</child>
+      <axis>
+        <xyz>-0.70711000000000002 0.70711000000000002 0</xyz>
+      </axis>
+    </joint>
+    <link name='thruster_1'>
+      <pose relative_to='thruster_joint_1'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.0077420866712084096</mass>
+        <inertia>
+          <ixx>2.7116145591577298e-06</ixx>
+          <ixy>-5.0427887834318601e-07</ixy>
+          <ixz>5.3297832194574895e-10</ixz>
+          <iyy>2.7115976978131699e-06</iyy>
+          <iyz>4.4064567872449599e-10</iyz>
+          <izz>2.2082171653450598e-06</izz>
+        </inertia>
+      </inertial>
+    </link>
+    <joint name='thruster_joint_2' type='fixed'>
+      <pose relative_to='base_link'>0.234157627548012 -0.229457746677766 0.0043740617542740601 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_2</child>
+      <axis>
+        <xyz>-0.70711000000000002 -0.70711000000000002 0</xyz>
+      </axis>
+    </joint>
+    <link name='thruster_2'>
+      <pose relative_to='thruster_joint_2'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.0077411730295111301</mass>
+        <inertia>
+          <ixx>2.71149453962259e-06</ixx>
+          <ixy>5.03800485554769e-07</ixy>
+          <ixz>5.4817058653290299e-10</ixz>
+          <iyy>2.71144529613185e-06</iyy>
+          <iyz>-5.5746044883269595e-10</iyz>
+          <izz>2.2072096250450701e-06</izz>
+        </inertia>
+      </inertial>
+    </link>
+    <joint name='thruster_joint_3' type='fixed'>
+      <pose relative_to='base_link'>-0.23409298434329201 -0.22945660034888701 0.0043774120539908099 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_3</child>
+      <axis>
+        <xyz>0.70711000000000002 -0.70711000000000002 0</xyz>
+      </axis>
+    </joint>
+    <link name='thruster_3'>
+      <pose relative_to='thruster_joint_3'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.0077420866712078701</mass>
+        <inertia>
+          <ixx>2.7116145591577002e-06</ixx>
+          <ixy>-5.0427887834305895e-07</ixy>
+          <ixz>-5.3297832179119501e-10</ixz>
+          <iyy>2.7115976978130102e-06</iyy>
+          <iyz>-4.4064567858250599e-10</iyz>
+          <izz>2.2082171653447701e-06</izz>
+        </inertia>
+      </inertial>
+    </link>
     <joint name='thruster_joint_4' type='fixed'>
       <pose relative_to='base_link'>0.32378531987640202 -0.28832105189077301 -0.017377450240958998 0 0 0</pose>
       <parent>base_link</parent>
@@ -127,6 +196,29 @@
           <iyy>2.2079718651242701e-06</iyy>
           <iyz>-7.1929062949641703e-12</iyz>
           <izz>3.2148319855682202e-06</izz>
+        </inertia>
+      </inertial>
+    </link>
+    <joint name='thruster_joint_5' type='fixed'>
+      <pose relative_to='base_link'>-0.23409104493430299 0.21738936078194601 0.0043754485152070503 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_5</child>
+      <axis>
+        <xyz>0.70711000000000002 0.70711000000000002 0</xyz>
+      </axis>
+    </joint>
+    <link name='thruster_5'>
+      <pose relative_to='thruster_joint_5'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.0077415257204731499</mass>
+        <inertia>
+          <ixx>2.71170960756965e-06</ixx>
+          <ixy>5.0368553339138701e-07</ixy>
+          <ixz>-2.7637460522286302e-10</ixz>
+          <iyy>2.7117423364615e-06</iyy>
+          <iyz>2.2665239288881399e-10</iyz>
+          <izz>2.20699309720568e-06</izz>
         </inertia>
       </inertial>
     </link>

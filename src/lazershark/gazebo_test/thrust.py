@@ -1,4 +1,4 @@
-import sys 
+import sys
 
 import rclpy
 
@@ -23,25 +23,20 @@ class Thrust(Node):
 
         self.THRUST_MAX = 20
 
-        self.motor_positions = [ # [X, Y, Z] positions for each motors
+        # Positions for only the upward thrusters
+        self.motor_positions = [ 
             [ 0.324,  0.276, -0.025], # Motor 0
-            [ 0.229,  0.223, -0.005], # Motor 1
-            [ 0.229, -0.223, -0.005], # Motor 2
-            [-0.229, -0.223, -0.005], # Motor 3
             [ 0.324, -0.276, -0.025], # Motor 4
-            [-0.229,  0.223, -0.005], # Motor 5
             [-0.324, -0.276, -0.025], # Motor 6
             [-0.324,  0.276, -0.025]  # Motor 7
         ]
-        self.motor_thrusts = [ # [X, Y, Z] components of thrust for each motor
-            [    0.0,     0.0,  1.0],   # Motor 0
-            [-0.7071,  0.7071,  0.0],   # Motor 1
-            [-0.7071, -0.7071,  0.0],   # Motor 2
-            [ 0.7071, -0.7071,  0.0],   # Motor 3
-            [    0.0,     0.0,  1.0],   # Motor 6
-            [ 0.7071,  0.7071,  0.0],   # Motor 5
-            [    0.0,     0.0,  1.0],   # Motor 6
-            [    0.0,     0.0,  1.0]    # Motor 7
+        
+        # Thrust directions for only the upward thrusters
+        self.motor_thrusts = [ 
+            [ 0.0,  0.0,  1.0],   # Motor 0
+            [ 0.0,  0.0,  1.0],   # Motor 4
+            [ 0.0,  0.0,  1.0],   # Motor 6
+            [ 0.0,  0.0,  1.0]    # Motor 7
         ]
 
         self.center_of_mass = [0.0] * 3
@@ -50,8 +45,8 @@ class Thrust(Node):
         self.inverse_config = np.linalg.pinv(self.motor_config, rcond=1e-15, hermitian=False)
 
         self.subscription = self.create_subscription(Twist, "desired_twist", self.thrust_callback, 10)
-        self.motor_publishers = [0] * 8
-        for i in range(8):
+        self.motor_publishers = [0] * 4
+        for i in range(4):
             self.motor_publishers[i] = self.create_publisher(Float64, f"/thruster_values/thruster_{i}", 10)
 
     def generate_motor_config(self):
@@ -82,12 +77,15 @@ class Thrust(Node):
         ]
 
         if twist_array == [0, 0, 0, 0, 0, 0]:
-            return [0.0 for motor in range(8)] # No thrust needed
+            return [0.0 for motor in range(4)] # No thrust needed
 
         # Multiply twist with inverse of motor config to get motor effort values
         motor_values = np.matmul(self.inverse_config, twist_array).tolist()
 
-        scalar = self.THRUST_MAX / max(abs(val) for val in motor_values) * max(abs(val) for val in twist_array)
+        try:
+            scalar = self.THRUST_MAX / max(abs(val) for val in motor_values) * max(abs(val) for val in twist_array)
+        except ZeroDivisionError:
+            scalar = 0.0
 
         # scale and return motor values
         return [thrust * scalar for thrust in motor_values]
@@ -95,7 +93,7 @@ class Thrust(Node):
     def thrust_callback(self, twist_msg):
         thrust_msg = Float64()
         thrust_values = self.generate_motor_values(twist_msg)
-        for i in range(8):
+        for i in range(4):
             thrust_msg.data = thrust_values[i]
             self.motor_publishers[i].publish(thrust_msg)
         
@@ -107,7 +105,6 @@ def main(args=None):
     except KeyboardInterrupt:
         del node
         rclpy.shutdown()    
-
 
 if __name__ == "__main__":
     main(sys.argv)

@@ -6,6 +6,7 @@ from rclpy.node import Node
 
 from geometry_msgs.msg import Twist
 from std_msgs.msg import Float64
+from actuator_msgs.msg import Actuators
 
 import numpy as np
 from os import path
@@ -21,7 +22,7 @@ class Thrust(Node):
         """Initialize this node"""
         super().__init__("thrust")
 
-        self.THRUST_MAX = 20
+        self.THRUST_MAX = 800
 
         # Positions for only the upward thrusters
         self.motor_positions = [ 
@@ -45,9 +46,7 @@ class Thrust(Node):
         self.inverse_config = np.linalg.pinv(self.motor_config, rcond=1e-15, hermitian=False)
 
         self.subscription = self.create_subscription(Twist, "desired_twist", self.thrust_callback, 10)
-        self.motor_publishers = [0] * 4
-        for i in range(4):
-            self.motor_publishers[i] = self.create_publisher(Float64, f"/thruster_values/thruster_{i}", 10)
+        self.motor_publishers= self.create_publisher(Actuators, "/thruster_values", 10)
 
     def generate_motor_config(self):
         torques = np.cross(self.motor_positions, self.motor_thrusts)
@@ -91,11 +90,12 @@ class Thrust(Node):
         return [thrust * scalar for thrust in motor_values]
 
     def thrust_callback(self, twist_msg):
-        thrust_msg = Float64()
+        msg = Actuators()
         thrust_values = self.generate_motor_values(twist_msg)
-        for i in range(4):
-            thrust_msg.data = thrust_values[i]
-            self.motor_publishers[i].publish(thrust_msg)
+
+        msg.velocity = thrust_values  # Example actuator values
+        self.motor_publishers.publish(msg)
+
         
 def main(args=None):
     rclpy.init(args=args)

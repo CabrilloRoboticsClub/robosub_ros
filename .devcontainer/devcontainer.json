@@ -31,5 +31,7 @@
 	"runArgs": [
 		"--network=host", "-e", "DISPLAY=${localEnv:DISPLAY}",
         "--privileged"
-	]
+	],
+	
+	"postCreateCommand": "sudo apt update && sudo apt install -y ros-${ROS_DISTRO}-robot-localization x11-apps mesa-utils"
 }

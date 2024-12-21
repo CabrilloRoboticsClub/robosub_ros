@@ -35,7 +35,7 @@ def generate_launch_description():
 
     # Get robot sdf file
     sdf_file = os.path.join(
-        pkg_lazershark_sim, "robot", "lazershark_sim.sdf"
+        pkg_lazershark_sim, "worlds", "quadcopter.sdf"
     )
     with open(sdf_file, "r") as infp:
         robot_desc = infp.read()
@@ -85,7 +85,7 @@ def generate_launch_description():
         ),
         launch_arguments={
             "gz_args": "-v4 -s -r "
-            f'{Path(pkg_lazershark_sim) / "worlds" / "waterworld.sdf"}'
+            f'{Path(pkg_lazershark_sim) / "worlds" / "quadcopter.sdf"}'
         }.items(),
     )
 

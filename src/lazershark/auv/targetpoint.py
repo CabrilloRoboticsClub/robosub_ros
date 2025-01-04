@@ -169,10 +169,6 @@ class TargetPoint:
         payload_crc = self._serial.read(int.from_bytes(byte_count, "big") - 2)
         resp = byte_count + payload_crc
 
-        # Check if CRC read matches CRC generated
-        if resp[-2:] != (exp_crc := TargetPoint._crc(resp[:-2])):
-            raise FailedCRC(f"CRC: {(resp[-2:])}, Expected: {exp_crc}")
-
         # NOTE: This might not be best behavior;
         # in the future, it might be good to have
         # a buffer containing the last few messages
@@ -180,6 +176,10 @@ class TargetPoint:
         # Check if Frame ID read is expected
         if resp[2] != frame_id:
             raise MismatchedFrameID(f"Frame ID: {hex(resp[2])}, Expected: {hex(frame_id)}")
+
+        # Check if CRC read matches CRC generated
+        if resp[-2:] != (exp_crc := TargetPoint._crc(resp[:-2])):
+            raise FailedCRC(f"CRC: {(resp[-2:])}, Expected: {exp_crc}")
 
         return resp
 

@@ -52,3 +52,25 @@ _cmd_frame_id = {
     "kSetDataComponents":   get_bytes(0x03, 1),  # Sets the data components to be output.
     "kGetData":             get_bytes(0x04, 1),  # Queries the TPTCM for data
 }
+
+# Table 7-6: Component Identifiers
+# Map component name to component IDs
+_data_comp = {
+    "kHeading":         0x05,
+    "kPitch":           0x18,
+    "kRoll":            0x19,
+    "kHeadingStatus":   0x4F,
+    "kQuaternion":      0x4D,
+    "kTemperature":     0x07,
+    "kDistortion":      0x08,
+    "kCalStatus":       0x09,
+    "kAccelX":          0x15,
+    "kAccelY":          0x16,
+    "kAccelZ":          0x17,
+    "kMagX":            0x1B,
+    "kMagY":            0x1C,
+    "kMagZ":            0x1D,
+    "kGyroX":           0x4A,
+    "kGyroY":           0x4B,
+    "kGyroZ":           0x4C,
+}

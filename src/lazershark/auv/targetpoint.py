@@ -165,3 +165,18 @@ class TargetPoint:
         self._decode_data(resp)
 
         return self._data
+
+    def _read_response(self) -> bytes:
+        """
+        Reads response from TPTCM and validates CRC.
+
+        Returns:
+            Response as bytes.
+        """
+        # Grab byte_count from first two bytes
+        byte_count = self._serial.read(2)
+        # Grab the payload and the CRC from the remaining bytes
+        payload_crc = self._serial.read(int.from_bytes(byte_count, "big") - 2)
+        resp = byte_count + payload_crc
+
+        return resp

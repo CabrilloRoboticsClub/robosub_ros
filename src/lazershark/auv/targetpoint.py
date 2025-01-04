@@ -255,3 +255,16 @@ class TargetPoint:
         # Append CRC
         cmd += TargetPoint._crc(cmd)
         return cmd
+
+    @staticmethod
+    def _fmt_response_debug(resp: bytes) -> str:
+        """
+        Formats byte response as a string of hex values for debugging.
+
+        Params:
+            resp: Response as bytes from TPTCM.
+
+        Returns:
+            String of hex values separated by spaces.
+        """
+        return " ".join(hex(thing) for thing in resp)

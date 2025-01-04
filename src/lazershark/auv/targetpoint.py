@@ -44,3 +44,11 @@ def get_bytes(n: int, length: int) -> bytes:
         Bytes in big endian representing integer `n`.
     """
     return n.to_bytes(length, byteorder="big")
+
+# Table 7-2: TPTCM Command Set
+# Map command name to command frame ID
+_cmd_frame_id = {
+    "kGetModInfo":          get_bytes(0x01, 1),  # Queries the device’s type and firmware revision.
+    "kSetDataComponents":   get_bytes(0x03, 1),  # Sets the data components to be output.
+    "kGetData":             get_bytes(0x04, 1),  # Queries the TPTCM for data
+}

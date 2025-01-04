@@ -74,3 +74,26 @@ _data_comp = {
     "kGyroY":           0x4B,
     "kGyroZ":           0x4C,
 }
+
+# Table 7-6: Component Identifiers
+# Map component ID to number of bytes, struct format character in big endian*, and component name
+# *https://docs.python.org/3/library/struct.html#format-characters
+_comp_fmt = {
+    0x05: (4,  ">f", "kHeading"),
+    0x18: (4,  ">f", "kPitch"),
+    0x19: (4,  ">f", "kRoll"),
+    0x4F: (1,  ">B", "kHeadingStatus"),
+    0x4D: (16, ">f", "kQuaternion"),  # Quaternions have four floats, handle separately
+    0x07: (4,  ">f", "kTemperature"),
+    0x08: (1,  ">?", "kDistortion"),
+    0x09: (1,  ">?", "kCalStatus"),
+    0x15: (4,  ">f", "kAccelX"),
+    0x16: (4,  ">f", "kAccelY"),
+    0x17: (4,  ">f", "kAccelZ"),
+    0x1B: (4,  ">f", "kMagX"),
+    0x1C: (4,  ">f", "kMagY"),
+    0x1D: (4,  ">f", "kMagZ"),
+    0x4A: (4,  ">f", "kGyroX"),
+    0x4B: (4,  ">f", "kGyroY"),
+    0x4C: (4,  ">f", "kGyroZ"),
+}

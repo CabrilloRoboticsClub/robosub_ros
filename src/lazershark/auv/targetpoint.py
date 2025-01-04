@@ -180,3 +180,34 @@ class TargetPoint:
         resp = byte_count + payload_crc
 
         return resp
+
+    def _decode_data(self, resp: bytes) -> None:
+        """
+        Convert kGetDataResp message into a dictionary.
+
+        NOTE: Assumes `resp` is valid, no error checking.
+
+        Args:
+            resp: kGetDataResp message. 
+        """
+        # Extract payload by removing the byte count and CRC
+        payload = resp[2:-2]
+        id_count = int(payload[1])
+        val_index = 3  # Points to ID of current value
+
+        for _ in range(id_count):
+            id = int(payload[val_index - 1])
+            val_size, fmt, name = _comp_fmt[id]
+
+            if name == "kQuaternion":
+                # kQuaternion has four floats
+                x = unpack(fmt, payload[val_index + 0 : val_index + 4])[0]
+                y = unpack(fmt, payload[val_index + 4 : val_index + 8])[0]
+                z = unpack(fmt, payload[val_index + 8 : val_index + 12])[0]
+                w = unpack(fmt, payload[val_index + 12 : val_index + 16])[0]
+                value = (x, y, z, w)
+            else:
+                value = unpack(fmt, payload[val_index : val_index + val_size])[0]
+
+            self._data[name] = value
+            val_index += val_size + 1

@@ -24,3 +24,10 @@ from sys import stderr
 from serial import Serial
 from binascii import crc_hqx
 from struct import unpack
+
+class FailedCRC(Exception):
+    pass
+
+
+class MismatchedFrameID(Exception):
+    pass

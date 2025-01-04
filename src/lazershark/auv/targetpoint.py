@@ -112,7 +112,7 @@ class TargetPoint:
         print(f"Port /dev/ttyUSB{port} open: {self._serial.is_open}", file=stderr)
         # Queries the device's type and firmware revision number
         self._serial.write(TargetPoint._create_cmd(_cmd_frame_id["kGetModInfo"]))
-        print(f"kGetModInfoResp: {TargetPoint._fmt_response_debug(self._read_response())}", file=stderr)
+        print(f"kGetModInfoResp: {TargetPoint._fmt_response_debug(self._read_response(frame_id=0x02))}", file=stderr)
         self._data = {}
 
     def select_comp(self, *args: str) -> None:

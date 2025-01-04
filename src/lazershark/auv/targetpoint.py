@@ -140,15 +140,34 @@ class TargetPoint:
 
         Returns:
             Dictionary mapping components to values read from sensor.
-
-        Raises:
-            FailedCRC: If CRC read does not match CRC generated.
-            MismatchedFrameID: If FrameID read is not FrameID for kGetDataResp.
         """
         # Request data from TPTCM
         self._serial.write(TargetPoint._create_cmd(_cmd_frame_id["kGetData"]))
         # Read response
-        resp = self._read_response()
+        resp = self._read_response(frame_id=0x05) # Frame ID for kGetDataResp
+        self._decode_data(resp)
+
+        return self._data
+
+    def _read_response(self, frame_id: int) -> bytes:
+        """
+        Reads response from TPTCM and validates CRC and Frame ID.
+
+        Args:
+            frame_id: Expected Frame ID for message
+
+        Returns:
+            Response as bytes.
+
+        Raises:
+            FailedCRC: If CRC read does not match CRC generated.
+            MismatchedFrameID: If FrameID read does not match `frame_id`.
+        """
+        # Grab byte_count from first two bytes
+        byte_count = self._serial.read(2)
+        # Grab the payload and the CRC from the remaining bytes
+        payload_crc = self._serial.read(int.from_bytes(byte_count, "big") - 2)
+        resp = byte_count + payload_crc
 
         # Check if CRC read matches CRC generated
         if resp[-2:] != (exp_crc := TargetPoint._crc(resp[:-2])):
@@ -158,26 +177,9 @@ class TargetPoint:
         # in the future, it might be good to have
         # a buffer containing the last few messages
 
-        # Check if FrameID read is FrameID for kGetDataResp
-        if resp[2] != 0x05:
-            raise MismatchedFrameID(f"FrameID: {hex(resp[2])}, Expected: 0x05")
-
-        self._decode_data(resp)
-
-        return self._data
-
-    def _read_response(self) -> bytes:
-        """
-        Reads response from TPTCM and validates CRC.
-
-        Returns:
-            Response as bytes.
-        """
-        # Grab byte_count from first two bytes
-        byte_count = self._serial.read(2)
-        # Grab the payload and the CRC from the remaining bytes
-        payload_crc = self._serial.read(int.from_bytes(byte_count, "big") - 2)
-        resp = byte_count + payload_crc
+        # Check if Frame ID read is expected
+        if resp[2] != frame_id:
+            raise MismatchedFrameID(f"Frame ID: {hex(resp[2])}, Expected: {hex(frame_id)}")
 
         return resp
 

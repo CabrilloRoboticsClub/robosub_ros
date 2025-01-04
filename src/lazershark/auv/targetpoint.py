@@ -114,3 +114,22 @@ class TargetPoint:
         self._serial.write(TargetPoint._create_cmd(_cmd_frame_id["kGetModInfo"]))
         print(f"kGetModInfoResp: {TargetPoint._fmt_response_debug(self._read_response())}", file=stderr)
         self._data = {}
+
+    def select_comp(self, *args: str) -> None:
+        """
+        Select components to retrieve from the TPTCM when `read_data()` is called.
+
+        See TargetPoint TCM User Manual (Ver 1.6), Table 7-6: Component Identifiers.
+
+        Args:
+            args: String(s) matching the components in Table 7-6 describing data to request.
+        """
+        # Create payload to request specified components
+        payload = bytearray(_cmd_frame_id["kSetDataComponents"])
+        payload.append(len(args))
+        for arg in args:
+            payload.append(_data_comp[arg])
+            self._data[arg] = None
+        # Generate and send command
+        cmd = TargetPoint._create_cmd(payload)
+        self._serial.write(cmd)

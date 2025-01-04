@@ -133,3 +133,35 @@ class TargetPoint:
         # Generate and send command
         cmd = TargetPoint._create_cmd(payload)
         self._serial.write(cmd)
+
+    def read_data(self) -> dict:
+        """
+        Reads data from the TPTCM, corresponding to the components previously specified by the `select_comp()` method.
+
+        Returns:
+            Dictionary mapping components to values read from sensor.
+
+        Raises:
+            FailedCRC: If CRC read does not match CRC generated.
+            MismatchedFrameID: If FrameID read is not FrameID for kGetDataResp.
+        """
+        # Request data from TPTCM
+        self._serial.write(TargetPoint._create_cmd(_cmd_frame_id["kGetData"]))
+        # Read response
+        resp = self._read_response()
+
+        # Check if CRC read matches CRC generated
+        if resp[-2:] != (exp_crc := TargetPoint._crc(resp[:-2])):
+            raise FailedCRC(f"CRC: {(resp[-2:])}, Expected: {exp_crc}")
+
+        # NOTE: This might not be best behavior;
+        # in the future, it might be good to have
+        # a buffer containing the last few messages
+
+        # Check if FrameID read is FrameID for kGetDataResp
+        if resp[2] != 0x05:
+            raise MismatchedFrameID(f"FrameID: {hex(resp[2])}, Expected: 0x05")
+
+        self._decode_data(resp)
+
+        return self._data

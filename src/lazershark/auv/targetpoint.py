@@ -211,3 +211,18 @@ class TargetPoint:
 
             self._data[name] = value
             val_index += val_size + 1
+
+    @staticmethod
+    def _crc(data: bytes) -> bytes:
+        """
+        Compute a 16-bit CRC value of `data` as bytes. Uses CRC-CCITT polynomial X^16 + X^12 + X^5 + 1.
+
+        Args:
+            data: The byte_count and payload for a message from which the CRC is generated.
+
+        Returns:
+            16-bit CRC for `data` as bytes.
+        """
+        # NOTE: CRC-16 is always transmitted in big Endian (TargetPoint TCM User Manual Ver 1.6)
+        # NOTE: 0 is because no initial CRC value
+        return (crc_hqx(data, 0)).to_bytes(2, byteorder="big")

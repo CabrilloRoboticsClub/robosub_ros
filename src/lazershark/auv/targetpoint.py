@@ -226,3 +226,32 @@ class TargetPoint:
         # NOTE: CRC-16 is always transmitted in big Endian (TargetPoint TCM User Manual Ver 1.6)
         # NOTE: 0 is because no initial CRC value
         return (crc_hqx(data, 0)).to_bytes(2, byteorder="big")
+
+    @staticmethod
+    def _create_cmd(packet_frame: bytes) -> bytes:
+        """
+        Create command to send.
+
+        The command data structure is defined in TargetPoint TCM User
+        Manual (Ver 1.6), 7.1 Datagram Structure.
+        -----------------------------------------------
+        | ByteCount |     Packet Frame     |  CRC-16  |
+        | (uint16)  |   (1 - 4092 uint8)   | (uint16) |
+        -----------------------------------------------
+        "The ByteCount is the total number of bytes in the packet including
+        the CRC-16 (checksum). The CRC-16 is calculated starting from the
+        ByteCountNone to the last byte of the Packet Frame."
+
+        Args:
+            packet_frame: Packet frame to send. Contains frame ID and payload.
+
+        Returns:
+            Command to send to TPTCM as bytes.
+        """
+        # Count the number of bytes
+        byte_count = (len(packet_frame) + 4).to_bytes(2, byteorder="big")
+        # Append packet frame
+        cmd = byte_count + packet_frame
+        # Append CRC
+        cmd += TargetPoint._crc(cmd)
+        return cmd

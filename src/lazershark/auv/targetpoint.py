@@ -97,3 +97,20 @@ _comp_fmt = {
     0x4B: (4,  ">f", "kGyroY"),
     0x4C: (4,  ">f", "kGyroZ"),
 }
+
+class TargetPoint:
+    def __init__(self, port: int, baud_rate: int = 38400) -> None:
+        """
+        Initialize a `TargetPoint` object.
+
+        Args:
+            port: The `/dev/ttyUSB` port number to communicate over.
+            baud_rate: The baud rate for the serial connection. Defaults to 38400.
+        """
+        # Initialize serial port
+        self._serial = Serial(f"/dev/ttyUSB{port}", baud_rate)
+        print(f"Port /dev/ttyUSB{port} open: {self._serial.is_open}", file=stderr)
+        # Queries the device's type and firmware revision number
+        self._serial.write(TargetPoint._create_cmd(_cmd_frame_id["kGetModInfo"]))
+        print(f"kGetModInfoResp: {TargetPoint._fmt_response_debug(self._read_response())}", file=stderr)
+        self._data = {}

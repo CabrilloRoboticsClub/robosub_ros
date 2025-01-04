@@ -31,3 +31,16 @@ class FailedCRC(Exception):
 
 class MismatchedFrameID(Exception):
     pass
+
+def get_bytes(n: int, length: int) -> bytes:
+    """
+    Int to bytes (big endian) wrapper.
+
+    Args:
+        n: Integer to convert into bytes.
+        length: Length of bytes object to use.
+
+    Returns:
+        Bytes in big endian representing integer `n`.
+    """
+    return n.to_bytes(length, byteorder="big")

@@ -2,3 +2,7 @@
 	path = src/micro_ros_agent
 	url = https://github.com/micro-ROS/micro-ROS-Agent.git
 	branch = humble
+[submodule "src/naviguider_simpleserial"]
+	path = src/naviguider_simpleserial
+	url = git@github.com:CabrilloRoboticsClub/naviguider_simpleserial.git
+	branch = master

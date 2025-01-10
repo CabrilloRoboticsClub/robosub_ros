@@ -21,6 +21,12 @@ If you have a Windows, Mac or Linux on your desktop you can use Docker and Devel
 
 1. Create a Terminal in your vscode window with the `Terminal -> New Terminal` menu. 
 
+1. Initialize and update submodules.
+    ```
+    git submodule init
+    git submodule update
+    ```
+
 ## Quick Start 
 
 Here are some steps to test your repository. These steps work on my setup at home. The simulation stack is very heavy and may require a reasonably powerful GPU. **Run this command in the dev container terminal.**

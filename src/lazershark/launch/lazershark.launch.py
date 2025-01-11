@@ -80,5 +80,25 @@ def generate_launch_description():
                 name='naviguider',
                 output='screen'
             ),
+            Node(
+                package='lazershark',
+                executable='targetpoint',
+                name='targetpoint',
+                output='screen',
+                parameters=[{
+                    "topic": "imu/targetpoint0",
+                    "dev": "/dev/ttyUSB0"
+                }],
+            ),
+            Node(
+                package='lazershark',
+                executable='targetpoint',
+                name='targetpoint',
+                output='screen',
+                parameters=[{
+                    "topic": "imu/targetpoint1",
+                    "dev": "/dev/ttyUSB1"
+                }],
+            ),
         ]
     )

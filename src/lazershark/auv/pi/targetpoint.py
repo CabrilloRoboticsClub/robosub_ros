@@ -27,33 +27,32 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Imu
 
-from serial import Serial
 sys.path.insert(0, '/workspaces/robosub_ros/lib')
 import targetpoint_lib
 
 
-class Targetpoint(Node):
+class TargetPoint(Node):
     """
     Class which publishes Targetpoint data to the 
     """
-    
+
     def __init__(self):
         """
         Initialize `targetpoint`
         """
         super().__init__("targetpoint")
-    
+
         topic = self.get_parameter("topic").value
         dev = self.get_parameter("dev").value
 
         self.publisher = self.create_publisher(Imu, topic, 10)
-        self.imu = TargetPoint(dev=dev)
+        self.imu = targetpoint_lib.TargetPoint(dev=dev)
         self.imu.select_comp("kQuaternion", "kGyroX", "kGyroY", "kGyroZ", "kAccelX", "kAccelY", "kAccelZ")
 
         self.create_timer(1.0/30, self.callback)
 
 
-    def callback(read_data):
+    def callback(self):
         imu_msg = Imu()
         data = self.imu.get_data()
 
@@ -75,7 +74,7 @@ class Targetpoint(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    node = Targetpoint()
+    node = TargetPoint()
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:

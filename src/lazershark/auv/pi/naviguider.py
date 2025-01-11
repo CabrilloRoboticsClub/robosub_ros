@@ -28,7 +28,7 @@ from rclpy.node import Node
 from sensor_msgs.msg import Imu
 
 from serial import Serial
-sys.path.insert(0, '/workspaces/robosub_ros/src/')
+sys.path.insert(0, '/workspaces/robosub_ros/lib')
 from naviguider_simpleserial.src.naviguider_simpleserial import (
     decode_line,
     encode_set_rotation_vector_sensor_rate,

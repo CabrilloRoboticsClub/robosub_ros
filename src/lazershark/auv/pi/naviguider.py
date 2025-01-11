@@ -39,7 +39,7 @@ from naviguider_simpleserial.src.naviguider_simpleserial import (
 )
 
 
-class NaviGuider(Node):
+class Naviguider(Node):
     """
     Class which publishes Naviguider data to the 
     """
@@ -110,7 +110,7 @@ class NaviGuider(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    node = NaviGuider()
+    node = Naviguider()
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:

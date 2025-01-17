@@ -1,4 +1,5 @@
 {
     "git.detectSubmodules": false,
-    "cmake.sourceDirectory": "/workspaces/robosub_ros/src/lazershark_sim"
+    "cmake.sourceDirectory": "/workspaces/robosub_ros/src/lazershark_sim",
+    // "docker.host": "ssh://steph@seahawk.local"
 }

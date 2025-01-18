@@ -42,10 +42,13 @@ class TargetPoint(Node):
         """
         super().__init__("targetpoint")
 
-        topic = self.get_parameter("topic").value
-        dev = self.get_parameter("dev").value
+        self.declare_parameter("dev", "Not set.")
+        self.declare_parameter("frameID", "Not set.")
 
-        self.publisher = self.create_publisher(Imu, topic, 10)
+        dev = self.get_parameter("dev").value
+        self.frame_id = self.get_parameter("frameID").value
+
+        self.publisher = self.create_publisher(Imu, "imu/targetpoint", 10)
         self.imu = targetpoint_lib.TargetPoint(dev=dev)
         self.imu.select_comp("kQuaternion", "kGyroX", "kGyroY", "kGyroZ", "kAccelX", "kAccelY", "kAccelZ")
 
@@ -54,9 +57,9 @@ class TargetPoint(Node):
 
     def callback(self):
         imu_msg = Imu()
-        data = self.imu.get_data()
+        data = self.imu.read_data()
 
-        imu_msg.header.frame_id = "thruster_6"
+        imu_msg.header.frame_id = self.frame_id
 
         imu_msg.orientation.x = data["kQuaternion"][0]
         imu_msg.orientation.y = data["kQuaternion"][1]
@@ -70,6 +73,8 @@ class TargetPoint(Node):
         imu_msg.linear_acceleration.x = data["kAccelX"]
         imu_msg.linear_acceleration.y = data["kAccelY"]
         imu_msg.linear_acceleration.z = data["kAccelZ"]
+
+        self.publisher.publish(imu_msg)
 
 
 def main(args=None):

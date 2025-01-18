@@ -73,32 +73,39 @@ def generate_launch_description():
                 name='ekf_filter_node',
                 output='screen',
                 parameters=[os.path.join(get_package_share_directory("lazershark"), 'params', 'ekf.yaml')],
-           ),
-           Node(
+            ),
+            # TODO: Uncomment when we have more ports
+            # Node(
+            #     package='lazershark',
+            #     executable='naviguider',
+            #     name='naviguider',
+            #     output='screen'
+            # ),
+            Node(
                 package='lazershark',
-                executable='naviguider',
-                name='naviguider',
-                output='screen'
+                executable='targetpoint',
+                name='targetpoint0',
+                output='screen',
+                parameters=[{
+                    "dev": "/dev/ttyUSB0",
+                    "frameID": "thruster_5"
+                }],
+                remappings=[
+                    ("imu/targetpoint", "imu/targetpoint0"),
+                ]
             ),
             Node(
                 package='lazershark',
                 executable='targetpoint',
-                name='targetpoint',
+                name='targetpoint1',
                 output='screen',
                 parameters=[{
-                    "topic": "imu/targetpoint0",
-                    "dev": "/dev/ttyUSB0"
+                    "dev": "/dev/ttyUSB1",
+                    "frameID": "thruster_6"
                 }],
-            ),
-            Node(
-                package='lazershark',
-                executable='targetpoint',
-                name='targetpoint',
-                output='screen',
-                parameters=[{
-                    "topic": "imu/targetpoint1",
-                    "dev": "/dev/ttyUSB1"
-                }],
+                remappings=[
+                    ("imu/targetpoint", "imu/targetpoint1"),
+                ]
             ),
         ]
     )

@@ -42,6 +42,7 @@ setup(
             "pilot_input=gazebo_test.pilot_input:main", 
             "imu_converter=gazebo_test.imu_converter:main",
             "naviguider=auv.pi.naviguider:main",
+            "targetpoint=auv.pi.targetpoint:main",
         ],
     },
 )

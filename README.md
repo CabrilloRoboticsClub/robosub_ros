@@ -1,10 +1,10 @@
 # RoboSub ROS 
 
-This document has instructions to get you started. Reach each section carefully.
+This document has instructions to get you started. Read each section carefully.
 
 ## Setup (All Platforms)
 
-If you have a Windows, Mac or Linux on your desktop you can use Docker and Development Containers in vscode to do local development. This is the fastest and easiest way to get setup and enables you to run the simulator and control the ROV on your computer. This is the recommended setup for everyone.
+If you have a Windows, Mac or Linux on your desktop you can use Docker and Development Containers in vscode to do local development. This is the fastest and easiest way to get setup and enables you to run the simulator and control the AUV on your computer. This is the recommended setup for everyone.
 
 1. [Install vscode](https://code.visualstudio.com/)
 1. [Install Docker Desktop](https://www.docker.com/products/docker-desktop/) 
@@ -17,9 +17,9 @@ If you have a Windows, Mac or Linux on your desktop you can use Docker and Devel
     ```
 1. You will be prompted to re-open the folder in a **development container**. Select yes. Confirm that you have the devconainer open by looking at the bottom left corner of VScode. It should look like the picture below:
 
-    ![](doc/dev-container.png)
+    ![](doc/img/dev-container.png)
 
-1. Create a Terminal in your vscode window with the `Terminal -> New Terminal` menu. 
+1. Create a Terminal in your vscode window with the `Terminal -> New Terminal` menu.
 
 1. Initialize and update submodules.
     ```
@@ -28,10 +28,8 @@ If you have a Windows, Mac or Linux on your desktop you can use Docker and Devel
     ```
 
 ## Quick Start 
-
-Here are some steps to test your repository. These steps work on my setup at home. The simulation stack is very heavy and may require a reasonably powerful GPU. **Run this command in the dev container terminal.**
-
-1. Build the software in your dev container: 
+Here are some steps to test your repository. **Run this command in the dev container terminal.**
+1. Build the software in your dev container (do this from `/workspaces/robosub_ros`): 
 
     ```
     make
@@ -43,19 +41,13 @@ Here are some steps to test your repository. These steps work on my setup at hom
     source install/setup.bash
     ```
 
-1. Launch a simulation: 
+1. Launch the lazershark simulation: 
 
     ```
-    ros2 launch ardupilot_gz_bringup iris_runway.launch.py
+    ros2 launch lazershark lazershark_sim.launch.py
     ```
 
-## Tutorials 
-
-Ardupilot has official tutorials here:
-
-* [Install ROS2](https://ardupilot.org/dev/docs/ros2.html)
-* [ROS 2 with SITL in Gazebo](https://ardupilot.org/dev/docs/ros2-gazebo.html)
-* [ROS 2 waypoint goal inerface](https://ardupilot.org/dev/docs/ros2-waypoint-goal-interface.html)
-* [Cartographer SLAM with ROS 2 in SITL](https://ardupilot.org/dev/docs/ros2-cartographer-slam.html)
-
-None of the tutorial's setup steps are necessary. The development container is fully setup. 
+1. Or launch the RPi: 
+    ```
+    ros2 launch lazershark pi.launch.py
+    ```

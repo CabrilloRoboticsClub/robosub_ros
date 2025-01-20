@@ -15,7 +15,9 @@ from launch_ros.actions import Node, SetParameter
 def generate_launch_description():
     """
     Generate a launch description for lazershark_sim gazebo simulator.
-    Launch with: `ros2 launch lazershark_sim lazershark_sim.launch.py`
+    Launches all nodes requred for the sim.
+
+    Launch with: `ros2 launch lazershark lazershark_sim.launch.py`
     """
     # Get packages
     pkg_ros_gz_sim = get_package_share_directory("ros_gz_sim")

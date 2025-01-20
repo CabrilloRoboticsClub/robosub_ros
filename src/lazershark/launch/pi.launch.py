@@ -1,4 +1,3 @@
-from pathlib import Path
 import os
 
 from ament_index_python.packages import get_package_share_directory
@@ -9,34 +8,39 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     """
-    Generate a launch description for lazershark_sim gazebo simulator.
-    Launch with: `ros2 launch lazershark_sim lazershark_sim.launch.py`
+    Launch all nodes on the RPi:
+        - robot_state_publisher
+        - ekf_filter_node
+        - naviguider0
+        - naviguider1
+        - targetpoint0
+        - targetpoint1
+
+    Launch with: `ros2 launch lazershark pi.launch.py`
     """
-    # Get packages
+    # Get lazershark package
     pkg_lazershark = get_package_share_directory("lazershark")
 
     # Get robot sdf file
+    # TODO: Make a new SDF to reflect the correct frame locations.
     sdf_file = os.path.join(
         pkg_lazershark, "lazershark_sim", "robot", "lazershark_sim.sdf"
     )
     with open(sdf_file, "r") as infp:
         robot_desc = infp.read()
 
-    # Publish /tf and /tf_static.
-    robot_state_publisher = Node(
-        package="robot_state_publisher",
-        executable="robot_state_publisher",
-        name="robot_state_publisher",
-        output="both",
-        parameters=[
-            {"robot_description": robot_desc},
-            {"frame_prefix": ""},
-        ],
-    )
-
     return LaunchDescription(
         [   
-            robot_state_publisher,
+            Node(
+                package="robot_state_publisher",
+                executable="robot_state_publisher",
+                name="robot_state_publisher",
+                output="both",
+                parameters=[
+                    {"robot_description": robot_desc},
+                    {"frame_prefix": ""},
+                ],
+            ),
             Node(
                 package='robot_localization',
                 executable='ekf_node',

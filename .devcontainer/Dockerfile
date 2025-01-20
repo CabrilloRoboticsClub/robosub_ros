@@ -61,6 +61,7 @@ RUN pip3 install simple_pid numpy
 USER $USERNAME
 
 # Install Micro XRCE DDS Generator
+# TODO: Remove ardupilot stuff
 RUN cd /opt \
     && sudo git clone https://github.com/ardupilot/Micro-XRCE-DDS-Gen.git \
     && sudo chown -R $USERNAME:$USERNAME Micro-XRCE-DDS-Gen \

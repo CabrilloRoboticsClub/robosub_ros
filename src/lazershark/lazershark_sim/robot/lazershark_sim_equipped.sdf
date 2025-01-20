@@ -1,0 +1,194 @@
+<sdf version='1.9'>
+    <model name='lazershark_sim'>
+        <include merge="true">
+            <uri>/robot/lazershark_sim.sdf</uri>
+        </include>
+
+        <plugin
+            filename="gz-sim-thruster-system"
+            name="gz::sim::systems::Thruster">
+            <namespace>thruster_values</namespace>
+            <joint_name>thruster_joint_0</joint_name>
+            <topic>thruster_0</topic>
+            <propeller_diameter>0.0762</propeller_diameter>
+        </plugin>
+
+        <plugin
+            filename="gz-sim-thruster-system"
+            name="gz::sim::systems::Thruster">
+            <namespace>thruster_values</namespace>
+            <joint_name>thruster_joint_1</joint_name>
+            <topic>thruster_1</topic>
+            <propeller_diameter>0.0762</propeller_diameter>
+        </plugin>
+
+        <plugin
+            filename="gz-sim-thruster-system"
+            name="gz::sim::systems::Thruster">
+            <namespace>thruster_values</namespace>
+            <joint_name>thruster_joint_2</joint_name>
+            <topic>thruster_2</topic>
+            <propeller_diameter>0.0762</propeller_diameter>
+        </plugin>
+
+        <plugin
+            filename="gz-sim-thruster-system"
+            name="gz::sim::systems::Thruster">
+            <namespace>thruster_values</namespace>
+            <joint_name>thruster_joint_3</joint_name>
+            <topic>thruster_3</topic>
+            <propeller_diameter>0.0762</propeller_diameter>
+        </plugin>
+
+        <plugin
+            filename="gz-sim-thruster-system"
+            name="gz::sim::systems::Thruster">
+            <namespace>thruster_values</namespace>
+            <joint_name>thruster_joint_4</joint_name>
+            <topic>thruster_4</topic>
+            <propeller_diameter>0.0762</propeller_diameter>
+        </plugin>
+
+        <plugin
+            filename="gz-sim-thruster-system"
+            name="gz::sim::systems::Thruster">
+            <namespace>thruster_values</namespace>
+            <joint_name>thruster_joint_5</joint_name>
+            <topic>thruster_5</topic>
+            <propeller_diameter>0.0762</propeller_diameter>
+        </plugin>
+
+        <plugin
+            filename="gz-sim-thruster-system"
+            name="gz::sim::systems::Thruster">
+            <namespace>thruster_values</namespace>
+            <joint_name>thruster_joint_6</joint_name>
+            <topic>thruster_6</topic>
+            <propeller_diameter>0.0762</propeller_diameter>
+        </plugin>
+
+        <plugin
+            filename="gz-sim-thruster-system"
+            name="gz::sim::systems::Thruster">
+            <namespace>thruster_values</namespace>
+            <joint_name>thruster_joint_7</joint_name>
+            <topic>thruster_7</topic>
+            <propeller_diameter>0.0762</propeller_diameter>
+        </plugin>
+
+        <joint name='imu_joint' type='fixed'>
+            <pose relative_to='base_link'>0 0 0 0 0 0</pose>
+            <parent>base_link</parent>
+            <child>imu</child>
+        </joint>
+        <link name='imu'>
+            <pose relative_to='imu_joint'>0 0 0 0 0 0</pose>
+            <inertial>
+                <pose>0 0 0 0 0 0</pose>
+                <mass>0.000000001</mass>
+            </inertial>
+            <sensor name="imu_sensor" type="imu">
+                <always_on>1</always_on>
+                <update_rate>30</update_rate>
+                <topic>imu/sim</topic>
+            </sensor>
+        </link>
+    
+        <plugin
+            filename="gz-sim-hydrodynamics-system"
+            name="gz::sim::systems::Hydrodynamics">
+            <link_name>base_link</link_name>
+            <xUabsU>0</xUabsU>
+            <xU>-30</xU>
+            <yVabsV>0</yVabsV>
+            <yV>-30</yV>
+            <zWabsW>0</zWabsW>
+            <zW>-30</zW>
+            <kPabsP>0</kPabsP>
+            <kP>-15</kP>
+            <mQabsQ>0</mQabsQ>
+            <mQ>-15</mQ>
+            <nRabsR>0</nRabsR>
+            <nR>-15</nR>
+        </plugin>
+
+        <!-- https://github.com/gazebosim/gz-sim/blob/gz-sim9/examples/worlds/dvl_world.sdf -->
+      <!-- THIS DOES NOT WORK YET -->
+    <experimental:params>
+        <sensor
+            element_id="dvl_link" action="add"
+            name="a50_dvl"
+            type="custom" gz:type="dvl">
+          <pose>0 0 0 0 0 0</pose>
+          <always_on>1</always_on>
+          <update_rate>1</update_rate>
+          <topic>/dvl/velocity</topic>
+          <gz:dvl>
+            <type>phased_array</type>
+            <arrangement degrees="true">
+              <beam id="1">
+                <aperture>2</aperture>
+                <rotation>45</rotation>
+                <tilt>30</tilt>
+              </beam>
+              <beam>
+                <aperture>2</aperture>
+                <rotation>135</rotation>
+                <tilt>30</tilt>
+              </beam>
+              <beam>
+                <aperture>2</aperture>
+                <rotation>-45</rotation>
+                <tilt>30</tilt>
+              </beam>
+              <beam>
+                <aperture>2</aperture>
+                <rotation>-135</rotation>
+                <tilt>30</tilt>
+              </beam>
+            </arrangement>
+            <tracking>
+              <bottom_mode>
+                <when>best</when>
+                <noise type="gaussian">
+                  <!-- +/- 0.4 cm/s precision at 10 m/s within 2 stddevs -->
+                  <stddev>0.002</stddev>
+                </noise>
+                <visualize>false</visualize>
+              </bottom_mode>
+            </tracking>
+            <!-- Roughly 1 m resolution at a 100m -->
+            <resolution>0.01</resolution>
+            <maximum_range>100.</maximum_range>
+            <minimum_range>0.1</minimum_range>
+            <!-- ENU to SFM -->
+            <reference_frame>0 0 0 0 0 -1.570796</reference_frame>
+          </gz:dvl>
+        </sensor>
+      </experimental:params>
+
+      <!-- Odometry publisher -->
+      <plugin
+        filename="gz-sim-odometry-publisher-system"
+        name="gz::sim::systems::OdometryPublisher">
+        <dimensions>3</dimensions>
+        <odom_topic>odometry/sim</odom_topic>
+      </plugin>
+
+    <!--
+      <plugin
+        filename="ignition-gazebo-joint-state-publisher-system"
+        name="ignition::gazebo::systems::JointStatePublisher">
+      </plugin>
+      -->
+    
+
+      <plugin
+        filename="ignition-gazebo-pose-publisher-system"
+        name="ignition::gazebo::systems::PosePublisher">
+        <publish_link_pose>true</publish_link_pose>
+        <use_pose_vector_msg>true</use_pose_vector_msg>
+      </plugin>
+      
+    </model>
+</sdf>

@@ -1,0 +1,70 @@
+<sdf version='1.6'>
+  <world name='waterworld'>
+    <scene>
+      <grid>false</grid>
+    </scene>
+
+    <physics name='1ms' type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <plugin
+      filename='gz-sim-physics-system'
+      name='gz::sim::systems::Physics'>
+    </plugin>
+    <plugin
+      filename='gz-sim-user-commands-system'
+      name='gz::sim::systems::UserCommands'>
+    </plugin>
+    <plugin
+      filename='gz-sim-scene-broadcaster-system'
+      name='gz::sim::systems::SceneBroadcaster'>
+    </plugin>
+    <plugin
+      filename="gz-sim-sensors-system"
+      name="gz::sim::systems::Sensors">
+    </plugin>
+    <plugin
+      filename="gz-sim-dvl-system"
+      name="gz::sim::systems::DopplerVelocityLogSystem">
+    </plugin>
+    <plugin filename="gz-sim-imu-system"
+        name="gz::sim::systems::Imu">
+    </plugin>
+
+    <plugin
+      filename='gz-sim-buoyancy-system'
+      name='gz::sim::systems::Buoyancy'>
+      <graded_buoyancy>
+        <default_density>1000</default_density>
+        <density_change>
+          <above_depth>2.13</above_depth> <!-- Set depth to 7 feet -->
+          <density>1</density>
+        </density_change>
+      </graded_buoyancy>
+      <enable>lazershark_sim::base_link</enable>
+    </plugin>
+
+    <include>
+      <pose>0 0 1 0 0 0</pose>
+      <uri>/robot/lazershark_sim_equipped.sdf</uri>
+    </include>
+
+    <include>
+      <uri>/worlds/sun.sdf</uri>
+    </include>
+
+    <include>
+      <uri>/worlds/water_plane.sdf</uri>
+    </include>
+
+    <include>
+      <uri>/worlds/pool_light.sdf</uri>
+    </include>
+
+    <include>
+      <uri>/worlds/pool_floor.sdf</uri>
+    </include>
+
+  </world>
+</sdf>

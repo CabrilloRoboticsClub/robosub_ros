@@ -1,0 +1,22 @@
+<sdf version='1.6'>
+    <model name="water_plane">
+    <static>true</static>
+    <link name="link">
+        <pose>0 0 2.13 0 0 0</pose>
+        <visual name="water_plane">
+        <geometry>
+            <plane>
+            <size>50 25</size>
+            <normal>0 0 1</normal>
+            </plane>
+        </geometry>
+        <material>
+            <ambient>0 0.3 0.5 0.3</ambient> 
+            <diffuse>0 0.5 0.7 0.4</diffuse>
+            <specular>0.2 0.4 0.6 0.5</specular> 
+            <emissive>0 0.2 0.3 0.1</emissive>
+        </material>
+        </visual>
+    </link>
+    </model>
+</sdf>

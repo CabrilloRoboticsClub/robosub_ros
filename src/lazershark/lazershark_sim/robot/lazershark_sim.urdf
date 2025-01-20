@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="lazershark_sim">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="3.1983E-05 -0.0026459 0.0026327"
+        rpy="0 0 0" />
+      <mass
+        value="15.577" />
+      <inertia
+        ixx="0.16002"
+        ixy="-1.402E-11"
+        ixz="-5.6999E-13"
+        iyy="0.1042"
+        iyz="-5.0874E-12"
+        izz="0.2562" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="thruster_0">
+    <inertial>
+      <origin
+        xyz="0.32378 0.27626 -0.017378"
+        rpy="0 0 0" />
+      <mass
+        value="0.007741" />
+      <inertia
+        ixx="2.208E-06"
+        ixy="1.1468E-09"
+        ixz="-2.3963E-12"
+        iyy="2.207E-06"
+        iyz="1.6745E-11"
+        izz="3.2154E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/thruster_0.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/thruster_0.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="thruster_joint_0"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="thruster_0" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-1000000000000"
+      upper="1000000000000"
+      effort="-1"
+      velocity="-1" />
+  </joint>
+  <link
+    name="thruster_1">
+    <inertial>
+      <origin
+        xyz="0.234156950871187 0.217390995244849 0.00437741205399187"
+        rpy="0 0 0" />
+      <mass
+        value="0.00774208667120841" />
+      <inertia
+        ixx="2.71161455915773E-06"
+        ixy="-5.04278878343186E-07"
+        ixz="5.32978321945749E-10"
+        iyy="2.71159769781317E-06"
+        iyz="4.40645678724496E-10"
+        izz="2.20821716534506E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/thruster_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/thruster_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="thruster_joint_1"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="thruster_1" />
+    <axis
+      xyz="-0.70711 0.70711 0" />
+    <limit
+      lower="-1000000000000"
+      upper="1000000000000"
+      effort="-1"
+      velocity="-1" />
+  </joint>
+  <link
+    name="thruster_2">
+    <inertial>
+      <origin
+        xyz="0.234157627548012 -0.229457746677766 0.00437406175427406"
+        rpy="0 0 0" />
+      <mass
+        value="0.00774117302951113" />
+      <inertia
+        ixx="2.71149453962259E-06"
+        ixy="5.03800485554769E-07"
+        ixz="5.48170586532903E-10"
+        iyy="2.71144529613185E-06"
+        iyz="-5.57460448832696E-10"
+        izz="2.20720962504507E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/thruster_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/thruster_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="thruster_joint_2"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="thruster_2" />
+    <axis
+      xyz="-0.70711 -0.70711 0" />
+    <limit
+      lower="-1000000000000"
+      upper="1000000000000"
+      effort="-1"
+      velocity="-1" />
+  </joint>
+  <link
+    name="thruster_3">
+    <inertial>
+      <origin
+        xyz="-0.234092984343292 -0.229456600348887 0.00437741205399081"
+        rpy="0 0 0" />
+      <mass
+        value="0.00774208667120787" />
+      <inertia
+        ixx="2.7116145591577E-06"
+        ixy="-5.04278878343059E-07"
+        ixz="-5.32978321791195E-10"
+        iyy="2.71159769781301E-06"
+        iyz="-4.40645678582506E-10"
+        izz="2.20821716534477E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/thruster_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/thruster_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="thruster_joint_3"
+    type="continuous">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="thruster_3" />
+    <axis
+      xyz="0.70711 -0.70711 0" />
+    <limit
+      lower="-1000000000000"
+      upper="1000000000000"
+      effort="-1"
+      velocity="-1" />
+  </joint>
+  <link
+    name="thruster_4">
+    <inertial>
+      <origin
+        xyz="0.323785319876402 -0.288321051890773 -0.017377450240959"
+        rpy="0 0 0" />
+      <mass
+        value="0.00773999910275849" />
+      <inertia
+        ixx="2.20644758396638E-06"
+        ixy="9.80149056457269E-11"
+        ixz="-1.65242619966122E-11"
+        iyy="2.20797186512427E-06"
+        iyz="-7.19290629496417E-12"
+        izz="3.21483198556822E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/thruster_4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/thruster_4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="thruster_joint_4"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="thruster_4" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-1000000000000"
+      upper="1000000000000"
+      effort="-1"
+      velocity="-1" />
+  </joint>
+  <link
+    name="thruster_5">
+    <inertial>
+      <origin
+        xyz="-0.234091044934303 0.217389360781946 0.00437544851520705"
+        rpy="0 0 0" />
+      <mass
+        value="0.00774152572047315" />
+      <inertia
+        ixx="2.71170960756965E-06"
+        ixy="5.03685533391387E-07"
+        ixz="-2.76374605222863E-10"
+        iyy="2.7117423364615E-06"
+        iyz="2.26652392888814E-10"
+        izz="2.20699309720568E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/thruster_5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/thruster_5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="thruster_joint_5"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="thruster_5" />
+    <axis
+      xyz="0.70711 0.70711 0" />
+    <limit
+      lower="-1000000000000"
+      upper="1000000000000"
+      effort="-1"
+      velocity="-1" />
+  </joint>
+  <link
+    name="thruster_6">
+    <inertial>
+      <origin
+        xyz="-0.323718736400264 -0.288321051890773 -0.0173774502409574"
+        rpy="0 0 0" />
+      <mass
+        value="0.00773999910275899" />
+      <inertia
+        ixx="2.20644758396669E-06"
+        ixy="9.801490554642E-11"
+        ixz="-1.65242619625039E-11"
+        iyy="2.20797186512433E-06"
+        iyz="-7.1929063499329E-12"
+        izz="3.21483198556861E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/thruster_6.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/thruster_6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="thruster_joint_6"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="thruster_6" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-1000000000000"
+      upper="1000000000000"
+      effort="-1"
+      velocity="-1" />
+  </joint>
+  <link
+    name="thruster_7">
+    <inertial>
+      <origin
+        xyz="-0.32371873867231 0.27625447477941 -0.0173774499441444"
+        rpy="0 0 0" />
+      <mass
+        value="0.00773999839485365" />
+      <inertia
+        ixx="2.20644757938028E-06"
+        ixy="9.74818949513116E-11"
+        ixz="-1.65665882909537E-11"
+        iyy="2.20797120661068E-06"
+        iyz="-7.34282301706254E-12"
+        izz="3.21483134700434E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/thruster_7.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/thruster_7.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="thruster_joint_7"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="thruster_7" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-1000000000000"
+      upper="1000000000000"
+      effort="-1"
+      velocity="-1" />
+  </joint>
+  <link
+    name="zed_camera_link">
+    <inertial>
+      <origin
+        xyz="2.77038521082847E-06 0.182851326507769 0.0137084897151045"
+        rpy="0 0 0" />
+      <mass
+        value="0.152258681193596" />
+      <inertia
+        ixx="2.28175456045055E-05"
+        ixy="-2.40028104906181E-09"
+        ixz="-6.22430178494732E-09"
+        iyy="0.000372325024159044"
+        iyz="-3.15958302329698E-08"
+        izz="0.000374742680432966" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/zed_camera_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.627450980392157 0.627450980392157 0.627450980392157 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/zed_camera_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="zed_camera_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="zed_camera_link" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="dvl_link">
+    <inertial>
+      <origin
+        xyz="4.99301509441834E-07 0.00281117625181808 -0.0536543503907734"
+        rpy="0 0 0" />
+      <mass
+        value="0.25633622835366" />
+      <inertia
+        ixx="0.000223787635688703"
+        ixy="-3.67946224935939E-10"
+        ixz="-6.464010679209E-10"
+        iyy="0.000219098774432553"
+        iyz="-4.2361573218948E-08"
+        izz="0.000418276343910706" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/dvl_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/dvl_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="dvl_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="dvl_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="imu_link">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0" />
+      <inertia
+        ixx="0"
+        ixy="0"
+        ixz="0"
+        iyy="0"
+        iyz="0"
+        izz="0" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/imu_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://lazershark_sim/robot/meshes/imu_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="imu_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="imu_link" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+</robot>

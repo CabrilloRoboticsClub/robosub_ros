@@ -20,8 +20,8 @@ Cabrillo Robotics Club
 6500 Soquel Drive Aptos, CA 95003
 cabrillorobotics@gmail.com
 """
-from time import sleep, monotonic_ns
 import sys
+from time import sleep
 
 import rclpy
 from rclpy.node import Node
@@ -50,14 +50,17 @@ class NaviGuider(Node):
         """
         super().__init__("naviguider")
 
+        self.declare_parameter("dev", "Not set.")
+        self.declare_parameter("frameID", "Not set.")
         self.SETUP_DELAY = 2
-        self.publisher = self.create_publisher(Imu, "imu/naviguider0", 10) 
+    
+        self.publisher = self.create_publisher(Imu, "imu/naviguider", 10) 
         self.serial_init()
         self.get_data()
 
-
     def serial_init(self):
-        self.serial_port = Serial("/dev/ttyUSB0", 115200)
+        dev = self.get_parameter("dev").value
+        self.serial_port = Serial(dev, 115200)
         self.serial_port.write(encode_system_restart().encode())
         sleep(self.SETUP_DELAY)
 
@@ -68,10 +71,9 @@ class NaviGuider(Node):
         self.serial_port.write(encode_set_gyroscope_sensor_rate(15).encode())
         sleep(self.SETUP_DELAY)
 
-
     def get_data(self):
         imu_msg = Imu()
-        imu_msg.header.frame_id = "thruster_7"
+        imu_msg.header.frame_id = self.get_parameter("frameID").value
         update_map = 0b000
 
         while True:
@@ -80,8 +82,10 @@ class NaviGuider(Node):
                 if data:
                     event = decode_line(data)
             except ValueError:
+                # TODO: Report error
                 continue
             except TypeError:
+                # TODO: Report error
                 continue
             if event:
                 if type(event) is sensor_event.RotationVectorSensorEvent:
@@ -101,9 +105,7 @@ class NaviGuider(Node):
                     imu_msg.linear_acceleration.z = event.z
                     update_map |= 0b100
                 if update_map == 0b111:
-                    time = monotonic_ns()
-                    imu_msg.header.stamp.sec = time // 10**9
-                    imu_msg.header.stamp.nanosec = time % 10**9
+                    imu_msg.header.stamp.sec, imu_msg.header.stamp.nanosec = self.get_clock().now().seconds_nanoseconds()
                     self.publisher.publish(imu_msg)
                     update_map = 0b000
 

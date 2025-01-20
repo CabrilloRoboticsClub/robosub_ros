@@ -20,7 +20,6 @@ Cabrillo Robotics Club
 6500 Soquel Drive Aptos, CA 95003
 cabrillorobotics@gmail.com
 """
-from time import sleep, monotonic_ns
 import sys
 
 import rclpy
@@ -44,6 +43,7 @@ class TargetPoint(Node):
 
         self.declare_parameter("dev", "Not set.")
         self.declare_parameter("frameID", "Not set.")
+        self.G = 9.80665 # m/s^2
 
         dev = self.get_parameter("dev").value
         self.frame_id = self.get_parameter("frameID").value
@@ -59,8 +59,6 @@ class TargetPoint(Node):
         imu_msg = Imu()
         data = self.imu.read_data()
 
-        imu_msg.header.frame_id = self.frame_id
-
         imu_msg.orientation.x = data["kQuaternion"][0]
         imu_msg.orientation.y = data["kQuaternion"][1]
         imu_msg.orientation.z = data["kQuaternion"][2]
@@ -70,9 +68,12 @@ class TargetPoint(Node):
         imu_msg.angular_velocity.y = data["kGyroY"]
         imu_msg.angular_velocity.z = data["kGyroZ"]
 
-        imu_msg.linear_acceleration.x = data["kAccelX"]
-        imu_msg.linear_acceleration.y = data["kAccelY"]
-        imu_msg.linear_acceleration.z = data["kAccelZ"]
+        imu_msg.linear_acceleration.x = data["kAccelX"] * self.G
+        imu_msg.linear_acceleration.y = data["kAccelY"] * self.G
+        imu_msg.linear_acceleration.z = data["kAccelZ"] * self.G
+
+        imu_msg.header.frame_id = self.frame_id
+        imu_msg.header.stamp.sec, imu_msg.header.stamp.nanosec = self.get_clock().now().seconds_nanoseconds()
 
         self.publisher.publish(imu_msg)
 

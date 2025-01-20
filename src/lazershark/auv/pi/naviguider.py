@@ -1,7 +1,7 @@
 """
 naviguider.py
 
-Copyright (C) 2022-2023 Cabrillo Robotics Club
+Copyright (C) 2024-2025 Cabrillo Robotics Club
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
@@ -41,12 +41,12 @@ from naviguider_simpleserial.src.naviguider_simpleserial import (
 
 class NaviGuider(Node):
     """
-    Class which publishes Naviguider data to the 
+    Class which publishes Naviguider data to topic `imu/naviguider`.
     """
     
     def __init__(self):
         """
-        Initialize `naviguider`
+        Initialize `naviguider` node.
         """
         super().__init__("naviguider")
 
@@ -61,15 +61,18 @@ class NaviGuider(Node):
     def serial_init(self):
         dev = self.get_parameter("dev").value
         self.serial_port = Serial(dev, 115200)
+        self.get_logger().info(f"Port {dev} open: {self.serial_port.is_open}")
+        
         self.serial_port.write(encode_system_restart().encode())
         sleep(self.SETUP_DELAY)
-
         self.serial_port.write(encode_set_rotation_vector_sensor_rate(15).encode())
         sleep(self.SETUP_DELAY)
         self.serial_port.write(encode_set_linear_acceleration_sensor_rate(15).encode())
         sleep(self.SETUP_DELAY)
         self.serial_port.write(encode_set_gyroscope_sensor_rate(15).encode())
         sleep(self.SETUP_DELAY)
+
+        self.get_logger().info(f"Serial init complete.")
 
     def get_data(self):
         imu_msg = Imu()
@@ -81,11 +84,11 @@ class NaviGuider(Node):
                 data = self.serial_port.readline().decode("utf-8").strip()
                 if data:
                     event = decode_line(data)
-            except ValueError:
-                # TODO: Report error
+            except ValueError as e:
+                self.get_logger().warn(f"ValueError: {e}")
                 continue
             except TypeError:
-                # TODO: Report error
+                self.get_logger().warn(f"TypeError: {e}")
                 continue
             if event:
                 if type(event) is sensor_event.RotationVectorSensorEvent:

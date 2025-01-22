@@ -15,6 +15,7 @@ def generate_launch_description():
         - naviguider1
         - targetpoint0
         - targetpoint1
+        - a50
 
     Launch with: `ros2 launch lazershark pi.launch.py`
     """

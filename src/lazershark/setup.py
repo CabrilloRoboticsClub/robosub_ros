@@ -43,6 +43,7 @@ setup(
             "imu_converter=gazebo_test.imu_converter:main",
             "naviguider=auv.pi.naviguider:main",
             "targetpoint=auv.pi.targetpoint:main",
+            "a50=auv.pi.a50:main",
         ],
     },
 )

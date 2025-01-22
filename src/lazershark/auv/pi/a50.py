@@ -87,6 +87,22 @@ class A50(Node):
 
         return data
 
+    def callback(self):
+        msg = Odometry()
+        msg.header.frame_id = self.frame_id
+
+        data = json.loads(self.get_data())
+        while data["type"] != "velocity":
+            data = json.loads(self.get_data())
+
+        msg.pose.pose.position.z = data["altitude"]
+
+        msg.twist.twist.linear.x = data["vx"]
+        msg.twist.twist.linear.y = data["vy"]
+        msg.twist.twist.linear.z = data["vz"]
+
+        self.publisher.publish(msg)
+
 
 def main(args=None):
     rclpy.init(args=args)

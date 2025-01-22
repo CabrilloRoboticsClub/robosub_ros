@@ -22,6 +22,8 @@ cabrillorobotics@gmail.com
 """
 import sys
 from time import sleep
+import socket
+import json
 
 import rclpy
 from rclpy.node import Node
@@ -53,6 +55,17 @@ class A50(Node):
         self.connect()
 
         self.timer = self.create_timer(1/10.0, self.callback)
+
+    def connect(self):
+        try:
+            self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.socket.connect((self.TCP_IP, self.TCP_PORT))
+            self.socket.settimeout(1)
+        except socket.error as e:
+            self.get_logger().warn(f"Unable to connect to socket. Reconnecting.") 
+            sleep(1)
+            self.connect()
+
 
 
 def main(args=None):

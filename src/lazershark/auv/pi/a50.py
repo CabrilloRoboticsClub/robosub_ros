@@ -66,6 +66,26 @@ class A50(Node):
             sleep(1)
             self.connect()
 
+    def get_data(self):
+        data = self.old_data
+        
+        while "\n" not in data:
+            try: 
+                new_data = self.socket.recv(1).decode()
+            except socket.timeout as e:
+                new_data = ""
+                self.get_logger().warn(f"Socket timeout, reconnecting.\n{e}")
+                self.connect()
+
+            if len(new_data) == 0:
+                self.get_logger().warn("Socket closed, reconnecting.")
+                self.connect()
+            else:
+                data += new_data
+
+        data, self.old_data = data.split("\n")
+
+        return data
 
 
 def main(args=None):

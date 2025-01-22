@@ -39,8 +39,20 @@ class A50(Node):
         """
         super().__init__("a50")
 
-        self.declare_parameter("addr", "Not set.")
-        self.declare_parameter("frameID", "Not set.")
+        self.publisher = self.create_publisher(Odometry, "dvl/a50", 10)
+
+        self.declare_parameter("TCP_IP",    "Not set.")
+        self.declare_parameter("TCP_PORT",  "Not set.")
+        self.declare_parameter("frameID",   "Not set.")
+
+        self.TCP_IP   = self.get_parameter("TCP_IP").value
+        self.TCP_PORT = self.get_parameter("TCP_PORT").value
+        self.frame_id = self.get_parameter("frameID").value
+        self.old_data = ""
+
+        self.connect()
+
+        self.timer = self.create_timer(1/10.0, self.callback)
 
 
 def main(args=None):

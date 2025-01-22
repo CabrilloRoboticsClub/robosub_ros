@@ -100,5 +100,16 @@ def generate_launch_description():
                     ("imu/targetpoint", "imu/targetpoint1"),
                 ]
             ),
+            Node(
+                package='lazershark',
+                executable='a50',
+                name='a50',
+                output='screen',
+                parameters=[{
+                    "TCP_IP":   "192.168.1.205",
+                    "TCP_PORT": 16171,
+                    "frameID":  "thruster_6"
+                }]
+            ),
         ]
     )

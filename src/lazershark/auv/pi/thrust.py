@@ -47,7 +47,7 @@ class Thrust(Node):
         """Initialize this node"""
         super().__init__("thrust")
 
-        self.error = [PID(0, 0.1, 0, setpoint=0) for _ in range(12)]
+        self.error = [PID(0, 1, 0, setpoint=0) for _ in range(12)]
 
         # TODO: Make numbers good
         self.THRUST_MAX = 20
@@ -82,8 +82,6 @@ class Thrust(Node):
                 [0.0,0.0,0.0,0.0,1.0000000000000009,0.0,0.0,0.0,0.0,0.0,1.302775637731995,0.0,],
                 [0.0,0.0,0.0,0.0,0.0,1.0000000000000009,0.0,0.0,0.0,0.0,0.0,1.302775637731995,],
         ]
-
-        self.K = [[-val for val in row] for row in self.K]
 
         self.center_of_mass = [0.0] * 3
 
@@ -130,7 +128,7 @@ class Thrust(Node):
                 odometry.pose.pose.orientation.z, 
                 odometry.pose.pose.orientation.w,]
         # TODO: Set desired heading to zero in quat
-        rotation = Rotation.from_quat(quat).as_euler("xyz")
+        rotation = Rotation.from_quat(quat).as_euler
 
         # Convert Twist to single vector for multiplication
         state = [
@@ -140,23 +138,20 @@ class Thrust(Node):
             rotation[0],                    # Roll
             rotation[1],                    # Pitch
             rotation[2],                    # Yaw
-            odometry.twist.twist.linear.x,
-            odometry.twist.twist.linear.y,
-            odometry.twist.twist.linear.z,
-            odometry.twist.twist.angular.x,
-            odometry.twist.twist.angular.y,
-            odometry.twist.twist.angular.z,
+            odometry.twist.linear.x,
+            odometry.twist.linear.y,
+            odometry.twist.linear.z,
+            odometry.twist.angular.x,
+            odometry.twist.angular.y,
+            odometry.twist.angular.z,
         ]
-
         for i in range(12):
             state[i] += self.error[i](state[i])
-
-        self.get_logger().info(f"{rotation}")
 
         # Multiply twist with inverse of motor config to get motor effort values
         motor_values = np.matmul(self.stab_map, state)
 
-        scalar = 1 if ((val:=max(motor_values))<=self.THRUST_MAX) else self.THRUST_MAX / ((val == 0) + val)
+        scalar = self.THRUST_MAX / (((val:=max(motor_values)) == 0) + val)
         # Scalar will be the smaller of the two, largest value in twist array
         # will be percentage of that maximum
         thrust_values = [scalar * value for value in motor_values]
@@ -167,7 +162,7 @@ class Thrust(Node):
             thrust_msg.data = thrust_values[i]
             self.motor_publishers[i].publish(thrust_msg)
 
-
+    
 def main(args=None):
     rclpy.init(args=args)
     node = Thrust()

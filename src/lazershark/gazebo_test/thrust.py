@@ -35,6 +35,7 @@ from simple_pid import PID
 from scipy.spatial.transform import Rotation
 import numpy as np
 from os import path
+from math import sin, cos
 
 PATH = path.dirname(__file__)
 
@@ -47,7 +48,14 @@ class Thrust(Node):
         """Initialize this node"""
         super().__init__("thrust")
 
-        self.error = [PID(0, 0.1, 0, setpoint=0) for _ in range(12)]
+        self.error = [
+            PID(0, 0.00, 0, setpoint=0),
+            PID(0, 0.00, 0, setpoint=0),
+            PID(0, 0.05, 0, setpoint=0),
+            PID(0, 0.00, 0, setpoint=0),
+            PID(0, 0.00, 0, setpoint=0),
+            PID(0, 0.00, 0, setpoint=0),
+        ]
 
         # TODO: Make numbers good
         self.THRUST_MAX = 20
@@ -77,25 +85,26 @@ class Thrust(Node):
         self.K = [
                 [1.0000000000000009,0.0,0.0,0.0,0.0,0.0,1.302775637731995,0.0,0.0,0.0,0.0,0.0,],
                 [0.0,1.0000000000000009,0.0,0.0,0.0,0.0,0.0,1.302775637731995,0.0,0.0,0.0,0.0,],
-                [0.0,0.0,1.0000000000000009,0.0,0.0,0.0,0.0,0.0,1.302775637731995,0.0,0.0,0.0,],
-                [0.0,0.0,0.0,1.0000000000000009,0.0,0.0,0.0,0.0,0.0,1.302775637731995,0.0,0.0,],
-                [0.0,0.0,0.0,0.0,1.0000000000000009,0.0,0.0,0.0,0.0,0.0,1.302775637731995,0.0,],
-                [0.0,0.0,0.0,0.0,0.0,1.0000000000000009,0.0,0.0,0.0,0.0,0.0,1.302775637731995,],
+                [0.0,0.0,-1.0000000000000009,0.0,0.0,0.0,0.0,0.0,1.302775637731995,0.0,0.0,0.0,],
+                [0.0,0.0,0.0,-6.0000000000000009,0.0,0.0,0.0,0.0,0.0,1.302775637731995,0.0,0.0,],
+                [0.0,0.0,0.0,0.0,-6.0000000000000009,0.0,0.0,0.0,0.0,0.0,1.302775637731995,0.0,],
+                [0.0,0.0,0.0,0.0,0.0,6.0000000000000009,0.0,0.0,0.0,0.0,0.0,1.302775637731995,],
         ]
 
-        self.K = [[-val for val in row] for row in self.K]
+        self.K = [[-3 * val for val in row] for row in self.K]
 
         self.center_of_mass = [0.0] * 3
 
         self.motor_config = self.generate_motor_config(self.center_of_mass)
         self.inverse_config = np.linalg.pinv(self.motor_config, rcond=1e-15, hermitian=False)
-        self.stab_map = np.matmul(self.inverse_config, self.K)
 
         self.motor_publishers = [0] * 8
         for i in range(8):
             self.motor_publishers[i] = self.create_publisher(Float64, f"/thruster_values/thruster_{i}", 10)
         # TODO: Make this take input from the EKF
         self.odom_sub = self.create_subscription(Odometry, "odometry/sim", self.generate_motor_values, 10)
+
+    # def closest_vector(self, state, )
 
     def generate_motor_config(self, center_of_mass_offset):
         """
@@ -130,16 +139,20 @@ class Thrust(Node):
                 odometry.pose.pose.orientation.z, 
                 odometry.pose.pose.orientation.w,]
         # TODO: Set desired heading to zero in quat
-        rotation = Rotation.from_quat(quat).as_euler("xyz")
+        rot = Rotation.from_quat(quat)
+        rx, ry, rz = rot.as_euler("xyz")
+        rotmatrix = np.eye(12)
+        rotmatrix[0:3,0:3] = rot.as_matrix()
+        corrected_map = np.matmul(self.inverse_config, other_map:=np.matmul(self.K, rotmatrix))
 
         # Convert Twist to single vector for multiplication
         state = [
             odometry.pose.pose.position.x,
             odometry.pose.pose.position.y,
             odometry.pose.pose.position.z,
-            rotation[0],                    # Roll
-            rotation[1],                    # Pitch
-            rotation[2],                    # Yaw
+            rx,                    # Roll
+            ry,                    # Pitch
+            rz,                    # Yaw
             odometry.twist.twist.linear.x,
             odometry.twist.twist.linear.y,
             odometry.twist.twist.linear.z,
@@ -148,13 +161,12 @@ class Thrust(Node):
             odometry.twist.twist.angular.z,
         ]
 
-        for i in range(12):
-            state[i] += self.error[i](state[i])
-
-        self.get_logger().info(f"{rotation}")
+        for i in range(3):
+           state[i] -= self.error[i](state[i])
 
         # Multiply twist with inverse of motor config to get motor effort values
-        motor_values = np.matmul(self.stab_map, state)
+        motor_values = np.matmul(corrected_map, state)
+        self.get_logger().info(f"{np.matmul(other_map, state)}")
 
         scalar = 1 if ((val:=max(motor_values))<=self.THRUST_MAX) else self.THRUST_MAX / ((val == 0) + val)
         # Scalar will be the smaller of the two, largest value in twist array

@@ -7,3 +7,9 @@ eeprom.bin
 mav.*
 *.pcd
 *.pyc
+
+# Exclude embedded git repositories
+src/rtabmap/
+src/rtabmap_ros/
+src/zed-ros2-examples/
+src/zed-ros2-wrapper/

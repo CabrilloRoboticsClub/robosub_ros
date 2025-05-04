@@ -56,7 +56,7 @@ def generate_launch_description():
                 output='screen',
                 parameters=[{
                     "dev": "/dev/ttyUSB0",
-                    "frameID": "thruster_5" # TODO: Fix frames
+                    "frameID": "imu_naviguider0"
                 }],
                 remappings=[
                     ("imu/naviguider", "imu/naviguider0"),
@@ -69,7 +69,7 @@ def generate_launch_description():
                 output='screen',
                 parameters=[{
                     "dev":      "/dev/ttyUSB1",
-                    "frameID":  "thruster_6"
+                    "frameID":  "imu_naviguider1"
                 }],
                 remappings=[
                     ("imu/naviguider", "imu/naviguider1"),
@@ -82,7 +82,7 @@ def generate_launch_description():
                 output='screen',
                 parameters=[{
                     "dev":      "/dev/ttyUSB0",
-                    "frameID":  "thruster_5"
+                    "frameID":  "imu_targetpoint0"
                 }],
                 remappings=[
                     ("imu/targetpoint", "imu/targetpoint0"),
@@ -95,7 +95,7 @@ def generate_launch_description():
                 output='screen',
                 parameters=[{
                     "dev":      "/dev/ttyUSB1",
-                    "frameID":  "thruster_6"
+                    "frameID":  "imu_targetpoint1"
                 }],
                 remappings=[
                     ("imu/targetpoint", "imu/targetpoint1"),
@@ -109,7 +109,7 @@ def generate_launch_description():
                 parameters=[{
                     "TCP_IP":   "192.168.1.205",
                     "TCP_PORT": 16171,
-                    "frameID":  "thruster_6"
+                    "frameID":  "dvl_a50"
                 }]
             ),
         ]

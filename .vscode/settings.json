@@ -1,5 +1,15 @@
 {
     "git.detectSubmodules": false,
     "cmake.sourceDirectory": "/workspaces/robosub_ros/src/lazershark_sim",
+    "python.autoComplete.extraPaths": [
+        "/workspaces/robosub_ros/install/zed_pose_odom_tracker/lib/python3.10/site-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/workspaces/robosub_ros/install/zed_pose_odom_tracker/lib/python3.10/site-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ],
     // "docker.host": "ssh://steph@seahawk.local"
 }

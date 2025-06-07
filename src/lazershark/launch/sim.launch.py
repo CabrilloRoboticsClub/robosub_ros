@@ -14,19 +14,19 @@ from launch_ros.actions import Node, SetParameter
 
 def generate_launch_description():
     """
-    Generate a launch description for lazershark_sim gazebo simulator.
+    Generate a launch description for lazershark sim gazebo simulator.
     Launches all nodes requred for the sim.
 
-    Launch with: `ros2 launch lazershark lazershark_sim.launch.py`
+    Launch with: `ros2 launch lazershark sim.launch.py`
     """
     # Get packages
     pkg_ros_gz_sim = get_package_share_directory("ros_gz_sim")
     pkg_lazershark = get_package_share_directory("lazershark")
-    gz_sim_resource_path = os.path.join(pkg_lazershark, "lazershark_sim")
+    gz_sim_resource_path = os.path.join(pkg_lazershark, "sim")
     
     # Get robot sdf file
     sdf_file = os.path.join(
-        pkg_lazershark, "lazershark_sim", "robot", "lazershark_sim.sdf"
+        pkg_lazershark, "sim", "robot", "lazershark_sim.sdf"
     )
     with open(sdf_file, "r") as infp:
         robot_desc = infp.read()
@@ -50,7 +50,7 @@ def generate_launch_description():
         parameters=[
             {
                 "config_file": os.path.join(
-                    pkg_lazershark, "lazershark_sim", "config", "ros_gz_bridge.yaml"
+                    pkg_lazershark, "sim", "config", "ros_gz_bridge.yaml"
                 ),
             }
         ],
@@ -76,7 +76,7 @@ def generate_launch_description():
         ),
         launch_arguments={
             "gz_args": "-v4 -s -r "
-            f'{Path(pkg_lazershark) / "lazershark_sim" / "worlds" / "waterworld.sdf"}'
+            f'{Path(pkg_lazershark) / "sim" / "worlds" / "waterworld.sdf"}'
         }.items(),
     )
 

@@ -44,7 +44,7 @@ Here are some steps to test your repository. **Run this command in the dev conta
 1. Launch the lazershark simulation: 
 
     ```
-    ros2 launch lazershark lazershark_sim.launch.py
+    ros2 launch lazershark sim.launch.py
     ```
 
 1. Or launch the RPi: 

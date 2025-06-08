@@ -153,6 +153,12 @@ def generate_launch_description():
                 name='imu_converter',
                 output='screen'
             ),
+            Node(
+                package='lazershark',
+                executable='cpp_test',
+                name='cpp_test',
+                output='screen'
+            ),
         #     Node(
         #         package='robot_localization',
         #         executable='ekf_node',

@@ -2,8 +2,8 @@
   <model name='lazershark_sim'>
     <link name='base_link'>
       <inertial>
-        <pose>3.0575523755931242e-05 -0.0007744548205423237 0.0031595499978365081 0 0 0</pose>
-        <mass>16.341679179779501</mass>
+        <pose>3.0575523756113327e-05 -0.00077445482134766463 0.0031595499934907539 0 0 0</pose>
+        <mass>16.34167918228199</mass>
         <inertia>
           <ixx>3.6424972687</ixx>
           <ixy>0.2124269012</ixy>
@@ -13,6 +13,7 @@
           <izz>2.867958541</izz>
         </inertia>
       </inertial>
+      
       <collision name='collision_bouyancy'>
         <pose>0 0 0.1 0 0 0</pose>
             <geometry>
@@ -21,6 +22,7 @@
                 </box>
             </geometry>
       </collision>
+  
       <visual name='base_link_visual'>
         <pose>0 0 0 0 0 0</pose>
         <geometry>
@@ -60,9 +62,8 @@
           <ambient>0.990196109 1 1 1</ambient>
         </material>
       </visual>
-       
     </link>
-    
+
     <joint name='hitbox_joint' type='fixed'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
@@ -83,7 +84,7 @@
             </geometry>
       </collision>
     </link>
-  
+
     <joint name='thruster_joint_0' type='fixed'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
@@ -99,15 +100,15 @@
         <mass>0.0077402184981497897</mass>
         <inertia>
           <ixx>2.2079176676882099e-06</ixx>
-          <ixy>5.6238037832560602e-10</ixy>
-          <ixz>2.1657728710509299e-12</ixz>
+          <ixy>5.6238037832567096e-10</ixy>
+          <ixz>2.1657728709863101e-12</ixz>
           <iyy>2.2065283910657202e-06</iyy>
-          <iyz>-2.4568710089126201e-11</iyz>
+          <iyz>-2.45687100891391e-11</iyz>
           <izz>3.21487517336415e-06</izz>
         </inertia>
       </inertial>
     </link>
-  
+
     <joint name='thruster_joint_1' type='fixed'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
@@ -147,15 +148,15 @@
         <mass>0.0077399991027589897</mass>
         <inertia>
           <ixx>2.20644758396669e-06</ixx>
-          <ixy>9.8014905546239006e-11</ixy>
-          <ixz>-1.6524261962542699e-11</ixz>
+          <ixy>9.8014905546432902e-11</ixy>
+          <ixz>-1.6524261962503899e-11</ixz>
           <iyy>2.2079718651243298e-06</iyy>
-          <iyz>-7.1929063499619802e-12</iyz>
+          <iyz>-7.1929063499264397e-12</iyz>
           <izz>3.2148319855686098e-06</izz>
         </inertia>
       </inertial>
     </link>
-    
+
     <joint name='thruster_joint_3' type='fixed'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
@@ -171,15 +172,15 @@
         <mass>0.0077399983948536503</mass>
         <inertia>
           <ixx>2.2064475793802802e-06</ixx>
-          <ixy>9.7481894951337505e-11</ixy>
-          <ixz>-1.6566588290979601e-11</ixz>
+          <ixy>9.7481894951311604e-11</ixy>
+          <ixz>-1.6566588290966699e-11</ixz>
           <iyy>2.2079712066106801e-06</iyy>
-          <iyz>-7.3428230170528503e-12</iyz>
+          <iyz>-7.3428230170690094e-12</iyz>
           <izz>3.2148313470043499e-06</izz>
         </inertia>
       </inertial>
     </link>
-    
+
     <joint name='thruster_joint_4' type='fixed'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
@@ -196,14 +197,14 @@
         <inertia>
           <ixx>2.71107411778506e-06</ixx>
           <ixy>-5.0416134195895599e-07</ixy>
-          <ixz>3.47772393895818e-10</ixz>
+          <ixz>3.4777239389592202e-10</ixz>
           <iyy>2.71120408706306e-06</iyy>
-          <iyz>3.2197575669328402e-10</iyz>
+          <iyz>3.2197575669325802e-10</iyz>
           <izz>2.20793678637294e-06</izz>
         </inertia>
       </inertial>
+
     </link>
-  
     <joint name='thruster_joint_5' type='fixed'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
@@ -220,14 +221,14 @@
         <inertia>
           <ixx>2.71149453962259e-06</ixx>
           <ixy>5.03800485554769e-07</ixy>
-          <ixz>5.4817058653300597e-10</ixz>
+          <ixz>5.4817058653323903e-10</ixz>
           <iyy>2.71144529613185e-06</iyy>
-          <iyz>-5.5746044883267496e-10</iyz>
+          <iyz>-5.5746044883274e-10</iyz>
           <izz>2.2072096250450701e-06</izz>
         </inertia>
       </inertial>
     </link>
-  
+
     <joint name='thruster_joint_6' type='fixed'>
       <pose relative_to='base_link'>0 0 0 0 0 0</pose>
       <parent>base_link</parent>
@@ -246,7 +247,7 @@
           <ixy>-5.0427887834305895e-07</ixy>
           <ixz>-5.3297832179119501e-10</ixz>
           <iyy>2.7115976978130102e-06</iyy>
-          <iyz>-4.4064567858250599e-10</iyz>
+          <iyz>-4.4064567858253101e-10</iyz>
           <izz>2.2082171653447701e-06</izz>
         </inertia>
       </inertial>
@@ -275,42 +276,133 @@
         </inertia>
       </inertial>
     </link>
+
+  <joint name='camera_joint_zed' type='fixed'>
+      <pose relative_to='base_link'>0 0 0 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>camera_zed</child>
+  </joint>
+  <link name='camera_zed'>
+    <pose relative_to='camera_joint_zed'>0 0 0 0 0 0</pose>
+    <inertial>
+      <pose>0 0.16737 -0.02867 0 0 0</pose>
+      <mass>0.152258681193596</mass>
+      <inertia>
+        <ixx>0</ixx>
+        <ixy>0</ixy>
+        <ixz>0</ixz>
+        <iyy>0</iyy>
+        <iyz>0</iyz>
+        <izz>0</izz>
+      </inertia>
+    </inertial>
+  </link>
+
+  <joint name='dvl_joint_a50' type='fixed'>
+      <pose relative_to='base_link'>0 0 0 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>dvl_a50</child>
+    </joint>
+    <link name='dvl_a50'>
+      <pose relative_to='dvl_joint_a50'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 -0.08492 0 0 0</pose>
+        <mass>0.0000001</mass>
+        <inertia>
+          <ixx>0</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0</iyy>
+          <iyz>0</iyz>
+          <izz>0</izz>
+        </inertia>
+      </inertial>
+    </link>
+
+    <joint name='imu_targetpoint0_joint' type='fixed'>
+      <pose relative_to='base_link'>0 0 0 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>imu_targetpoint0</child>
+    </joint>
+    <link name='imu_targetpoint0'>
+      <pose relative_to='imu_targetpoint0_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 -0.0075 0.04304 0 0 0</pose>
+        <mass>0.0000001</mass>
+        <inertia>
+          <ixx>0</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0</iyy>
+          <iyz>0</iyz>
+          <izz>0</izz>
+        </inertia>
+      </inertial>
+    </link>
+
+    <joint name='imu_targetpoint1_joint' type='fixed'>
+      <pose relative_to='base_link'>0 0 0 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>imu_targetpoint1</child>
+    </joint>
+    <link name='imu_targetpoint1'>
+      <pose relative_to='imu_targetpoint1_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.0255 -0.0205 0.06178 0 0 0</pose>
+        <mass>0.0000001</mass>
+        <inertia>
+          <ixx>0</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0</iyy>
+          <iyz>0</iyz>
+          <izz>0</izz>
+        </inertia>
+      </inertial>
+    </link>
+
+    <joint name='imu_naviguider0_joint' type='fixed'>
+      <pose relative_to='base_link'>0 0 0 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>imu_naviguider0</child>
+    </joint>
+    <link name='imu_naviguider0'>
+      <pose relative_to='imu_naviguider0_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.0325 -0.0225 0.0527 0 0 0</pose>
+        <mass>0.0000001</mass>
+        <inertia>
+          <ixx>0</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0</iyy>
+          <iyz>0</iyz>
+          <izz>0</izz>
+        </inertia>
+      </inertial>
+    </link>
+
+    <joint name='imu_naviguider1_joint' type='fixed'>
+      <pose relative_to='base_link'>0 0 0 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>imu_naviguider1</child>
+    </joint>
+    <link name='imu_naviguider1'>
+      <pose relative_to='imu_naviguider1_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.0325 -0.0225 0.0527 0 0 0</pose>
+        <mass>0.0000001</mass>
+        <inertia>
+          <ixx>0.0</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.0</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0</izz>
+        </inertia>
+      </inertial>
+    </link>
     
-    <frame name='camera_zed_joint' attached_to='base_link'>
-      <pose>0 0 0 0 0 0</pose>
-    </frame>
-    <frame name='camera_zed' attached_to='camera_zed_joint'>
-      <pose>0 0 0 0 0 0</pose>
-    </frame>
-    <frame name='dvl_joint' attached_to='base_link'>
-      <pose>0 0 0 0 0 0</pose>
-    </frame>
-    <frame name='dvl_a50' attached_to='dvl_joint'>
-      <pose>0 0 0 0 0 0</pose>
-    </frame>
-    <frame name='imu_naviguider0_joint' attached_to='base_link'>
-      <pose>0 0 0 0 0 0</pose>
-    </frame>
-    <frame name='imu_naviguider0' attached_to='imu_naviguider0_joint'>
-      <pose>0 0 0 0 0 0</pose>
-    </frame>
-    <frame name='imu_naviguider1_joint' attached_to='base_link'>
-      <pose>0 0 0 0 0 0</pose>
-    </frame>
-    <frame name='imu_naviguider1' attached_to='imu_naviguider1_joint'>
-      <pose>0 0 0 0 0 0</pose>
-    </frame>
-    <frame name='imu_targetpoint0_joint' attached_to='base_link'>
-      <pose>0 0 0 0 0 0</pose>
-    </frame>
-    <frame name='imu_targetpoint0' attached_to='imu_targetpoint0_joint'>
-      <pose>0 0 0 0 0 0</pose>
-    </frame>
-    <frame name='imu_targetpoint1_joint' attached_to='base_link'>
-      <pose>0 0 0 0 0 0</pose>
-    </frame>
-    <frame name='imu_targetpoint1' attached_to='imu_targetpoint1_joint'>
-      <pose>0 0 0 0 0 0</pose>
-    </frame>
   </model>
+
 </sdf>

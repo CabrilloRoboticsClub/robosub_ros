@@ -74,8 +74,8 @@ COPY --chown=$USERNAME:$USERNAME src/ /tmp/dep-repos/src
 WORKDIR /tmp/dep-repos 
 
 # Install ArduPilot dependencies 
-RUN export USER=$(whoami) \
-    && ./src/ardupilot/Tools/environment_install/install-prereqs-ubuntu.sh -y 
+RUN export USER=$(whoami)
+#    && ./src/ardupilot/Tools/environment_install/install-prereqs-ubuntu.sh -y 
 
 # Install dependencies with rosdep 
 ENV GZ_VERSION=harmonic

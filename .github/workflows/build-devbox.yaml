@@ -48,9 +48,6 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
   docker-arm64:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        architecture: [arm64]
     steps:
       - name: Checkout
         uses: actions/checkout@v4

@@ -56,7 +56,7 @@ RUN apt install -y libgz-sim8-dev rapidjson-dev libopencv-dev libgstreamer1.0-de
 
 # Install Python Libraries
 RUN apt install python3-pip
-RUN pip3 install simple_pid numpy
+#RUN pip3 install simple_pid numpy
 
 # [Optional] Set the default user. Omit if you want to keep the default as root.
 USER $USERNAME

@@ -40,7 +40,7 @@ class ZedDepthCloud(Node):
             output_topic,
             qos
         )
-        self.get_logger().info(f"ZED Depth Cloud Node started with input topic: {inout_topic}, output topic: {output_topic}")
+        self.get_logger().info(f"ZED Depth Cloud Node started with input topic: {input_topic}, output topic: {output_topic}")
 
     def depth_callback(self, msg: PointCloud2):
         # proccessing can happen here or in the .yaml provided by zed: zed-ros2-wrapper/zed-wrapper/config/common_stereo.yaml

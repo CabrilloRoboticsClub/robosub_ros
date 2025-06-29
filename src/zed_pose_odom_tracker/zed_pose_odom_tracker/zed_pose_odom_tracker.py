@@ -35,7 +35,7 @@ class ZedPoseOdomTracker(Node):
         # TF broadcaster
         self.tf_broadcaster = TransformBroadcaster(self)
 
-        self.get_logger().info(f"ZED Pose Odom Tracker Node started with pose topic: {self.pose_topic}, odom topic: {self.odom_topic}, pose child frame: {self.child_pose}, odom child frame: {self.child_odom}")
+        self.get_logger().info(f"ZED Pose Odom Tracker Node started with pose topic: {self.pose_topic}, odom topic: {self.odom_topic}, pose child frame: {self.pose_child_frame}, odom child frame: {self.odom_child_frame}")
 
     def pose_callback(self, msg: PoseStamped):
         x = msg.pose.position.x
@@ -80,9 +80,14 @@ class ZedPoseOdomTracker(Node):
 def main(args=None):
     rclpy.init(args=args)
     node = ZedPoseOdomTracker()
+
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
         pass
-    node.destroy_node()
-    rclpy.shutdown()
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()

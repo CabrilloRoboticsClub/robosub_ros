@@ -20,6 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'zed_depth_cloud = zed_depth_cloud.zed_depth_cloud:main',
         ],
     },
 )

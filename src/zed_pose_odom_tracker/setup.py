@@ -20,6 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'zed_pose_odom_node = zed_pose_odom_tracker.zed_pose_odom_tracker:main',
         ],
     },
 )

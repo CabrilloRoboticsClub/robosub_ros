@@ -3,7 +3,7 @@
 {
 	"name": "RoboSub Dev",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "ghcr.io/cabrilloroboticsclub/robosub_ros:sha-2a37be7",
+	"image": "ghcr.io/cabrilloroboticsclub/robosub_ros:sha-79fe10b",
 	// "build": { "dockerfile": "Dockerfile", "context": "${localWorkspaceFolder}"},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.

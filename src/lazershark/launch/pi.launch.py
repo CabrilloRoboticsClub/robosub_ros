@@ -1,10 +1,15 @@
 import os
+import subprocess
 
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
 from launch_ros.actions import Node
 
+microros_serial_device = "/dev/ttyS0"
+subprocess.run('sudo /usr/local/bin/openocd -f interface/raspberrypi-swd.cfg -f target/rp2040.cfg -c "adapter speed 5000" -c "program pico/seahawk.elf verify reset exit"',
+                shell=True,
+                check=True)
 
 def generate_launch_description():
     """
@@ -29,6 +34,27 @@ def generate_launch_description():
     )
     with open(sdf_file, "r") as infp:
         robot_desc = infp.read()
+
+    if microros_serial_device is not None and pathlib.Path(microros_serial_device).exists():
+        nodes.append(
+            ExecuteProcess(
+                cmd=[[
+                    FindExecutable(name='docker'),
+                    " run " ,
+                    " --rm ",
+                    " --name micro-ros-agent ",
+                    f" --device {microros_serial_device} ",
+                    " --network host ",
+                    " microros/micro-ros-agent:humble ",
+                    f" serial --dev {microros_serial_device} baudrate=115200 ",
+                ]],
+                shell=True,
+                name="micro-ros-agent",
+                output='both',
+                respawn=True,
+                respawn_delay=respawn_time
+            ),
+        )
 
     return LaunchDescription(
         [   

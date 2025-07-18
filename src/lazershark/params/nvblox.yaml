@@ -1,0 +1,46 @@
+# Parameters for NVBlox
+# See: https://github.com/Tinker-Twins/NVIDIA-Isaac-ROS-Nvblox/blob/main/docs/parameters.md
+/**:
+  ros__parameters:
+    # The name of the TF frame to be used as the global frame.
+    # TODO: Make sure this makes sense
+    global_frame: odom
+
+    # Voxel size (in meters) to use for the map.
+    voxel_size: 0.5
+  
+    # Whether to integrate depth images.
+    use_depth: true
+
+    # The maximum rate (in Hz) at which to integrate depth images. 
+    max_depth_update_hz: 10
+    
+    # ROS 2 QoS strings.
+    depth_qos: "SENSOR_DATA"
+    color_qos: "SYSTEM_DEFAULT"
+
+    # Whether to integrate LiDAR scans.
+    use_lidar: false
+  
+    # The rate (in Hz) at which to publish the static occupancy pointcloud.
+    occupancy_publication_rate_hz: 10
+
+    # Turn this off if not debugging
+    # Whether to output a mesh for visualization in rviz, to be used with nvblox_rviz_plugin.
+    compute_mesh: true 
+
+  mapper:
+    # The maximum distance, in meters, to integrate the TSDF or occupancy map up to for depth images.
+    projective_integrator_max_integration_distance_m: 10
+
+    # The truncation distance, in units of voxels, for the TSDF or occupancy map.
+    # projective_integrator_truncation_distance_vox
+
+    # The inverse sensor model occupancy probability for voxels observed as free space.
+    free_region_occupancy_probability: 
+    # The inverse sensor model occupancy probability for voxels observed as occupied.
+    occupied_region_occupancy_probability:
+    # The inverse sensor model occupancy probability for unobserved voxels.
+    unobserved_region_occupancy_probability: 0.5
+
+    # There are other parameters we can add if we want to, see the document linked at the top

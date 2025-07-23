@@ -31,10 +31,12 @@ from rclpy.node import Node
 from nav_msgs.msg import Odometry
 from std_msgs.msg import Float64
 
+from std_msgs.msg import Int16MultiArray
 from simple_pid import PID
 from scipy.spatial.transform import Rotation
 import numpy as np
 from os import path
+from scipy.optimize import curve_fit
 
 PATH = path.dirname(__file__)
 
@@ -50,38 +52,46 @@ class Thrust(Node):
         self.error = [PID(0, 1, 0, setpoint=0) for _ in range(12)]
 
         # TODO: Make numbers good
-        self.THRUST_MAX = 20
+        self.THRUST_MAX = 10
+
+        com_pos = [0.20022, 0.06563, 0.0361]
 
         self.motor_positions = [ # [X, Y, Z] positions for each motors
-            [ 0.324,  0.276, -0.025], # Motor 0
-            [ 0.229,  0.223, -0.005], # Motor 1
-            [ 0.229, -0.223, -0.005], # Motor 2
-            [-0.229, -0.223, -0.005], # Motor 3
-            [ 0.324, -0.276, -0.025], # Motor 4
-            [-0.229,  0.223, -0.005], # Motor 5
-            [-0.324, -0.276, -0.025], # Motor 6
-            [-0.324,  0.276, -0.025]  # Motor 7
+            [ 0.19891, -0.30409, -0.06545], # Motor 0
+            [ 0.19898,  0.17679, -0.06545], # Motor 1
+            [-0.59640,  0.17686, -0.06545], # Motor 2
+            [-0.59647, -0.30402, -0.06545], # Motor 3
+            [ 0.08063, -0.28802, -0.00372], # Motor 4
+            [ 0.08816,  0.15326, -0.00372], # Motor 5
+            [-0.47812,  0.16079, -0.00372], # Motor 6
+            [-0.48565, -0.28049, -0.00372]  # Motor 7
         ]
+
+        for i in range(8):
+            for j in range(3):
+                self.motor_positions[i][j] += com_pos[j]
+
+        # TODO: Check these numbers in pool (again)
         self.motor_thrusts = [ # [X, Y, Z] components of thrust for each motor
             [    0.0,     0.0,  1.0],   # Motor 0
-            [-0.7071,  0.7071,  0.0],   # Motor 1
-            [-0.7071, -0.7071,  0.0],   # Motor 2
-            [ 0.7071, -0.7071,  0.0],   # Motor 3
-            [    0.0,     0.0,  1.0],   # Motor 6
+            [    0.0,     0.0,  1.0],   # Motor 1
+            [    0.0,     0.0,  1.0],   # Motor 2
+            [    0.0,     0.0,  1.0],   # Motor 3
+            [ 0.7071,  0.7071,  0.0],   # Motor 4
             [ 0.7071,  0.7071,  0.0],   # Motor 5
-            [    0.0,     0.0,  1.0],   # Motor 6
-            [    0.0,     0.0,  1.0]    # Motor 7
+            [ 0.7071,  0.7071,  0.0],   # Motor 6
+            [ 0.7071,  0.7071,  0.0],   # Motor 7
         ]
 
         # TODO: Generate feedback matrix in startup
-        self.K = [
-                [1.0000000000000009,0.0,0.0,0.0,0.0,0.0,1.302775637731995,0.0,0.0,0.0,0.0,0.0,],
-                [0.0,1.0000000000000009,0.0,0.0,0.0,0.0,0.0,1.302775637731995,0.0,0.0,0.0,0.0,],
-                [0.0,0.0,1.0000000000000009,0.0,0.0,0.0,0.0,0.0,1.302775637731995,0.0,0.0,0.0,],
-                [0.0,0.0,0.0,1.0000000000000009,0.0,0.0,0.0,0.0,0.0,1.302775637731995,0.0,0.0,],
-                [0.0,0.0,0.0,0.0,1.0000000000000009,0.0,0.0,0.0,0.0,0.0,1.302775637731995,0.0,],
-                [0.0,0.0,0.0,0.0,0.0,1.0000000000000009,0.0,0.0,0.0,0.0,0.0,1.302775637731995,],
-        ]
+        self.K = np.negative([
+                    [ 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 5.8037, 0.0,    0.0,    0.0,     0.0,     0.0],
+                    [ 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0,    5.8037, 0.0,    0.0,     0.0,     0.0],
+                    [ 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,    0.0,    5.8037, 0.0,     0.0,     0.0],
+                    [ 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0,    0.0,    0.0,    2.2508,  0.1232,  0.0779],
+                    [ 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0,    0.0,    0.0,    0.1233,  2.0262, -0.2987],
+                    [ 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0,    0.0,    0.0,    0.0779, -0.2987,  2.4774],
+        ])
 
         self.center_of_mass = [0.0] * 3
 
@@ -89,11 +99,11 @@ class Thrust(Node):
         self.inverse_config = np.linalg.pinv(self.motor_config, rcond=1e-15, hermitian=False)
         self.stab_map = np.matmul(self.inverse_config, self.K)
 
-        self.motor_publishers = [0] * 8
-        for i in range(8):
-            self.motor_publishers[i] = self.create_publisher(Float64, f"/thruster_values/thruster_{i}", 10)
+        self.pwm_fit_params = Thrust.generate_pwm_fit_params()
+
+        self.pwm_pub = self.create_publisher(Int16MultiArray, "pwm_values", 10)
         # TODO: Make this take input from the EKF
-        self.odom_sub = self.create_subscription(Odometry, "odometry/sim", self.generate_motor_values, 10)
+        self.odom_sub = self.create_subscription(Odometry, "odometry/filtered", self.generate_motor_values, 10)
 
     def generate_motor_config(self, center_of_mass_offset):
         """
@@ -132,18 +142,18 @@ class Thrust(Node):
 
         # Convert Twist to single vector for multiplication
         state = [
-            odometry.pose.pose.position.x,
-            odometry.pose.pose.position.y,
-            odometry.pose.pose.position.z,
-            rotation[0],                    # Roll
-            rotation[1],                    # Pitch
-            rotation[2],                    # Yaw
+            0.0, # odometry.pose.pose.position.x,
+            0.0, # odometry.pose.pose.position.y,
+            0.0, # odometry.pose.pose.position.z,
+            0.0, # rotation[0],                    # Roll
+            0.0, # rotation[1],                    # Pitch
+            0.0, # rotation[2],                    # Yaw
             odometry.twist.linear.x,
             odometry.twist.linear.y,
-            odometry.twist.linear.z,
+            0.0, # odometry.twist.linear.z,
             odometry.twist.angular.x,
             odometry.twist.angular.y,
-            odometry.twist.angular.z,
+            0.0, # odometry.twist.angular.z,
         ]
         for i in range(12):
             state[i] += self.error[i](state[i])
@@ -151,17 +161,60 @@ class Thrust(Node):
         # Multiply twist with inverse of motor config to get motor effort values
         motor_values = np.matmul(self.stab_map, state)
 
-        scalar = self.THRUST_MAX / (((val:=max(motor_values)) == 0) + val)
+        scalar = self.THRUST_MAX / ((val:=max(motor_values)) + (val == 0))
         # Scalar will be the smaller of the two, largest value in twist array
         # will be percentage of that maximum
         thrust_values = [scalar * value for value in motor_values]
 
-        # scale and return motor values
-        thrust_msg = Float64()
-        for i in range(8):
-            thrust_msg.data = thrust_values[i]
-            self.motor_publishers[i].publish(thrust_msg)
+        pwm_values = Int16MultiArray()  
+        pwm_values.data = [0] * 8
+        motor_values = thrust_values
+        for index, newton in enumerate(motor_values):
+            pwm_values.data[index] = int(Thrust.newtons_to_pwm(
+                newton,
+                self.pwm_fit_params[0],
+                self.pwm_fit_params[1],
+                self.pwm_fit_params[2],
+                self.pwm_fit_params[3],
+                self.pwm_fit_params[4],
+                self.pwm_fit_params[5]))
+            pwm_values.data[index] = 1900 if pwm_values.data[index] > 1900 else 1100 if pwm_values.data[index] < 1100 else pwm_values.data[index]
+            if newton == 0: pwm_values.data[index] = 1500
+        self.pwm_pub.publish(pwm_values)
+        
 
+    @staticmethod
+    def newtons_to_pwm(x: float, a: float, b: float, c: float, d: float, e: float, f: float) -> float:
+        """
+        Converts desired newtons into its corresponding PWM value
+
+        Args:
+            x: The force in newtons desired
+            a-f: Arbitrary parameters to map newtons to pwm, see __generate_curve_fit_params()
+
+        Returns:
+            PWM value corresponding to the desired thrust
+        """
+        return (a * x**5) + (b * x**4) + (c * x**3) + (d * x**2) + (e * x) + f
+
+    @staticmethod
+    def generate_pwm_fit_params():
+        x = []
+        y = []
+
+        with open(PATH + "/newtons_to_pwm.tsv", "r") as file:
+            for data_point in file:
+                data = data_point.split("\t")
+                x.append(data[0])
+                y.append(data[1])
+
+        optimal_params, param_covariance = curve_fit(Thrust.newtons_to_pwm, x, y)
+        return optimal_params
+    
+    def __del__(self):
+        pwm_values = Int16MultiArray()
+        pwm_values.data = [1500] * 8
+        self.pwm_pub.publish(pwm_values)
     
 def main(args=None):
     rclpy.init(args=args)

@@ -62,19 +62,19 @@ def generate_launch_description():
                     ("imu/naviguider", "imu/naviguider0"),
                 ]
             ),
-            Node(
-                package='lazershark',
-                executable='naviguider',
-                name='naviguider1',
-                output='screen',
-                parameters=[{
-                    "dev":      "/dev/ttyUSB1",
-                    "frameID":  "imu_naviguider1"
-                }],
-                remappings=[
-                    ("imu/naviguider", "imu/naviguider1"),
-                ]
-            ),
+            # Node(
+            #     package='lazershark',
+            #     executable='naviguider',
+            #     name='naviguider1',
+            #     output='screen',
+            #     parameters=[{
+            #         "dev":      "/dev/ttyUSB1",
+            #         "frameID":  "imu_naviguider1"
+            #     }],
+            #     remappings=[
+            #         ("imu/naviguider", "imu/naviguider1"),
+            #     ]
+            # ),
             Node(
                 package='lazershark',
                 executable='targetpoint',
@@ -88,29 +88,29 @@ def generate_launch_description():
                     ("imu/targetpoint", "imu/targetpoint0"),
                 ]
             ),
-            Node(
-                package='lazershark',
-                executable='targetpoint',
-                name='targetpoint1',
-                output='screen',
-                parameters=[{
-                    "dev":      "/dev/ttyUSB1",
-                    "frameID":  "imu_targetpoint1"
-                }],
-                remappings=[
-                    ("imu/targetpoint", "imu/targetpoint1"),
-                ]
-            ),
-            Node(
-                package='lazershark',
-                executable='a50',
-                name='a50',
-                output='screen',
-                parameters=[{
-                    "TCP_IP":   "192.168.1.205",
-                    "TCP_PORT": 16171,
-                    "frameID":  "dvl_a50"
-                }]
-            ),
+            # Node(
+            #     package='lazershark',
+            #     executable='targetpoint',
+            #     name='targetpoint1',
+            #     output='screen',
+            #     parameters=[{
+            #         "dev":      "/dev/ttyUSB1",
+            #         "frameID":  "imu_targetpoint1"
+            #     }],
+            #     remappings=[
+            #         ("imu/targetpoint", "imu/targetpoint1"),
+            #     ]
+            # ),
+            # Node(
+            #     package='lazershark',
+            #     executable='a50',
+            #     name='a50',
+            #     output='screen',
+            #     parameters=[{
+            #         "TCP_IP":   "192.168.1.205",
+            #         "TCP_PORT": 16171,
+            #         "frameID":  "dvl_a50"
+            #     }]
+            # ),
         ]
     )

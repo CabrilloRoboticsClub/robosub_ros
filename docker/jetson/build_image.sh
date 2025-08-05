@@ -1,6 +1,4 @@
 #!/bin/bash
-# run: chmod +x ./docker/x86_64/build_image.sh
-
 
 # finds the scripts absolute directory and assigns to SCRIPT_DIR, essentially sets up the user to be able to run this script anywhere
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -13,6 +11,6 @@ docker build \
     --build-arg USERNAME=$USER \
     --build-arg USER_UID=$(id -u) \
     --build-arg USER_GID=$(id -g) \
-    -t isaac-ros-zed-x86_64:latest \
-    -f robosub_ros/docker/x86_64/Dockerfile \
+    -t isaac-ros-zed-jetson:latest \
+    -f robosub_ros/docker/jetson/Dockerfile \
     .

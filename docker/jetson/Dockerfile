@@ -1,14 +1,13 @@
-# docker/x86_64/Dockerfile
-# runs on x86_64 architecture for nvidia docker container (isaac_ros_common)
-
-FROM nvcr.io/nvidia/isaac/ros:x86_64-ros2_humble_6f2a6bddf70fcd928f08e874635efe43
+#docker/jetson/Dockerfile
+# runs on NVIDIA Jetson architecture for robosub_ros
+FROM nvcr.io/nvidia/isaac/ros:aarch64-ros2_humble_77e6a678c2058abf96bedcb8f7dd4330
 
 # install dependencies and zed sdk, install sudo now
 RUN apt-get update && apt-get install -y \
     wget lsb-release gnupg sudo curl unzip \
     && rm -rf /var/lib/apt/lists/*
-
-RUN wget -q --no-check-certificate https://download.stereolabs.com/zedsdk/5.0/cu12/ubuntu22?_gl=1*1c8ie5h*_gcl_au*MTE1MTE4MzM4MC4xNzUzNjcwOTU1 -O ZED_SDK.run && \
+## grab proper zed sdk for jetson, depends on jetpack 6, 6.1/6.2: https://www.stereolabs.com/developers/release , 6.1 / 6.2 selected
+RUN wget -q --no-check-certificate https://download.stereolabs.com/zedsdk/5.0/l4t36.4/jetsons?_gl=1*5rtv1o*_gcl_au*MTE1MTE4MzM4MC4xNzUzNjcwOTU1 -O ZED_SDK.run && \
     chmod +x ZED_SDK.run && \
     ./ZED_SDK.run --quiet --accept && \
     rm ZED_SDK.run
@@ -32,6 +31,3 @@ RUN groupadd --gid $USER_GID $USERNAME && \
 #user login
 USER $USERNAME
 WORKDIR /workspaces/robosub_ros
-
-
-

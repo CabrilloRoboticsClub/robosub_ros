@@ -31,13 +31,16 @@ def generate_launch_description():
         executable='zed_depth_cloud',
         name='depth_cloud_node',
         output='screen', ## Debugging, show in terminal
-        parameters=[{
+        parameters=[{ #common_stereo https://github.com/stereolabs/zed-ros2-wrapper/tree/master/zed_wrapper/config
             'input_topic': '/zed/zed_node/depth/depth_registered',
             'output_topic': '/lazer_shark/depth_cloud',
-            'qos_depth': 10,
+            'qos_depth': 1,
             'qos_history': 'KEEP_LAST',
             'qos_reliability': 'BEST_EFFORT',
             'qos_durability': 'VOLATILE'
+            # param tuning for under water pool env
+            'depth_min_range': 0.1, ## meters
+
         }],
 
     )
@@ -74,7 +77,7 @@ def generate_launch_description():
         executable='nvblox_node',
         name='nvblox',
         output='screen',
-        parameters=[{  ## isaac_ros_nvblox/nvblox_examples/nvblox_examples_bringup/config/nvblox/specefications
+        parameters=[{  ## https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_nvblox/tree/main/nvblox_examples/nvblox_examples_bringup/config
             'input_qos': 'SENSOR_DATA',
             'use_tf_transforms': True, 
             'use_topic_transforms': False, ## must be set false to use tf transforms
@@ -95,7 +98,7 @@ def generate_launch_description():
 
     return LaunchDescription([
             zed_camera,
-            #zed_depth_cloud,
+            #zed_depth_cloud, ## not needed for nvblox
             zed_pose_odom,
             depth_republisher,
             nvblox_node

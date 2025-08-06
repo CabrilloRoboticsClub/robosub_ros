@@ -1,4 +1,5 @@
 #!/bin/bash
+# run: chmod +x ./docker/x86_64/run_docker.sh first
 
 # backout and fail if anything goes wrong
 set -e
@@ -20,8 +21,9 @@ docker run --rm -it \
     --env="QT_X11_NO_MITSHM=1" \
     --env="XAUTHORITY=${XAUTHORITY:-$HOME/.Xauthority}" \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
-    --volume="${WORKSPACE_DIR}:/workspaces/robosub_ros" \
-    --workdir="/workspaces/robosub_ros" \
+    --volume="${WORKSPACE_DIR}:/workspaces/robosub" \
+    --workdir="/workspaces/robosub" \
+    --user "$(id -u):$(id -g)" \
     "${IMAGE_NAME}" \
     /bin/bash
     

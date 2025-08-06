@@ -23,8 +23,9 @@ docker run --rm -it \
     --env="XAUTHORITY=${XAUTHORITY:-$HOME/.Xauthority}" \
     #--volume="/tmp/.X11-unix:/tmp/.X11-unix:rw"
     --volume="/etc/localtime:/etc/localtime:ro" \
-    --volume="${WORKSPACE_DIR}:/workspaces/robosub_ros" \
-    --workdir="/workspaces/robosub_ros" \
+    --volume="${WORKSPACE_DIR}:/workspaces/robosub" \
+    --workdir="/workspaces/robosub" \
+    --user "$(id -u):$(id -g)" \
     "${IMAGE_NAME}" \
     /bin/bash
     

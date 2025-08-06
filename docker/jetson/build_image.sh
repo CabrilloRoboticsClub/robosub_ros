@@ -1,4 +1,5 @@
 #!/bin/bash
+# run: chmod +x ./docker/jetson/build_image.sh first
 
 # finds the scripts absolute directory and assigns to SCRIPT_DIR, essentially sets up the user to be able to run this script anywhere
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

@@ -3,6 +3,8 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
+from launch.actions import IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 def generate_launch_description():
     """
@@ -11,57 +13,62 @@ def generate_launch_description():
     Launch with: `ros2 launch lazershark jetson.launch.py`
     """
 
-    # bringup_dir = get_package_share_directory("nvblox_examples_bringup")
-
-    # Launch Arguments
-    # run_rviz_arg = DeclareLaunchArgument(
-    #     "run_rviz", default_value="True",
-    #     description="Whether to start RVIZ")
-
-    # Get lazershark package
-    pkg_lazershark = get_package_share_directory("lazershark")
-
-    #region: NVBLOX
-    # SEE: https://github.com/Tinker-Twins/NVIDIA-Isaac-ROS-Nvblox/blob/main/nvblox_examples/nvblox_examples_bringup/launch/nvblox/nvblox.launch.py
-
-    # Conditionals for setup
-    # setup_for_isaac_sim = IfCondition(
-    #     LaunchConfiguration("setup_for_isaac_sim", default="False"))
-
-    # Nvblox node
-    nvblox = Node(
-        name="nvblox_node",
-        package="nvblox_ros",
-        plugin="nvblox::NvbloxNode",
-        parameters=[os.path.join(pkg_lazershark, "params", "nvblox.yaml")],
-        remappings=[
-            # TODO: Replace with real mappings
-            ("/depth/image",       "TODO"),
-            ("/depth/camera_info", "TODO"),
-            ("/color/image",       "TODO"),
-            ("/color/camera_info", "TODO"),
-        ]
+    zed_od_params = os.path.join(
+        get_package_share_directory('lazershark'),
+        'params',
+        'robosub_od.yaml'
     )
-    #endregion: NVBLOX
-    
-    #region: RVIZ
-    #TODO: We might want to view voxels in rviz, but this can be added later
-    # config_name = LaunchConfiguration("config_name", default='default.rviz')
-    # config_path = PathJoinSubstitution([get_package_share_directory(
-    #     'nvblox_examples_bringup'), 'config', 'rviz', config_name])
-    # global_frame = LaunchConfiguration('global_frame', default='odom')
 
-    # # Rviz node
-    # rviz = Node(
-    #     package='rviz2',
-    #     executable='rviz2',
-    #     arguments=['-d', config_path,       # set the config
-    #                '-f', global_frame],     # overwrite the global frame
-    #     output='screen')
-    #endregion: RVIZ
+    explorer_camera = Node(
+        package="v4l2_camera",
+        executable="v4l2_camera_node",
+        name="explorer_camera",
+        namespace="bottom_explorer_camera_frame", # just in case there is conflicting params for zed
+        output="screen",
+        parameters=[{
+            "video_device": "/dev/video0",  # camera input location
+            "image_size": [640, 480],  # camera resolution
+            "frame_rate": 30.0,  
+            "pixel_format": "YUYV",
+            "output_encoding": "bgr8",  # options: "bgr8", "rgb8", "yuyv"
+            "camera_frame_id": "explorer_camera_frame",  # frame id for the camera
+        }],
+    )
+
+    zed_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(get_package_share_directory('zed_wrapper'),
+                        'launch', 'zed_camera.launch.py')
+        ),
+        launch_arguments={
+            "camera_model": "zed2i",
+            "camera_name":  "zed2i",
+            "object_detection_config_path": zed_od_params,
+            "custom_object_detection_config_path": zed_od_params,
+        }.items()
+    )
+
+
+    yolov5_node = Node(
+        package="lazershark",
+        executable="yolov5_node",
+        name="yolov5_node",
+        output="screen",
+        parameters=[{
+            "yolo_dir": "/home/ubuntu/yolov5", ## need to update this
+            "weights": "/home/ubuntu/yolov5/best.pt", ## need to update this
+            "conf_thres": 0.30,
+            "device": "auto",
+            "image_topic": "/bottom/image_raw",
+            "output_topic": "/bottom/detections",
+            "use_class_names": True
+        }]
+    )
 
     return LaunchDescription(
         [
-            nvblox,
+            explorer_camera,
+            zed_launch,
+            yolov5_node,
         ]
     )

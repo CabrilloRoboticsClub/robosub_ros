@@ -44,6 +44,7 @@ setup(
             "naviguider=auv.pi.naviguider:main",
             "targetpoint=auv.pi.targetpoint:main",
             "a50=auv.pi.a50:main",
+            "yolov5_node=auv.jetson.yolov5_node:main",
         ],
     },
 )

@@ -2,3 +2,9 @@
 	path = lib/naviguider_simpleserial
 	url = git@github.com:CabrilloRoboticsClub/naviguider_simpleserial.git
 	branch = master
+[submodule "src/yolov5"]
+	path = src/yolov5
+	url = https://github.com/ultralytics/yolov5.git
+[submodule "src/zed-ros2-wrapper"]
+	path = src/zed-ros2-wrapper
+	url = https://github.com/stereolabs/zed-ros2-wrapper.git

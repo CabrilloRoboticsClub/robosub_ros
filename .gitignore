@@ -6,4 +6,7 @@ terrain/
 eeprom.bin
 mav.*
 *.pcd
-*.pyc
+*.pyc.vscode/*.db
+.vscode/*.db-shm
+.vscode/*.db-wal
+*.onnx

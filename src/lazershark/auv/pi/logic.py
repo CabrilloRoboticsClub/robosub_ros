@@ -103,10 +103,11 @@ class Logic(Node):
             shifted -= 360.0
         return shifted
     
-    def rotate_xy(self, x, y):
+    def rotate_xy(self):
         # Convert heading to radians
-        theta = self.maintain_pose.pose.pose.orientation.heading * 2 * np.pi / 360
+        theta = self.measured_pose.pose.pose.orientation.heading * 2 * np.pi / 360
        
+        x, y = self.measured_pose.pose.pose.position.x, self.measured_pose.pose.pose.position.y
         xy_vec = np.array([x, y])
 
         rotation_matrix = np.array([
@@ -114,7 +115,11 @@ class Logic(Node):
             [np.sin(theta),  np.cos(theta)],
         ])
 
-        return np.matmul(rotation_matrix, xy_vec)
+        rotated_xy_vec = np.matmul(rotation_matrix, xy_vec)
+
+        x_rot, y_rot = rotated_xy_vec[0], rotated_xy_vec[1]
+
+        self.modified_pose.pose.pose.position.x, self.modified_pose.pose.pose.position.y = x_rot, y_rot
 
     # Helpers for task preperation
     

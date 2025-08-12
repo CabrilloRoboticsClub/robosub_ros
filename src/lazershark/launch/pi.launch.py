@@ -1,10 +1,17 @@
 import os
+import subprocess
+import pathlib
 
 from ament_index_python.packages import get_package_share_directory
-
 from launch import LaunchDescription
-from launch_ros.actions import Node
+from launch_ros.actions import Node, ExecuteProcess, RegisterEventHandler
+from launch.event_handlers import OnShutdown
+from launch.substitutions import FindExecutable
 
+microros_serial_device = "/dev/ttyS0"
+subprocess.run('sudo /usr/local/bin/openocd -f interface/raspberrypi-swd.cfg -f target/rp2040.cfg -c "adapter speed 5000" -c "program pico/seahawk.elf verify reset exit"',
+                shell=True,
+                check=True)
 
 def generate_launch_description():
     """
@@ -22,6 +29,7 @@ def generate_launch_description():
     # Get lazershark package
     pkg_lazershark = get_package_share_directory("lazershark")
 
+    #region: SDF FILE FOR TF
     # Get robot sdf file
     # TODO: Make a new SDF to reflect the correct frame locations.
     sdf_file = os.path.join(
@@ -29,10 +37,11 @@ def generate_launch_description():
     )
     with open(sdf_file, "r") as infp:
         robot_desc = infp.read()
+    #endregion: SDF FILE FOR TF
 
-    return LaunchDescription(
-        [   
-            Node(
+    #region: NODES ON PI
+    nodes = [ 
+        Node(
                 package="robot_state_publisher",
                 executable="robot_state_publisher",
                 name="robot_state_publisher",

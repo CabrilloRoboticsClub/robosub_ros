@@ -1,0 +1,95 @@
+# YAML FILE FOR ZED CAMERA AND CUSTOM OBJECT DETECTION
+# params refrence: https://www.stereolabs.com/docs/ros2/zed-node#configuration-parameters
+
+# https://github.com/stereolabs/zed-ros2-wrapper/blob/master/zed_wrapper/config/common_stereo.yaml
+/**:
+  ros__parameters:
+    object_detection:
+      od_enabled: true
+      enable_tracking: true ## (tuning)Keep consistent object IDs and positions across frames, could reduce compute but also cause detection misnomer
+      model: 'CUSTOM_YOLOLIKE_BOX_OBJECTS'
+      ## note prama may be: detection_model, per: common_stereo.yaml: https://github.com/stereolabs/zed-ros2-wrapper/blob/master/zed_wrapper/config/common_stereo.yaml
+      # detection_model: 'custom_yololike_box_objects' 
+      allow_reduced_precision_inference: true # (tuning) the model will run reduced precision (FP16) instead of full precision (FP32).
+      max_range: 20.0 # [m] Upper depth range for detections.The value cannot be greater than 'depth.max_depth'
+      prediction_timeout: 0.7 # [s] (tuning) keeps object status if detection falls, useful for flickering
+      filtering_mode: 'NMS3D_PER_CLASS' # (tuning) supresses overlapping boxes only if belonging to same claass, 'NONE'keeps all detrected boxes
+      
+      ## loading .onnx model
+      custom_onnx_file: '/home/fxwllms/robosub2/robosub_ros/src/lazershark/models/robosub_od.onnx' # once we create new model we need to add launch args
+      custom_onnx_input_size: 608 # Resolution used with the YOLO-like ONNX file. For example, 608 means a input tensor '1x3x608x608' used when training and export .onnx: imgsz=608
+      custom_class_count: 2 # change based on amount of classes in the model, 2 for yolov5su.onnx: ['shark', 'sword_fish']
+
+      # TODO: Add one instance of each class to the list below
+      # Note: create a class_XXX identifier for each class in the custom ONNX file.
+      # Note: XXX is a number from 000 to 'custom_class_count-1', and it must be unique for each class.
+      # Note: the class_XXX identifier is not required to match the class ID [model_class_id] in the custom ONNX file.
+      ## NEEDS TO BE INLINE WITH REFRENCE FROM DATA SET ARRAY: CLASS__000 = 'shark' CLASS__001 = 'sword_fish' ETC.
+      class_000:
+        label: 'shark'
+        model_class_id: 0
+        enabled: true
+        confidence_threshold: 50.0 # Minimum value of the detection confidence of an object [0,99], need to test under water
+        is_grounded: true # this one is confusing though because there might be variance under water
+        is_static: true # are the detectable objects stationary, might need to be false for buoys
+        tracking_timeout: -1.0 # [s] not detection bias, keeps object in the map based time, -1.0 = infi
+        tracking_max_dist: -1.0 # [m] not detection bias, keep the object on the map distance based, infi
+        max_box_width_normalized: -1.0 # Maximum allowed width normalized to the image size, keep infinite bc/ unknown math relevance size of pool to depth ratio
+        min_box_width_normalized: -1.0 # Minimum allowed width normalized to the image size, keep infinite bc/ unknown math relevance size of pool to depth ratio
+        max_box_height_normalized: -1.0 # Maximum allowed height normalized to the image size
+        min_box_height_normalized: -1.0 # Minimum allowed height normalized to the image size
+        max_box_width_meters: -1.0
+        min_box_width_meters: -1.0
+        max_box_height_meters: -1.0
+        min_box_height_meters: -1.0
+        object_acceleration_preset: 'LOW' # not needed our abjects barely move if at all
+        max_allowed_acceleration: 0.5 # should have a very small variance to prevent jitters / FP
+
+      class_001:
+        label: 'sword_fish'
+        model_class_id: 1
+        enabled: true
+        confidence_threshold: 50.0 # Minimum value of the detection confidence of an object [0,99], need to test under water
+        is_grounded: true # this one is confusing though because there might be variance under water
+        is_static: true # are the detectable objects stationary, might need to be false for buoys
+        tracking_timeout: -1.0 # [s] not detection bias, keeps object in the map based time, -1.0 = infi
+        tracking_max_dist: -1.0 # [m] not detection bias, keep the object on the map distance based, infi
+        max_box_width_normalized: -1.0 # Maximum allowed width normalized to the image size, keep infinite bc/ unknown math relevance size of pool to depth ratio
+        min_box_width_normalized: -1.0 # Minimum allowed width normalized to the image size, keep infinite bc/ unknown math relevance size of pool to depth ratio
+        max_box_height_normalized: -1.0 # Maximum allowed height normalized to the image size
+        min_box_height_normalized: -1.0 # Minimum allowed height normalized to the image size
+        max_box_width_meters: -1.0
+        min_box_width_meters: -1.0
+        max_box_height_meters: -1.0
+        min_box_height_meters: -1.0
+        object_acceleration_preset: 'LOW' # not needed our abjects barely move if at all
+        max_allowed_acceleration: 0.5 # should have a very small variance to prevent jitters / FP
+
+      
+
+
+
+
+
+
+
+      ## template
+      # class_000:
+      #   label:
+      #   model_class_id:
+      #   enabled:
+      #   confidence_threshold:
+      #   is_grounded:
+      #   is_static:
+      #   tracking_timeout:
+      #   tracking_max_dist:
+      #   max_box_width_normalized:
+      #   min_box_width_normalized:
+      #   max_box_height_normalized:
+      #   min_box_height_normalized:
+      #   max_box_width_meters:
+      #   min_box_width_meters:
+      #   max_box_height_meters:
+      #   min_box_height_meters:
+      #   object_acceleration_preset:
+      #   max_allowed_acceleration:

@@ -104,7 +104,7 @@ class A50(Node):
             self.msg.twist.twist.linear.x =  float(data["vx"])
             self.msg.twist.twist.linear.y = -float(data["vy"])
             self.msg.twist.twist.linear.z = -float(data["vz"])
-        elif data["type" ] == "position_local":
+        elif data["type"] == "position_local":
             self.msg.pose.pose.position.x =  float(data["x"])
             self.msg.pose.pose.position.y = -float(data["y"])
             self.msg.pose.pose.orientation.x = -float(data["yaw"])

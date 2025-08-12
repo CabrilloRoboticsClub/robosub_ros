@@ -151,8 +151,9 @@ class Logic(Node):
         y = self.measured_pose.pose.pose.position.y - self.desired_pose["y"]
 
         self.rotate_xy(x, y)
+        self.clamp_xy()
 
-        self.modified_pose. z = self.measured_pose.pose.pose.position.z - self.desired_pose["z"]
+        self.modified_pose.z = self.measured_pose.pose.pose.position.z - self.desired_pose["z"]
 
 
 def main(args=None):

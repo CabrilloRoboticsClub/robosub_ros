@@ -101,13 +101,13 @@ class Logic(Node):
             shifted += 360.0
         elif shifted > 180.0:
             shifted -= 360.0
-        return shifted
+        self.modified_pose.pose.pose.orientation.z = shifted
     
-    def rotate_xy(self):
+    # Takes in x,y make sure they have desired offset subtracted
+    def rotate_xy(self, x, y):
         # Convert heading to radians
         theta = self.measured_pose.pose.pose.orientation.heading * 2 * np.pi / 360
        
-        x, y = self.measured_pose.pose.pose.position.x, self.measured_pose.pose.pose.position.y
         xy_vec = np.array([x, y])
 
         rotation_matrix = np.array([
@@ -144,8 +144,15 @@ class Logic(Node):
         self.modified_pose.pose.pose.position.x, self.modified_pose.pose.pose.position.y = x, y
 
 
-    def callback(self):
-        pass
+    def update_msg(self):
+        self.shifted_heading()
+
+        x = self.measured_pose.pose.pose.position.x - self.desired_pose["x"]
+        y = self.measured_pose.pose.pose.position.y - self.desired_pose["y"]
+
+        self.rotate_xy(x, y)
+
+        self.modified_pose. z = self.measured_pose.pose.pose.position.z - self.desired_pose["z"]
 
 
 def main(args=None):

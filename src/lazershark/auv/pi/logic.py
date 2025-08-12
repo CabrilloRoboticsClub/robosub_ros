@@ -24,6 +24,7 @@ import rclpy
 import sys
 from rclpy.node import Node
 from nav_msgs.msg import Odometry
+import numpy as np
 from scipy.spatial.transform import Rotation
 
 
@@ -37,20 +38,22 @@ class Logic(Node):
         Initialize `logic` node.
         """
         super().__init__("logic")
+        # Pose generated from fused sensor readings, in A50's coordinates
         self.measured_pose = Odometry()
+        # Pose modified for immediatel input into LQR, transformed into fixed Robot Frame
+        self.modified_pose = Odometry()
+        # Desired pose in the A50's coordinates
+        self.desired_pose = {"x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "heading": 0.0,
+        }
 
         self.roll_index = 1
         self.roll_scale = -5
 
         self.pitch_index = 0
         self.pitch_scale = 5
-
-        self.desired_pose = {"x": 0.0,
-                             "y": 0.0,
-                             "z": 0.0,
-                             "heading": 0.0,
-                             }
-
 
         self.odom_sub = self.create_subscription(Odometry, "odometry/filtered", self.ekf_update, 10)
         self.dvl_sub = self.create_subscription(Odometry, "dvl/a50", self.dvl_update, 10)
@@ -100,9 +103,19 @@ class Logic(Node):
             shifted -= 360.0
         return shifted
     
-    def rotate_xy(self):
-        pass
-    
+    def rotate_xy(self, x, y):
+        # Convert heading to radians
+        theta = self.maintain_pose.pose.pose.orientation.heading * 2 * np.pi / 360
+       
+        xy_vec = np.array([x, y])
+
+        rotation_matrix = np.array([
+            [np.cos(theta), -np.sin(theta)],
+            [np.sin(theta),  np.cos(theta)],
+        ])
+
+        return np.matmul(rotation_matrix, xy_vec)
+
     # Helpers for task preperation
     
     def maintain_x(self):
@@ -118,6 +131,12 @@ class Logic(Node):
         self.maintain_x()
         self.maintain_y()
         self.maintain_heading()
+
+    def clamp_xy(self):
+        x, y = self.modified_pose.pose.pose.position.x, self.modified_pose.pose.pose.position.y
+        x = max(min(x, 1.0), -1.0)
+        y = max(min(y, 1.0), -1.0)
+        self.modified_pose.pose.pose.position.x, self.modified_pose.pose.pose.position.y = x, y
 
 
     def callback(self):

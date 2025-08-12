@@ -48,19 +48,23 @@ class A50(Node):
         self.declare_parameter("frameID",   "Not set.")
 
         self.TCP_IP   = self.get_parameter("TCP_IP").value
-        self.TCP_PORT = self.get_parameter("TCP_PORT").value
-        self.frame_id = self.get_parameter("frameID").value
+        self.TCP_PORT = 16171 #int(self.get_parameter("TCP_PORT").value)
+        self.frame_id = "dvl_a50" #self.get_parameter("frameID").value
         self.old_data = ""
-
         self.connect()
 
-        self.timer = self.create_timer(1/10.0, self.callback)
+        self.msg = Odometry()
+
+        self.timer = self.create_timer(1/30.0, self.callback)
 
     def connect(self):
         try:
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.socket.connect((self.TCP_IP, self.TCP_PORT))
+            # self.socket.connect((self.TCP_IP, self.TCP_PORT))
+            self.socket.connect(("10.42.0.98", 16171))
             self.socket.settimeout(1)
+            self.socket.send(b'{"command":"set_config","parameters":{"range_mode":"0<=2"}}')
+            self.get_logger().info(f"{self.get_data()}")
         except socket.error as e:
             self.get_logger().warn(f"Unable to connect to socket. Reconnecting.") 
             sleep(1)
@@ -88,20 +92,25 @@ class A50(Node):
         return data
 
     def callback(self):
-        msg = Odometry()
-        msg.header.frame_id = self.frame_id
+        self.msg.header.frame_id = "odom"
+        self.msg.child_frame_id = self.frame_id
+        self.msg.header.stamp.sec, self.msg.header.stamp.nanosec = self.get_clock().now().seconds_nanoseconds()
 
         data = json.loads(self.get_data())
-        while data["type"] != "velocity":
-            data = json.loads(self.get_data())
+        # print(data)
+        if data["type"] == "velocity":
+            self.msg.pose.pose.position.z = float(data["altitude"])
 
-        msg.pose.pose.position.z = data["altitude"]
+            self.msg.twist.twist.linear.x =  float(data["vx"])
+            self.msg.twist.twist.linear.y = -float(data["vy"])
+            self.msg.twist.twist.linear.z = -float(data["vz"])
+        elif data["type" ] == "position_local":
+            self.msg.pose.pose.position.x =  float(data["x"])
+            self.msg.pose.pose.position.y = -float(data["y"])
+            self.msg.pose.pose.orientation.x = -float(data["yaw"])
 
-        msg.twist.twist.linear.x = data["vx"]
-        msg.twist.twist.linear.y = data["vy"]
-        msg.twist.twist.linear.z = data["vz"]
+        self.publisher.publish(self.msg)
 
-        self.publisher.publish(msg)
 
 
 def main(args=None):

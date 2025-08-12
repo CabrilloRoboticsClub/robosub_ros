@@ -28,14 +28,17 @@ from rclpy.node import Node
 from sensor_msgs.msg import Imu
 
 from serial import Serial
-sys.path.insert(0, '/workspaces/robosub_ros/lib')
+sys.path.insert(0, '/home/liam/robosub_ros/lib')
 from naviguider_simpleserial.src.naviguider_simpleserial import (
     decode_line,
+    encode_autocal_start,
     encode_set_rotation_vector_sensor_rate,
     encode_set_linear_acceleration_sensor_rate,
     encode_system_restart,
     encode_set_gyroscope_sensor_rate,
     sensor_event,
+    encode_set_mounting_option,
+    MountingOption
 )
 
 
@@ -63,7 +66,11 @@ class NaviGuider(Node):
         self.serial_port = Serial(dev, 115200)
         self.get_logger().info(f"Port {dev} open: {self.serial_port.is_open}")
         
+        self.serial_port.write(encode_autocal_start().encode())
+        sleep(self.SETUP_DELAY)
         self.serial_port.write(encode_system_restart().encode())
+        sleep(self.SETUP_DELAY)
+        self.serial_port.write(encode_set_mounting_option(MountingOption(value=1)).encode())
         sleep(self.SETUP_DELAY)
         self.serial_port.write(encode_set_rotation_vector_sensor_rate(15).encode())
         sleep(self.SETUP_DELAY)
@@ -87,7 +94,7 @@ class NaviGuider(Node):
             except ValueError as e:
                 self.get_logger().warn(f"ValueError: {e}")
                 continue
-            except TypeError:
+            except TypeError as e:
                 self.get_logger().warn(f"TypeError: {e}")
                 continue
             if event:

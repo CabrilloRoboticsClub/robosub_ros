@@ -23,7 +23,7 @@ Cabrillo Robotics Club
 cabrillorobotics@gmail.com
 """
 import sys 
-from time import sleep
+
 import rclpy
 
 from rclpy.node import Node 
@@ -55,10 +55,10 @@ class Thrust(Node):
             # Position / Orientation
                 PID(0.0,   0.0, 0.0, setpoint=0),   # X
                 PID(0.0,   0.0, 0.0, setpoint=0),   # Y
-                PID(0.0, -0.025, 0.0, setpoint=0),   # Z
+                PID(0.0, -0.05, 0.0, setpoint=0),   # Z
                 PID(0.0, -0.05, 0.0, setpoint=0),   # Roll
                 PID(0.0, -0.05, 0.0, setpoint=0),   # Pitch
-                PID(0.0, -0.02, 0.0, setpoint=0),   # Yaw
+                PID(0.0, -0.05, 0.0, setpoint=0),   # Yaw
             # Velocities
                 PID(0.0,   0.0, 0.0, setpoint=0),   # X
                 PID(0.0,   0.0, 0.0, setpoint=0),   # Y
@@ -69,7 +69,7 @@ class Thrust(Node):
         ]
 
         # TODO: Make numbers good
-        self.THRUST_MAX = 15
+        self.THRUST_MAX = 5
 
         com_pos = [0.20022, 0.06563, 0.0361]
 
@@ -92,19 +92,19 @@ class Thrust(Node):
         self.motor_thrusts = [ # [X, Y, Z] components of thrust for each motor
             [    0.0,     0.0,  1.0],   # Motor 0
             [    0.0,     0.0,  1.0],   # Motor 1
-            [    0.0,     0.0,  1.0],   # Motor 2 # Stationary bottom of pool .1 deg / 2 min  36.95 deg -> 37.05 deg
-            [    0.0,     0.0,  1.0],   # Motor 3 # Stationary bottom of pool james stirring water .56deg / 2 min 37.06 deg -> 36.5 deg, james shifted slightly
-            [ 0.7071,  0.7071,  0.0],   # Motor 4 # Stationary bottom of pool z motors down .45 deg / 2 min, 36.36 deg -> 36.81 deg
-            [ 0.7071, -0.7071,  0.0],   # Motor 5 # Stationary bottom of pool xy motors forward 1.6 deg / 2min, 36.25 deg -> 37.8 deg, james shifted slightly 
-            [ 0.7071,  0.7071,  0.0],   # Motor 6 # Stationary bottom of pool motor 7 max forward
-            [ 0.7071, -0.7071,  0.0],   # Motor 7 # 38.06
+            [    0.0,     0.0,  1.0],   # Motor 2
+            [    0.0,     0.0,  1.0],   # Motor 3
+            [ 0.7071,  0.7071,  0.0],   # Motor 4
+            [ 0.7071, -0.7071,  0.0],   # Motor 5
+            [ 0.7071,  0.7071,  0.0],   # Motor 6
+            [ 0.7071, -0.7071,  0.0],   # Motor 7
         ]
 
         # TODO: Generate feedback matrix in startup
         self.K = np.negative([
                     [ 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 5.8037, 0.0,    0.0,    0.0,     0.0,     0.0],
                     [ 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0,    5.8037, 0.0,    0.0,     0.0,     0.0],
-                    [ 0.0, 0.0, 30.0, 0.0, 0.0, 0.0, 0.0,    0.0,    5.8037, 0.0,     0.0,     0.0],
+                    [ 0.0, 0.0, 50.0, 0.0, 0.0, 0.0, 0.0,    0.0,    5.8037, 0.0,     0.0,     0.0],
                     [ 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0,    0.0,    0.0,    2.2508,  0.1232,  0.0779],
                     [ 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0,    0.0,    0.0,    0.1233,  2.0262, -0.2987],
                     [ 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0,    0.0,    0.0,    0.0779, -0.2987,  2.4774],
@@ -113,8 +113,6 @@ class Thrust(Node):
         # print(self.K)
 
         self.center_of_mass = [0.0] * 3
-        self.TOTAL_CURRENT_LIMIT = 8
-        self.thrust_fit_params = Thrust.generate_thrust_fit_param()
 
         self.declare_parameter("stabilization_position", [0.0, 0.0, -0.3])
         self.declare_parameter("control_axis", [False, False, True])
@@ -124,6 +122,7 @@ class Thrust(Node):
 
         print(self.stab_pos)
         print(self.control_axis)
+
         # self.add_on_set_parameters_callback(self.update_control_params)
 
         self.motor_config = self.generate_motor_config(self.center_of_mass)
@@ -134,23 +133,7 @@ class Thrust(Node):
 
         self.pwm_pub = self.create_publisher(Int16MultiArray, "pwm_values", 10)
         # TODO: Make this take input from the EKF
-        self.odom_sub = self.create_subscription(Odometry, "odometry/filtered", self.generate_motor_values, 10)
-        self.dvl_sub = self.create_subscription(Odometry, "dvl/a50", self.update_heading, 10)
-        self.heading = 0.0
-        self.xy = [0.0, 0.0]
-        self.stage = 0
-
-        print("Working")
-        for i in range(20):
-            print(f"time: {20 - i}")
-            sleep(1)
-
-
-
-    def update_heading(self, odometry):
-        self.xy[0] = odometry.pose.pose.position.x
-        self.xy[1] = odometry.pose.pose.position.y
-        self.heading = odometry.pose.pose.orientation.x
+        self.odom_sub = self.create_subscription(Odometry, "dvl/a50", self.generate_motor_values, 10)
 
     # def update_control_params(self, params: list[Parameter]) -> SetParametersResult:
     #     """
@@ -222,94 +205,46 @@ class Thrust(Node):
         else:
             rotation[0] += 180
 
-        print(f"Position X: {self.xy[0]}")
-        print(f"Position Y: {self.xy[1]}")
+        print(f"Position X: {odometry.pose.pose.position.x}")
+        print(f"Position Y: {odometry.pose.pose.position.y}")
         print(f"Position Z: {odometry.pose.pose.position.z}")
-        print(f"Roll: {-rotation[1]}")
-        print(f"Pitch: {rotation[0]}")
-        print(f"Yaw: {self.heading}")
+        print(f"Roll: {-odometry.pose.pose.orientation.x}")
+        print(f"Pitch: {odometry.pose.pose.orientation.y}")
+        print(f"Yaw: {odometry.pose.pose.orientation.z}")
         print(f"Velocity X: {odometry.twist.twist.linear.x}")
         print(f"Velocity Y: {odometry.twist.twist.linear.y}")
         print(f"Velocity Z: {odometry.twist.twist.linear.z}")
-        print(f"Roll speed: {odometry.twist.twist.angular.y}")
-        print(f"Pitch speed: {odometry.twist.twist.angular.x}")
-        print(f"Yaw speed: {-odometry.twist.twist.angular.z}")
+        print(f"Roll speed: {odometry.twist.twist.angular.x}")
+        print(f"Pitch speed: {odometry.twist.twist.angular.y}")
+        print(f"Yaw speed: {odometry.twist.twist.angular.z}")
         print("---------------------")
 
         # rotation[1] += 30
-        rotation[2] += 100
 
-        roll  = rotation[1] / -5
-        pitch = rotation[0] / 5
-        yaw   = self.heading / 5
+        odometry.pose.pose.orientation.x /= 5
+        odometry.pose.pose.orientation.y /= 5
+        odometry.pose.pose.orientation.z /= 5
 
-        # 1: 7.5 forward
 
-        # 2: 2 left
-
-        # 3: 1.5 back
-
-        # 4: 2 right
-
-        # 5: 6 back
 
         # Convert Twist to single vector for multiplication
-        z = odometry.pose.pose.position.z
-        print(self.stage)
-        if self.stage == 0:
-            x = 0.0
-            y = 0.0
-            if z < 0.6:
-                self.stage = 1
-        elif self.stage == 1:
-            x = -10.0 if self.xy[0] < 8.0 else 0.0
-            y = self.xy[1]
-            if x == 0.0:
-                self.stage = 2
-        elif self.stage == 2:
-            x = self.xy[0] - 8.0
-            y = -10.0 if self.xy[1] < 2.0 else 0.0
-            if y == 0.0:
-                self.stage = 3
-        elif self.stage == 3:
-            x = 10.0 if self.xy[0] > 6.0 else 0.0
-            y = self.xy[1] - 2.0
-            if x == 0.0:
-                self.stage = 4
-        elif self.stage == 4:
-            x = self.xy[0] - 6.0
-            y = 10.0 if self.xy[1] > 0.0 else 0.0
-            if y == 0.0:
-                self.stage = 5
-        else:
-            x = 10.0 if self.xy[0] > 0.2 else 0.0
-            y = self.xy[1]
-            if x == 0.0:
-                pwm_values = Int16MultiArray()  
-                pwm_values.data = [1500] * 8
-                self.pwm_pub.publish(pwm_values)
-                sys.exit(0)
-
-
-
         state = [
-            x, #-10.0 if self.xy[0] < 7.5 else 0.0,#odometry.pose.pose.position.x - 13.0, # odometry.pose.pose.position.x - self.stab_pos[0] if self.control_axis[0] else 0.0,
-            y, #self.xy[1],#-(odometry.pose.pose.position.y - 1.0), #self.stab_pos[1] if self.control_axis[1] else 0.0,
-            z - 0.5, #odometry.pose.pose.position.z - 0.5,
-            roll,                    # Roll
-            pitch,                    # Pitch
-            yaw,                    # Yaw
-            0.0, #odometry.twist.twist.linear.x,
-            0.0, #odometry.twist.twist.linear.y,
-            0.0, #odometry.twist.twist.linear.z,
-            odometry.twist.twist.angular.y,
-            odometry.twist.twist.angular.x,
-            -odometry.twist.twist.angular.z,
+            0.0, # odometry.pose.pose.position.x - self.stab_pos[0] if self.control_axis[0] else 0.0,
+            0.0, # odometry.pose.pose.position.y - self.stab_pos[1] if self.control_axis[1] else 0.0,
+            odometry.pose.pose.position.z - 0.5, #
+            0.0,#    -odometry.pose.pose.orientation.x,#rotation[1],                    # Roll
+            0.0, #     odometry.pose.pose.orientation.y,                    # Pitch
+            0.0,#rotation[2],                    # Yaw
+            odometry.twist.twist.linear.x,
+            odometry.twist.twist.linear.y,
+            odometry.twist.twist.linear.z,
+            0.0, # odometry.twist.twist.angular.y,
+            0.0, # odometry.twist.twist.angular.x,
+            0.0, # -odometry.twist.twist.angular.z,
         ]
 
         for i in range(12):
-            if i != 5 and i != 0:
-                state[i] += self.error[i](state[i])
+            state[i] += self.error[i](state[i])
 
         # print(state)
 
@@ -317,14 +252,16 @@ class Thrust(Node):
         # Multiply twist with inverse of motor config to get motor effort values
         motor_values = np.matmul(self.stab_map, state)
 
-
-        scalar = self.get_current_scalar_value(motor_values, self.TOTAL_CURRENT_LIMIT)
-        if scalar < 1.0:
-            print(f"Estimated Current: {sum(self.get_polynomial_coef(motor_values, 0.0))}")
-            motor_values = [scalar * value for value in motor_values]
+        scalar = 1
+        if max(abs(motor_values)) > self.THRUST_MAX:
+            scalar = self.THRUST_MAX / ((val:=max(motor_values)) + (val == 0))
+        # Scalar will be the smaller of the two, largest value in twist array
+        # will be percentage of that maximum
+        thrust_values = [scalar * value for value in motor_values]
 
         pwm_values = Int16MultiArray()  
         pwm_values.data = [0] * 8
+        motor_values = thrust_values
         for index, newton in enumerate(motor_values):
             pwm_values.data[index] = int(Thrust.newtons_to_pwm(
                 newton,
@@ -338,86 +275,7 @@ class Thrust(Node):
             if newton == 0: pwm_values.data[index] = 1500
         # pwm_values.data = [1500] * 8
         self.pwm_pub.publish(pwm_values)
-    
-    def get_polynomial_coef(self, mv: list, limit: float) -> list:
-        """
-        Generates a list of the coefficients for a polynomial, the input of which is the
-        motor scaling factor and the roots of the function are the maximum scaling factor.
-
-        Args:
-            mv: The motor values in newtons that when produced will result in our desired twist
-            limit: The current limit we would like to stay under in amperes (TOTAL_CURRENT_LIMIT or ESC_CURRENT_LIMIT)
-
-        Returns:        self.control_axis = self.get_parameter("control_axis").get_parameter_value().bool_array_value
-
-            A list of the coefficients of a 5th degree polynomial function, where the input of said
-            function is the scaling factor and the output is the current (A) draw
-        """
-        return [self.thrust_fit_params[0] * sum([thrust**6 for thrust in mv]),
-                self.thrust_fit_params[1] * sum([thrust**5 for thrust in mv]),
-                self.thrust_fit_params[2] * sum([thrust**4 for thrust in mv]),
-                self.thrust_fit_params[3] * sum([thrust**3 for thrust in mv]),
-                self.thrust_fit_params[4] * sum([thrust**2 for thrust in mv]),
-                self.thrust_fit_params[5] * sum(mv),
-                self.thrust_fit_params[6] * len(mv) - limit]
-
-
-    def get_current_scalar_value(self, mv: list, limit: float) -> float:
-        """
-        Given a motor value list and a current limit, return the best scaling factor
-
-        Args:
-            mv: The motor values in newtons that when produced will result in our desired twist
-            limit: The current limit we would like to stay under in amperes (TOTAL_CURRENT_LIMIT or ESC_CURRENT_LIMIT)
-
-        Returns:
-            A valid scaling factor
-        """
-        # Get coefficients for function given the motor values given and the current (Amp) limits
-        coef_list = self.get_polynomial_coef(mv, limit)
-        # Find roots
-        potential_scaling_factors = np.roots(coef_list).tolist()
-        # Ignore nonreal and negative scaling factors
-        real_positive = [scalar.real for scalar in potential_scaling_factors if scalar.imag == 0 and scalar.real >= 0]
-        # Return valid roots
-        return max(real_positive)
-
-
-    @staticmethod
-    def __thrust_to_current(x: float, a: float, b: float, c: float, d: float, e: float, f: float, g: float) -> float:
-        """
-        Estimates current draw based on given thrust
-
-        Args:
-            x: Thrust being produced in newtons.
-            a-f: Arbitrary parameters to map thrust to current, see generate_thrust_fit_params()
-
-        Returns:
-            Current (estimated) to be drawn in amps.
-        """
-        return (a * x**6) + (b * x**5) + (c * x**4) + (d * x**3) + (e * x**2) + (f * x) + (g)
-
-    
-    @staticmethod
-    def generate_thrust_fit_param() -> list:
-        """
-        Generates Optimal Parameters for __thrust_to_current() to have a best fit
-
-        Returns:
-            List of optimal parameters
-        """
-        x = list()
-        y = list()
-
-        with open(PATH + "/thrust_to_current.tsv", "r") as file:
-            for data_point in file:
-                data = data_point.split("\t")
-                x.append(data[0])
-                y.append(data[1])
-
-        optimal_params, param_covariance = curve_fit(Thrust.__thrust_to_current, x, y)
-        return optimal_params
-
+        
 
     @staticmethod
     def newtons_to_pwm(x: float, a: float, b: float, c: float, d: float, e: float, f: float) -> float:

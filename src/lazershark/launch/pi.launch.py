@@ -25,7 +25,7 @@ def generate_launch_description():
     # Get robot sdf file
     # TODO: Make a new SDF to reflect the correct frame locations.
     sdf_file = os.path.join(
-        pkg_lazershark, "lazershark_sim", "robot", "lazershark_sim.sdf"
+        pkg_lazershark, "sim", "robot", "lazershark_sim.urdf"
     )
     with open(sdf_file, "r") as infp:
         robot_desc = infp.read()
@@ -47,15 +47,17 @@ def generate_launch_description():
                 executable='ekf_node',
                 name='ekf_filter_node',
                 output='screen',
-                parameters=[os.path.join(get_package_share_directory("lazershark"), 'params', 'ekf.yaml')],
+                parameters=[os.path.join(get_package_share_directory("lazershark"), 'params', 'auv_ekf.yaml')],
             ),
             Node(
                 package='lazershark',
                 executable='naviguider',
                 name='naviguider0',
                 output='screen',
+                respawn=True,
+                respawn_delay=0.0,
                 parameters=[{
-                    "dev": "/dev/ttyUSB0",
+                    "dev": "/dev/ttyUSB1",
                     "frameID": "imu_naviguider0"
                 }],
                 remappings=[
@@ -75,19 +77,21 @@ def generate_launch_description():
             #         ("imu/naviguider", "imu/naviguider1"),
             #     ]
             # ),
-            Node(
-                package='lazershark',
-                executable='targetpoint',
-                name='targetpoint0',
-                output='screen',
-                parameters=[{
-                    "dev":      "/dev/ttyUSB0",
-                    "frameID":  "imu_targetpoint0"
-                }],
-                remappings=[
-                    ("imu/targetpoint", "imu/targetpoint0"),
-                ]
-            ),
+            # Node(
+            #     package='lazershark',
+            #     executable='targetpoint',
+            #     name='targetpoint0',
+            #     output='screen',
+            #     respawn=True,
+            #     respawn_delay=0.0,
+            #     parameters=[{
+            #         "dev":      "/dev/ttyUSB0",
+            #         "frameID":  "imu_targetpoint0"
+            #     }],
+            #     remappings=[
+            #         ("imu/targetpoint", "imu/targetpoint0"),
+            #     ]
+            # ),
             # Node(
             #     package='lazershark',
             #     executable='targetpoint',
@@ -101,16 +105,18 @@ def generate_launch_description():
             #         ("imu/targetpoint", "imu/targetpoint1"),
             #     ]
             # ),
-            # Node(
-            #     package='lazershark',
-            #     executable='a50',
-            #     name='a50',
-            #     output='screen',
-            #     parameters=[{
-            #         "TCP_IP":   "192.168.1.205",
-            #         "TCP_PORT": 16171,
-            #         "frameID":  "dvl_a50"
-            #     }]
-            # ),
+            Node(
+                package='lazershark',
+                executable='a50',
+                name='a50',
+                output='screen',
+                respawn=True,
+                respawn_delay=0,    
+                parameters=[{
+                    "TCP_IP":   "10.42.0.98",
+                    "TCP_PORT": "16171",
+                    "frameID":  "dvl_a50"
+                }]
+            ),
         ]
     )

@@ -10,7 +10,7 @@ ekf_filter_node:
         # The period, in seconds, after which we consider a sensor to have timed out. In this event, we carry out a predict
         # cycle on the EKF without correcting it. This parameter can be thought of as the minimum frequency with which the
         # filter will generate new output. Defaults to 1 / frequency if not specified.
-        sensor_timeout: 0.1
+        sensor_timeout: 20.0
 
         # ekf_localization_node and ukf_localization_node both use a 3D omnidirectional motion model. If this parameter is
         # set to true, no 3D information will be used in your state estimate. Use this if you are operating in a planar
@@ -74,12 +74,12 @@ ekf_filter_node:
         # publish_tf: true
 
         # ------------------ NAVIGUIDER 0 ------------------
-        imu0: imu/naviguider0
+        imu0: /imu/naviguider0
         imu0_config: [false, false, false,
                       true,  true,  true,
                       false, false, false,
                       true,  true,  true,
-                      true,  true,  true]
+                      true,  true,  false]
         imu0_differential: false
         imu0_relative: false
         imu0_queue_size: 5
@@ -110,22 +110,22 @@ ekf_filter_node:
         # imu1_remove_gravitational_acceleration: false
 
         # ------------------ TARGETPOINT 0 ------------------
-        imu2: imu/targetpoint0
-        imu2_config: [false, false, false,
-                      true,  true,  true,
-                      false, false, false,
-                      true,  true,  true,
-                      true,  true,  true]
-        imu2_differential: false
-        imu2_relative: false
-        imu2_queue_size: 5
-        # imu0_pose_rejection_threshold: 0.8                 # Note the difference in parameter names
-        # imu0_twist_rejection_threshold: 0.8                #
-        # imu0_linear_acceleration_rejection_threshold: 0.8  #
+        # imu2: /imu/targetpoint0
+        # imu2_config: [false, false, false,
+        #               true,  true,  true,
+        #               false, false, false,
+        #               true,  true,  true,
+        #               true,  true,  true]
+        # imu2_differential: false
+        # imu2_relative: false
+        # imu2_queue_size: 5
+        # # imu0_pose_rejection_threshold: 0.8                 # Note the difference in parameter names
+        # # imu0_twist_rejection_threshold: 0.8                #
+        # # imu0_linear_acceleration_rejection_threshold: 0.8  #
 
-        # [ADVANCED] Some IMUs automatically remove acceleration due to gravity, and others don't. If yours doesn't, please set
-        # this to true, and *make sure* your data conforms to REP-103, specifically, that the data is in ENU frame.
-        imu2_remove_gravitational_acceleration: false
+        # # [ADVANCED] Some IMUs automatically remove acceleration due to gravity, and others don't. If yours doesn't, please set
+        # # this to true, and *make sure* your data conforms to REP-103, specifically, that the data is in ENU frame.
+        # imu2_remove_gravitational_acceleration: true
 
         # ------------------ TARGETPOINT 1 ------------------
         # imu3: imu/targetpoint1
@@ -144,6 +144,17 @@ ekf_filter_node:
         # [ADVANCED] Some IMUs automatically remove acceleration due to gravity, and others don't. If yours doesn't, please set
         # this to true, and *make sure* your data conforms to REP-103, specifically, that the data is in ENU frame.
         # imu3_remove_gravitational_acceleration: false
+
+        odom0: /dvl/a50
+        odom0_config: [false, false, true,
+                      false,  false,  false,
+                      true, true, true,
+                      false,  false,  false,
+                      false,  false,  false]
+        odom0_differential: false
+        odom0_relative: false
+        odom0_queue_size: 10
+
 
         # [ADVANCED]  The EKF and UKF models follow a standard predict/correct cycle. During prediction, if there is no
         # acceleration reference, the velocity at time t+1 is simply predicted to be the same as the velocity at time t. During

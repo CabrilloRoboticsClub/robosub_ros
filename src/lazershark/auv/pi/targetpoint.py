@@ -26,7 +26,12 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Imu
 
-sys.path.insert(0, '/workspaces/robosub_ros/lib')
+from scipy.spatial.transform import Rotation as R
+import numpy as np
+import quaternion
+from math import sqrt
+
+sys.path.insert(0, '/home/liam/robosub_ros/lib')
 import targetpoint_lib
 
 
@@ -59,10 +64,25 @@ class TargetPoint(Node):
         imu_msg = Imu()
         data = self.imu.read_data()
 
-        imu_msg.orientation.x = data["kQuaternion"][0]
-        imu_msg.orientation.y = data["kQuaternion"][1]
-        imu_msg.orientation.z = data["kQuaternion"][2]
-        imu_msg.orientation.w = data["kQuaternion"][3]
+        x = data["kQuaternion"][0]
+        y = data["kQuaternion"][1]
+        z = data["kQuaternion"][2]
+        w = data["kQuaternion"][3]
+
+        imu_msg.orientation.x = x
+        imu_msg.orientation.y = y
+        imu_msg.orientation.z = z
+        imu_msg.orientation.w = w
+        
+        q = np.quaternion(sqrt(2)/2,sqrt(2)/2,0,0)  * np.quaternion(x,y,z,w)
+        
+        rot = R.from_quat([q.x, q.y, q.z, q.w]).as_euler('xyz',degrees=True)
+
+        # self.get_logger().info(f"{rot}")
+        # x = rot[0] + 180 if rot[0] < 0 else rot[0] - 180
+        # y = -rot[1]
+        # z = rot[2] + 180 if rot[2] < 0 else rot[2] - 180
+        # self.get_logger().info(f"Roll: {} Pitch: {x} Yaw: {z}")
 
         imu_msg.angular_velocity.x = data["kGyroX"]
         imu_msg.angular_velocity.y = data["kGyroY"]

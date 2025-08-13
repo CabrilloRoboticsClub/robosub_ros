@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 """
-debug.py
+bms.py
 
-Publish RPi4 Debug info to /debug_info
-Also setup anything on the pi that needs to run upon start-up
-
+Publish RPi4 Debug info to /debug_info Also setup anything on the pi that needs to run upon start-up
 Copyright (C) 2023-2024 Cabrillo Robotics Club
 
 This program is free software: you can redistribute it and/or modify
@@ -29,7 +27,8 @@ from time import time
 import serial
 from rclpy.node import Node
 from std_msgs.msg import Float64MultiArray
-
+from std_msgs.msg import Int16MultiArray
+from time import sleep
 
 class BMS(Node):
     """
@@ -37,9 +36,14 @@ class BMS(Node):
     Also setup anything on the pi that needs to run upon start-up.
     """
     def __init__(self):
-        super().__init__("debug")
+        super().__init__("bms")
         # Setup node
         self._publisher = self.create_publisher(Float64MultiArray, "bms", 10)
+        self.pwm_pub = self.create_publisher(Int16MultiArray, "pwm_values", 10)
+        self.pwm_msg = Int16MultiArray()  
+        self.pwm_msg.data = [1500] * 8
+        self.triggered = 0
+
         self.timer = self.create_timer(1.0, self.pub_callback)
         self.ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
         self.ser.reset_input_buffer() 
@@ -57,6 +61,18 @@ class BMS(Node):
                         for i, val in enumerate(list[1:]):
                             msg.data[i] = float(val)
                         self._publisher.publish(msg)
+                        if list[-1] == "0" and self.triggered > 0:
+                            print("got 0")
+                            sleep(1.5)
+                            print("hi")
+                            self.pwm_pub.publish(self.pwm_msg)
+                            self.triggered = False
+                    elif list[0] == "$KILL":
+                        print("$KILL")
+                        self.pwm_pub.publish(self.pwm_msg)
+                        self.triggered = 3
+
+
 
                 except UnicodeDecodeError:
                     # Handle potential decoding errors if non-UTF-8 data is received

@@ -38,12 +38,16 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            "thrust=gazebo_test.thrust:main",
-            "pilot_input=gazebo_test.pilot_input:main", 
-            "imu_converter=gazebo_test.imu_converter:main",
+            # "thrust=gazebo_test.thrust:main",
+            # "pilot_input=gazebo_test.pilot_input:main", 
+            # "imu_converter=gazebo_test.imu_converter:main",
             "naviguider=auv.pi.naviguider:main",
             "targetpoint=auv.pi.targetpoint:main",
             "a50=auv.pi.a50:main",
+            "bms=auv.pi.bms:main",
+            "thrust=auv.pi.thrust:main",
+            "pilot_input=auv.pi.pilot_input:main",
+            "piloted_thrust=auv.pi.piloted_thrust:main",
         ],
     },
 )

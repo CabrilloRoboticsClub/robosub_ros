@@ -113,7 +113,7 @@ class Thrust(Node):
         # print(self.K)
 
         self.center_of_mass = [0.0] * 3
-        self.TOTAL_CURRENT_LIMIT = 10
+        self.TOTAL_CURRENT_LIMIT = 12
         self.thrust_fit_params = Thrust.generate_thrust_fit_param()
 
         self.declare_parameter("stabilization_position", [0.0, 0.0, -0.3])
@@ -140,10 +140,11 @@ class Thrust(Node):
         self.xy = [0.0, 0.0]
         self.stage = 0
 
-        # print("Working")
-        # for i in range(20):
-        #     print(f"time: {20 - i}")
-        #     sleep(1)
+        print("Working")
+        for i in range(10):
+            self.get_logger().info(f"time: {10 - i}")
+            sleep(1)
+        self.initial_rejection = True
 
 
 
@@ -243,6 +244,10 @@ class Thrust(Node):
         pitch = rotation[0] / 5
         yaw   = self.heading / 5
 
+        if abs(pitch) > 30.0 and self.initial_rejection:
+            return
+        self.initial_rejection = False
+
         # 1: 7.5 forward
 
         # 2: 2 left
@@ -293,8 +298,8 @@ class Thrust(Node):
 
 
         state = [
-            self.xy[0], #-10.0 if self.xy[0] < 7.5 else 0.0,#odometry.pose.pose.position.x - 13.0, # odometry.pose.pose.position.x - self.stab_pos[0] if self.control_axis[0] else 0.0,
-            self.xy[1], #self.xy[1],#-(odometry.pose.pose.position.y - 1.0), #self.stab_pos[1] if self.control_axis[1] else 0.0,
+            0.0,#x, #-10.0 if self.xy[0] < 7.5 else 0.0,#odometry.pose.pose.position.x - 13.0, # odometry.pose.pose.position.x - self.stab_pos[0] if self.control_axis[0] else 0.0,
+            0.0,#y, #self.xy[1],#-(odometry.pose.pose.position.y - 1.0), #self.stab_pos[1] if self.control_axis[1] else 0.0,
             z - 0.5, #odometry.pose.pose.position.z - 0.5,
             roll,                    # Roll
             pitch,                    # Pitch
@@ -336,7 +341,7 @@ class Thrust(Node):
                 self.pwm_fit_params[5]))
             pwm_values.data[index] = 1900 if pwm_values.data[index] > 1900 else 1100 if pwm_values.data[index] < 1100 else pwm_values.data[index]
             if newton == 0: pwm_values.data[index] = 1500
-        pwm_values.data = [1500] * 8
+        # pwm_values.data = [1500] * 8
         self.pwm_pub.publish(pwm_values)
     
     def get_polynomial_coef(self, mv: list, limit: float) -> list:

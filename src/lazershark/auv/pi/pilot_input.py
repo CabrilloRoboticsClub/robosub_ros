@@ -149,12 +149,12 @@ class PilotInput(Node):
 
         # Kill motors with kill button
         if not (kill:=self.buttons["kill"].check_state(controller["kill"])):
-            twist_msg.linear.x  = self.throttle_curve(controller["linear_x"])     # forwards
-            twist_msg.linear.y  = -self.throttle_curve(-controller["linear_y"])   # sideways
-            twist_msg.linear.z  = self.throttle_curve(((controller["neg_linear_z"] - controller["pos_linear_z"]) / 2))    # depth
-            twist_msg.angular.x = -self.throttle_curve((controller["pos_angular_x"] - controller["neg_angular_x"]) * 0.5) # roll (const +/- 0.5 thrust)
-            twist_msg.angular.y = self.throttle_curve(controller["angular_y"])    # pitch
-            twist_msg.angular.z = self.throttle_curve(controller["angular_z"])    # yaw
+            twist_msg.linear.x  = (controller["linear_x"])     # forwards
+            twist_msg.linear.y  = (-controller["linear_y"])   # sideways
+            twist_msg.linear.z  = (((controller["neg_linear_z"] - controller["pos_linear_z"]) / 2))    # depth
+            twist_msg.angular.x = ((controller["pos_angular_x"] - controller["neg_angular_x"]) * 0.5) # roll (const +/- 0.5 thrust)
+            twist_msg.angular.y = (controller["angular_y"])    # pitch
+            twist_msg.angular.z = (controller["angular_z"])    # yaw
         else:
             twist_msg.linear.x  = 0.0
             twist_msg.linear.y  = 0.0

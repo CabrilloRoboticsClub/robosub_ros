@@ -51,6 +51,9 @@ class PilotedThrust(Node):
         """Initialize this node"""
         super().__init__("piloted_thrust")
 
+
+        self.pwm_pub = self.create_publisher(Int16MultiArray, "pwm_values", 10)
+
         # TODO: Make numbers good
         self.THRUST_MAX = 20
 
@@ -84,15 +87,14 @@ class PilotedThrust(Node):
         ]
 
         self.center_of_mass = [0.0] * 3
-        self.TOTAL_CURRENT_LIMIT = 12
-        self.thrust_fit_params = Thrust.generate_thrust_fit_param()
+        self.TOTAL_CURRENT_LIMIT = 8
+        self.thrust_fit_params = PilotedThrust.generate_thrust_fit_param()
 
         self.motor_config = self.generate_motor_config(self.center_of_mass)
         self.inverse_config = np.linalg.pinv(self.motor_config, rcond=1e-15, hermitian=False)
 
-        self.pwm_fit_params = Thrust.generate_pwm_fit_params()
+        self.pwm_fit_params = PilotedThrust.generate_pwm_fit_params()
 
-        self.pwm_pub = self.create_publisher(Int16MultiArray, "pwm_values", 10)
         self.twist_sub = self.create_subscription(Twist, "desired_twist", self.generate_motor_values, 10)
 
     def generate_motor_config(self, center_of_mass_offset):
@@ -146,7 +148,7 @@ class PilotedThrust(Node):
         pwm_values = Int16MultiArray()  
         pwm_values.data = [0] * 8
         for index, newton in enumerate(motor_values):
-            pwm_values.data[index] = int(Thrust.newtons_to_pwm(
+            pwm_values.data[index] = int(PilotedThrust.newtons_to_pwm(
                 newton,
                 self.pwm_fit_params[0],
                 self.pwm_fit_params[1],
@@ -208,7 +210,7 @@ class PilotedThrust(Node):
         Estimates current draw based on given thrust
 
         Args:
-            x: Thrust being produced in newtons.
+            x: PilotedThrust being produced in newtons.
             a-f: Arbitrary parameters to map thrust to current, see generate_thrust_fit_params()
 
         Returns:
@@ -234,7 +236,7 @@ class PilotedThrust(Node):
                 x.append(data[0])
                 y.append(data[1])
 
-        optimal_params, param_covariance = curve_fit(Thrust.__thrust_to_current, x, y)
+        optimal_params, param_covariance = curve_fit(PilotedThrust.__thrust_to_current, x, y)
         return optimal_params
 
 
@@ -263,7 +265,7 @@ class PilotedThrust(Node):
                 x.append(data[0])
                 y.append(data[1])
 
-        optimal_params, param_covariance = curve_fit(Thrust.newtons_to_pwm, x, y)
+        optimal_params, param_covariance = curve_fit(PilotedThrust.newtons_to_pwm, x, y)
         return optimal_params
     
     def __del__(self):

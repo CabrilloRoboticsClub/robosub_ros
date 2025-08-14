@@ -66,9 +66,9 @@ class NaviGuider(Node):
         self.serial_port = Serial(dev, 115200)
         self.get_logger().info(f"Port {dev} open: {self.serial_port.is_open}")
         
-        self.serial_port.write(encode_autocal_start().encode())
-        sleep(self.SETUP_DELAY)
         self.serial_port.write(encode_system_restart().encode())
+        sleep(self.SETUP_DELAY)
+        self.serial_port.write(encode_autocal_start().encode())
         sleep(self.SETUP_DELAY)
         self.serial_port.write(encode_set_mounting_option(MountingOption(value=1)).encode())
         sleep(self.SETUP_DELAY)

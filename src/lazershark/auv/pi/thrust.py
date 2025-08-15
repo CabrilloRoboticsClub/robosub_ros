@@ -102,8 +102,8 @@ class Thrust(Node):
 
         # TODO: Generate feedback matrix in startup
         self.K = np.negative([
-                    [ 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 5.8037, 0.0,    0.0,    0.0,     0.0,     0.0],
-                    [ 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0,    5.8037, 0.0,    0.0,     0.0,     0.0],
+                    [ 100.0, 0.0, 0.0, 0.0, 0.0, 0.0, 5.8037, 0.0,    0.0,    0.0,     0.0,     0.0],
+                    [ 0.0, 100.0, 0.0, 0.0, 0.0, 0.0, 0.0,    5.8037, 0.0,    0.0,     0.0,     0.0],
                     [ 0.0, 0.0, 30.0, 0.0, 0.0, 0.0, 0.0,    0.0,    5.8037, 0.0,     0.0,     0.0],
                     [ 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0,    0.0,    0.0,    2.2508,  0.1232,  0.0779],
                     [ 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0,    0.0,    0.0,    0.1233,  2.0262, -0.2987],
@@ -116,16 +116,6 @@ class Thrust(Node):
         self.TOTAL_CURRENT_LIMIT = 12
         self.thrust_fit_params = Thrust.generate_thrust_fit_param()
 
-        self.declare_parameter("stabilization_position", [0.0, 0.0, -0.3])
-        self.declare_parameter("control_axis", [False, False, True])
-
-        self.stab_pos = self.get_parameter("stabilization_position").get_parameter_value().double_array_value.tolist()
-        self.control_axis = self.get_parameter("control_axis").get_parameter_value().bool_array_value
-
-        print(self.stab_pos)
-        print(self.control_axis)
-        # self.add_on_set_parameters_callback(self.update_control_params)
-
         self.motor_config = self.generate_motor_config(self.center_of_mass)
         self.inverse_config = np.linalg.pinv(self.motor_config, rcond=1e-15, hermitian=False)
         self.stab_map = np.matmul(self.inverse_config, self.K)
@@ -134,50 +124,13 @@ class Thrust(Node):
 
         self.pwm_pub = self.create_publisher(Int16MultiArray, "pwm_values", 10)
         # TODO: Make this take input from the EKF
-        self.odom_sub = self.create_subscription(Odometry, "odometry/filtered", self.generate_motor_values, 10)
-        self.dvl_sub = self.create_subscription(Odometry, "dvl/a50", self.update_heading, 10)
-        self.heading = 0.0
-        self.xy = [0.0, 0.0]
-        self.stage = 0
+        self.odom_sub = self.create_subscription(Odometry, "odometry/planner", self.generate_motor_values, 10)
 
         print("Working")
         for i in range(10):
             self.get_logger().info(f"time: {10 - i}")
             sleep(1)
         self.initial_rejection = True
-
-
-
-    def update_heading(self, odometry):
-        self.xy[0] = odometry.pose.pose.position.x
-        self.xy[1] = odometry.pose.pose.position.y
-        self.heading = odometry.pose.pose.orientation.x
-
-    # def update_control_params(self, params: list[Parameter]) -> SetParametersResult:
-    #     """
-    #     Callback for parameter update.
-
-    #     Args:
-    #         params: List of updated parameters (handles by ROS2)
-
-    #     Returns:
-    #         SetParametersResult() which lets ROS2 know if the parameters were set correctly or not
-    #     """
-
-
-    #     # Where `center_of_mass_increment` is a param set by either `pilot_input` or `dash` 
-    #     for param in params:
-    #         if param.name == "stabilization_position":
-    #             if len(value:=param.value.tolist()) == 3:
-    #                 if (value == [0.0] * 3):
-    #                     self.center_of_mass = value
-    #                 else:
-    #                     for i, inc in enumerate(value):
-    #                         self.center_of_mass[i] += inc
-    #                 self.motor_config = self.generate_motor_config(self.center_of_mass)
-    #                 self.inverse_config = np.linalg.pinv(self.motor_config, rcond=1e-15, hermitian=False)
-    #                 return SetParametersResult(successful=True)
-    #     return SetParametersResult(successful=False)
 
     def generate_motor_config(self, center_of_mass_offset):
         """
@@ -206,111 +159,42 @@ class Thrust(Node):
 
         # Convert the X,Y,Z,R,P,Y to thrust settings for each motor. 
 
-        self.stab_pos = self.get_parameter("stabilization_position").get_parameter_value().double_array_value.tolist()
-        self.control_axis = self.get_parameter("control_axis").get_parameter_value().bool_array_value
-
         motor_values = []
 
-        quat = [odometry.pose.pose.orientation.x, 
-                odometry.pose.pose.orientation.y, 
-                odometry.pose.pose.orientation.z, 
-                odometry.pose.pose.orientation.w,]
-        # TODO: Set desired heading to zero in quat
-        rotation = Rotation.from_quat(quat).as_euler('xyz', degrees=True)
+        state = [
+            odometry.pose.pose.position.x,
+            odometry.pose.pose.position.y,
+            odometry.pose.pose.position.z,
+            odometry.pose.pose.orientation.x,
+            odometry.pose.pose.orientation.y,
+            odometry.pose.pose.orientation.z,
+            odometry.twist.twist.linear.x,
+            odometry.twist.twist.linear.y,
+            odometry.twist.twist.linear.z,
+            odometry.twist.twist.angular.x,
+            odometry.twist.twist.angular.y,
+            odometry.twist.twist.angular.z,
+        ]
 
-        if (rotation[0] > 0):
-            rotation[0] -= 180
-        else:
-            rotation[0] += 180
-
-        print(f"Position X: {self.xy[0]}")
-        print(f"Position Y: {self.xy[1]}")
-        print(f"Position Z: {odometry.pose.pose.position.z}")
-        print(f"Roll: {-rotation[1]}")
-        print(f"Pitch: {rotation[0]}")
-        print(f"Yaw: {self.heading}")
-        print(f"Velocity X: {odometry.twist.twist.linear.x}")
-        print(f"Velocity Y: {odometry.twist.twist.linear.y}")
-        print(f"Velocity Z: {odometry.twist.twist.linear.z}")
-        print(f"Roll speed: {odometry.twist.twist.angular.y}")
-        print(f"Pitch speed: {odometry.twist.twist.angular.x}")
-        print(f"Yaw speed: {-odometry.twist.twist.angular.z}")
+        print(f"Position X: {state[0]}")
+        print(f"Position Y: {state[1]}")
+        print(f"Position Z: {state[2]}")
+        print(f"Roll: {state[3]}")
+        print(f"Pitch: {state[4]}")
+        print(f"Yaw: {state[5]}")
+        print(f"Velocity X: {state[6]}")
+        print(f"Velocity Y: {state[7]}")
+        print(f"Velocity Z: {state[8]}")
+        print(f"Roll speed: {state[9]}")
+        print(f"Pitch speed: {state[10]}")
+        print(f"Yaw speed: {state[11]}")
         print("---------------------")
 
-        # rotation[1] += 30
-        rotation[2] += 100
 
-        roll  = rotation[1] / -5
-        pitch = rotation[0] / 5
-        yaw   = self.heading / 5
-
-        if abs(pitch) > 30.0 and self.initial_rejection:
+        if abs(state[4]) > 30.0 and self.initial_rejection:
             return
         self.initial_rejection = False
 
-        # 1: 7.5 forward
-
-        # 2: 2 left
-
-        # 3: 1.5 back
-
-        # 4: 2 right
-
-        # 5: 6 back
-
-        # Convert Twist to single vector for multiplication
-        z = odometry.pose.pose.position.z
-        # print(self.stage)
-        # if self.stage == 0:
-        #     x = 0.0
-        #     y = 0.0
-        #     if z < 0.6:
-        #         self.stage = 1
-        # elif self.stage == 1:
-        #     x = -10.0 if self.xy[0] < 8.0 else 0.0
-        #     y = self.xy[1]
-        #     if x == 0.0:
-        #         self.stage = 2
-        # elif self.stage == 2:
-        #     x = self.xy[0] - 8.0
-        #     y = -10.0 if self.xy[1] < 2.0 else 0.0
-        #     if y == 0.0:
-        #         self.stage = 3
-        # elif self.stage == 3:
-        #     x = 10.0 if self.xy[0] > 6.0 else 0.0
-        #     y = self.xy[1] - 2.0
-        #     if x == 0.0:
-        #         self.stage = 4
-        # elif self.stage == 4:
-        #     x = self.xy[0] - 6.0
-        #     y = 10.0 if self.xy[1] > 0.0 else 0.0
-        #     if y == 0.0:
-        #         self.stage = 5
-        # else:
-        #     x = 10.0 if self.xy[0] > 0.2 else 0.0
-        #     y = self.xy[1]
-        #     if x == 0.0:
-        #         pwm_values = Int16MultiArray()  
-        #         pwm_values.data = [1500] * 8
-        #         self.pwm_pub.publish(pwm_values)
-        #         sys.exit(0)
-
-
-
-        state = [
-            0.0,#x, #-10.0 if self.xy[0] < 7.5 else 0.0,#odometry.pose.pose.position.x - 13.0, # odometry.pose.pose.position.x - self.stab_pos[0] if self.control_axis[0] else 0.0,
-            0.0,#y, #self.xy[1],#-(odometry.pose.pose.position.y - 1.0), #self.stab_pos[1] if self.control_axis[1] else 0.0,
-            z - 0.5, #odometry.pose.pose.position.z - 0.5,
-            roll,                    # Roll
-            pitch,                    # Pitch
-            yaw,                    # Yaw
-            0.0, #odometry.twist.twist.linear.x,
-            0.0, #odometry.twist.twist.linear.y,
-            0.0, #odometry.twist.twist.linear.z,
-            odometry.twist.twist.angular.y,
-            odometry.twist.twist.angular.x,
-            -odometry.twist.twist.angular.z,
-        ]
 
         for i in range(12):
             if i != 5 and i != 0:
@@ -321,7 +205,6 @@ class Thrust(Node):
         print(f"{np.matmul(self.K, state)}")
         # Multiply twist with inverse of motor config to get motor effort values
         motor_values = np.matmul(self.stab_map, state)
-
 
         scalar = self.get_current_scalar_value(motor_values, self.TOTAL_CURRENT_LIMIT)
         if scalar < 1.0:

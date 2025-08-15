@@ -46,6 +46,7 @@ setup(
             "a50=auv.pi.a50:main",
             "bms=auv.pi.bms:main",
             "thrust=auv.pi.thrust:main",
+            "planner=auv.pi.planner:main",
             "pilot_input=auv.pi.pilot_input:main",
             "piloted_thrust=auv.pi.piloted_thrust:main",
         ],

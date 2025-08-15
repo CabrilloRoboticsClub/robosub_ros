@@ -95,6 +95,18 @@ def generate_launch_description():
         ),
         Node(
             package='lazershark',
+            executable='planner',
+            name='planner',
+            output='screen',
+            respawn=True,
+            respawn_delay=0,    
+            parameters=[{
+                "path":      "path.yaml",
+                "default_z": 0.8,
+            }]
+        ),
+        Node(
+            package='lazershark',
             executable='thrust',
             name='thrust',
             output='screen',

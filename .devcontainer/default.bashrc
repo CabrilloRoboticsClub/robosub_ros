@@ -119,9 +119,3 @@ export GZ_VERSION=harmonic
 export PATH=/home/student/.local/bin:$PATH
 export PATH=$PATH:/opt/Micro-XRCE-DDS-Gen/scripts
 source /opt/ros/humble/setup.bash
-if [ -f "/workspaces/robosub_ros/src/ardupilot/Tools/completion/completion.bash" ]; then 
-    source /workspaces/robosub_ros/src/ardupilot/Tools/completion/completion.bash
-fi
-if [ -f "~/.ardupilot_env" ]; then
-    source ~/.ardupilot_env
-fi

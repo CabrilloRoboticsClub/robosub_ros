@@ -1,11 +1,12 @@
 
-all: colcon-build 
+all: colcon-build
 
 colcon-build:
-	colcon build --allow-overriding sdformat_urdf
-	
+	colcon build --symlink-install --allow-overriding sdformat_urdf
+
+sim: colcon-build
+	. ./install/setup.sh && ros2 launch lazershark lazershark_sim.launch.py
+
 clean:
 	rm -rf build/ log/ install/
-	rm -rf src/ardupilot/build src/ardupilot/.lock* src/ardupilot/tasklist.json
-	rm -rf $$(find src/ardupilot -name __pycache__ -type d) 
 	

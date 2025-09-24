@@ -52,12 +52,17 @@ RUN groupadd --gid $USER_GID $USERNAME \
 RUN apt install -y libgz-sim8-dev rapidjson-dev libopencv-dev libgstreamer1.0-dev \
     libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-bad gstreamer1.0-libav gstreamer1.0-gl \
     ros-humble-tinyxml2-vendor default-jre python3-pexpect python3-future mesa-utils strace \
-    ros-humble-micro-ros-msgs
+    ros-humble-micro-ros-msgs ros-humble-robot-localization
+
+# Install Python Libraries
+# RUN apt install python3-pip
+# RUN pip3 install simple_pid numpy
 
 # [Optional] Set the default user. Omit if you want to keep the default as root.
 USER $USERNAME
 
 # Install Micro XRCE DDS Generator
+# TODO: Remove ardupilot stuff
 RUN cd /opt \
     && sudo git clone https://github.com/ardupilot/Micro-XRCE-DDS-Gen.git \
     && sudo chown -R $USERNAME:$USERNAME Micro-XRCE-DDS-Gen \
@@ -69,8 +74,8 @@ COPY --chown=$USERNAME:$USERNAME src/ /tmp/dep-repos/src
 WORKDIR /tmp/dep-repos 
 
 # Install ArduPilot dependencies 
-RUN export USER=$(whoami) \
-    && ./src/ardupilot/Tools/environment_install/install-prereqs-ubuntu.sh -y 
+RUN export USER=$(whoami)
+#    && ./src/ardupilot/Tools/environment_install/install-prereqs-ubuntu.sh -y 
 
 # Install dependencies with rosdep 
 ENV GZ_VERSION=harmonic

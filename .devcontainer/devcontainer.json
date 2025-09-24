@@ -3,7 +3,7 @@
 {
 	"name": "RoboSub Dev",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "ghcr.io/cabrilloroboticsclub/robosub_ros:devcontainer-2024101002",
+	"image": "ghcr.io/cabrilloroboticsclub/robosub_ros:sha-79fe10b",
 	// "build": { "dockerfile": "Dockerfile", "context": "${localWorkspaceFolder}"},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
@@ -24,10 +24,13 @@
 	// FIXME: vscode should handle this but doesn't. I have multiple GPUs and 
 	// using them is broken in devcontainers for me.
 	"mounts": [
-        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached"
+        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
+        "type=bind,source=/dev/,target=/dev/,bind-propagation=shared"
+		// "type=bind,source=/dev/ttyUSB0,target=/dev/ttyUSB0"
     ],
 
 	"runArgs": [
-		"--network=host", "-e", "DISPLAY=${localEnv:DISPLAY}"
+		"--network=host", "-e", "DISPLAY=${localEnv:DISPLAY}",
+        "--privileged"
 	]
 }

@@ -1,0 +1,284 @@
+<sdf version='1.9'>
+  <model name='lazershark_sim'>
+    <link name='base_link'>
+      <inertial>
+        <pose>3.1199902042210963e-05 -0.00079157993339626213 0.00183560579492204 0 0 0</pose>
+        <mass>15.577</mass>
+        <inertia>
+          <ixx>1.6</ixx>
+          <ixy>0.11</ixy>
+          <ixz>0.16</ixz>
+          <iyy>1.8</iyy>
+          <iyz>0.49</iyz>
+          <izz>1.02</izz>
+        </inertia>
+      </inertial>
+      <collision name='collision_bouyancy'>
+        <pose>0 0 0.1 0 0 0</pose>
+            <geometry>
+                <box>
+                    <size>0.2502 0.2502 0.2502</size>
+                </box>
+            </geometry>
+      </collision>
+      <visual name='base_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot/meshes/base_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='base_link_fixed_joint_lump__dvl_link_visual_1'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot/meshes/dvl_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.990196109 1 1 1</diffuse>
+          <ambient>0.990196109 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='base_link_fixed_joint_lump__zed_camera_link_visual_3'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://robot/meshes/zed_camera_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.784313738 0.784313738 0.784313738 1</diffuse>
+          <ambient>0.784313738 0.784313738 0.784313738 1</ambient>
+        </material>
+      </visual>
+    </link>
+
+    <joint name='hitbox_joint' type='fixed'>
+      <pose relative_to='base_link'>0 0 0 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>hitbox</child>
+    </joint>
+    <link name='hitbox'>
+      <pose relative_to='hitbox_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.000000001</mass>
+      </inertial>
+
+      <collision name='collision_hitbox'>
+        <pose>0 0 0 0 0 0</pose>
+            <geometry>
+                <box>
+                    <size>0.9 0.8 0.2</size>
+                </box>
+            </geometry>
+      </collision>
+    </link>
+
+    <joint name='thruster_joint_0' type='fixed'>
+      <pose relative_to='base_link'>0.32378000000000001 0.27626000000000001 -0.017378000000000001 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_0</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+      </axis>
+    </joint>
+    <link name='thruster_0'>
+      <pose relative_to='thruster_joint_0'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.0077409999999999996</mass>
+        <inertia>
+          <ixx>2.2079999999999999e-06</ixx>
+          <ixy>1.1468e-09</ixy>
+          <ixz>-2.3963000000000002e-12</ixz>
+          <iyy>2.2069999999999998e-06</iyy>
+          <iyz>1.6744999999999999e-11</iyz>
+          <izz>3.2154000000000002e-06</izz>
+        </inertia>
+      </inertial>
+    </link>
+    <joint name='thruster_joint_1' type='fixed'>
+      <pose relative_to='base_link'>0.23415695087118699 0.21739099524484901 0.0043774120539918698 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_1</child>
+      <axis>
+        <xyz>-0.70711000000000002 0.70711000000000002 0</xyz>
+      </axis>
+    </joint>
+    <link name='thruster_1'>
+      <pose relative_to='thruster_joint_1'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.0077420866712084096</mass>
+        <inertia>
+          <ixx>2.7116145591577298e-06</ixx>
+          <ixy>-5.0427887834318601e-07</ixy>
+          <ixz>5.3297832194574895e-10</ixz>
+          <iyy>2.7115976978131699e-06</iyy>
+          <iyz>4.4064567872449599e-10</iyz>
+          <izz>2.2082171653450598e-06</izz>
+        </inertia>
+      </inertial>
+    </link>
+    <joint name='thruster_joint_2' type='fixed'>
+      <pose relative_to='base_link'>0.234157627548012 -0.229457746677766 0.0043740617542740601 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_2</child>
+      <axis>
+        <xyz>-0.70711000000000002 -0.70711000000000002 0</xyz>
+      </axis>
+    </joint>
+    <link name='thruster_2'>
+      <pose relative_to='thruster_joint_2'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.0077411730295111301</mass>
+        <inertia>
+          <ixx>2.71149453962259e-06</ixx>
+          <ixy>5.03800485554769e-07</ixy>
+          <ixz>5.4817058653290299e-10</ixz>
+          <iyy>2.71144529613185e-06</iyy>
+          <iyz>-5.5746044883269595e-10</iyz>
+          <izz>2.2072096250450701e-06</izz>
+        </inertia>
+      </inertial>
+    </link>
+    <joint name='thruster_joint_3' type='fixed'>
+      <pose relative_to='base_link'>-0.23409298434329201 -0.22945660034888701 0.0043774120539908099 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_3</child>
+      <axis>
+        <xyz>0.70711000000000002 -0.70711000000000002 0</xyz>
+      </axis>
+    </joint>
+    <link name='thruster_3'>
+      <pose relative_to='thruster_joint_3'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.0077420866712078701</mass>
+        <inertia>
+          <ixx>2.7116145591577002e-06</ixx>
+          <ixy>-5.0427887834305895e-07</ixy>
+          <ixz>-5.3297832179119501e-10</ixz>
+          <iyy>2.7115976978130102e-06</iyy>
+          <iyz>-4.4064567858250599e-10</iyz>
+          <izz>2.2082171653447701e-06</izz>
+        </inertia>
+      </inertial>
+    </link>
+    <joint name='thruster_joint_4' type='fixed'>
+      <pose relative_to='base_link'>0.32378531987640202 -0.28832105189077301 -0.017377450240958998 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_4</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+      </axis>
+    </joint>
+    <link name='thruster_4'>
+      <pose relative_to='thruster_joint_4'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.0077399991027584901</mass>
+        <inertia>
+          <ixx>2.20644758396638e-06</ixx>
+          <ixy>9.80149056457269e-11</ixy>
+          <ixz>-1.6524261996612201e-11</ixz>
+          <iyy>2.2079718651242701e-06</iyy>
+          <iyz>-7.1929062949641703e-12</iyz>
+          <izz>3.2148319855682202e-06</izz>
+        </inertia>
+      </inertial>
+    </link>
+    <joint name='thruster_joint_5' type='fixed'>
+      <pose relative_to='base_link'>-0.23409104493430299 0.21738936078194601 0.0043754485152070503 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_5</child>
+      <axis>
+        <xyz>0.70711000000000002 0.70711000000000002 0</xyz>
+      </axis>
+    </joint>
+    <link name='thruster_5'>
+      <pose relative_to='thruster_joint_5'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.0077415257204731499</mass>
+        <inertia>
+          <ixx>2.71170960756965e-06</ixx>
+          <ixy>5.0368553339138701e-07</ixy>
+          <ixz>-2.7637460522286302e-10</ixz>
+          <iyy>2.7117423364615e-06</iyy>
+          <iyz>2.2665239288881399e-10</iyz>
+          <izz>2.20699309720568e-06</izz>
+        </inertia>
+      </inertial>
+    </link>
+    <joint name='thruster_joint_6' type='fixed'>
+      <pose relative_to='base_link'>-0.323718736400264 -0.28832105189077301 -0.017377450240957399 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_6</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+      </axis>
+    </joint>
+    <link name='thruster_6'>
+      <pose relative_to='thruster_joint_6'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.0077399991027589897</mass>
+        <inertia>
+          <ixx>2.20644758396669e-06</ixx>
+          <ixy>9.8014905546420003e-11</ixy>
+          <ixz>-1.6524261962503899e-11</ixz>
+          <iyy>2.2079718651243298e-06</iyy>
+          <iyz>-7.1929063499328996e-12</iyz>
+          <izz>3.2148319855686098e-06</izz>
+        </inertia>
+      </inertial>
+    </link>
+    <joint name='thruster_joint_7' type='fixed'>
+      <pose relative_to='base_link'>-0.32371873867230999 0.27625447477941001 -0.017377449944144401 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_7</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+      </axis>
+    </joint>
+    <link name='thruster_7'>
+      <pose relative_to='thruster_joint_7'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.0077399983948536503</mass>
+        <inertia>
+          <ixx>2.2064475793802802e-06</ixx>
+          <ixy>9.7481894951311604e-11</ixy>
+          <ixz>-1.65665882909537e-11</ixz>
+          <iyy>2.2079712066106801e-06</iyy>
+          <iyz>-7.3428230170625406e-12</iyz>
+          <izz>3.2148313470043402e-06</izz>
+        </inertia>
+      </inertial>
+    </link>
+    <frame name='dvl_joint' attached_to='base_link'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='dvl_link' attached_to='dvl_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='zed_camera_joint' attached_to='base_link'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='zed_camera_link' attached_to='zed_camera_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+  </model>
+</sdf>

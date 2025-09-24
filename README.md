@@ -1,10 +1,11 @@
-# RoboSub ROS 
+# SUAS ROS 
 
-This document has instructions to get you started. Read each section carefully.
+This document has instructions to get you started. Reach each section carefully.
 
 ## Setup (All Platforms)
 
-If you have a Windows, Mac or Linux on your desktop you can use Docker and Development Containers in vscode to do local development. This is the fastest and easiest way to get setup and enables you to run the simulator and control the AUV on your computer. This is the recommended setup for everyone.
+If you have a Windows, Mac or Linux on your desktop you can use Docker and Development Containers in vscode to do local development. However this container is currently only validated on Ubuntu. Windows has an issue where the GUI cannot be enabled and Mac is untested.
+
 
 1. [Install vscode](https://code.visualstudio.com/)
 1. [Install Docker Desktop](https://www.docker.com/products/docker-desktop/) 
@@ -13,23 +14,28 @@ If you have a Windows, Mac or Linux on your desktop you can use Docker and Devel
 1. Follow the linked instructions on how to [clone a repository locally](https://code.visualstudio.com/docs/sourcecontrol/intro-to-git#_open-a-git-repository), login to GitHub and when prompted, put in the repository URL:
 
     ```
-    https://github.com/CabrilloRoboticsClub/robosub_ros.git    
+    https://github.com/CabrilloRoboticsClub/SUAS_ros.git    
     ```
+1. You will also need to grab the recursive repositories:
+    ```
+    git submodule update --init --recursive
+    ```
+1. And (for Ubuntu) enable gui passthrough:
+    ```
+    xhost +local:
+    ```
+
 1. You will be prompted to re-open the folder in a **development container**. Select yes. Confirm that you have the devconainer open by looking at the bottom left corner of VScode. It should look like the picture below:
 
-    ![](doc/img/dev-container.png)
+    ![](doc/dev-container.png)
 
-1. Create a Terminal in your vscode window with the `Terminal -> New Terminal` menu.
-
-1. Initialize and update submodules.
-    ```
-    git submodule init
-    git submodule update
-    ```
+1. Create a Terminal in your vscode window with the `Terminal -> New Terminal` menu. 
 
 ## Quick Start 
-Here are some steps to test your repository. **Run this command in the dev container terminal.**
-1. Build the software in your dev container (do this from `/workspaces/robosub_ros`): 
+
+Here are some steps to test your repository. These steps work on my setup at home. The simulation stack is very heavy and may require a reasonably powerful GPU. **Run this command in the dev container terminal.**
+
+1. Build the software in your dev container: 
 
     ```
     make
@@ -41,13 +47,21 @@ Here are some steps to test your repository. **Run this command in the dev conta
     source install/setup.bash
     ```
 
-1. Launch the lazershark simulation: 
+1. Launch a simulation: 
 
     ```
-    ros2 launch lazershark lazershark_sim.launch.py
+    ros2 launch ardupilot_gz_bringup iris_runway.launch.py
     ```
 
-1. Or launch the RPi: 
-    ```
-    ros2 launch lazershark pi.launch.py
-    ```
+1. Control the simulation with a flight controller. There are a number of programs available. I have had success with [QGroundControl](https://qgroundcontrol.com/). 
+
+## Tutorials 
+
+Ardupilot has official tutorials here:
+
+* [Install ROS2](https://ardupilot.org/dev/docs/ros2.html)
+* [ROS 2 with SITL in Gazebo](https://ardupilot.org/dev/docs/ros2-gazebo.html)
+* [ROS 2 waypoint goal inerface](https://ardupilot.org/dev/docs/ros2-waypoint-goal-interface.html)
+* [Cartographer SLAM with ROS 2 in SITL](https://ardupilot.org/dev/docs/ros2-cartographer-slam.html)
+
+None of the tutorial's setup steps are necessary. The development container is fully setup. 
